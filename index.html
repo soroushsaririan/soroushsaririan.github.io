@@ -8,16 +8,16 @@
         <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
         
         <style>
-            /* Make menu buttons wider to fit "Engineering" comfortably */
+            /* Make menu buttons wider to fit text comfortably */
             #header nav ul li a {
-                min-width: 9rem;     /* Wider boxes */
-                font-size: 0.8rem;   /* Balanced text size */
-                padding: 0 1rem;     /* Extra breathing room on sides */
+                min-width: 8.5rem;   /* Adjusted for 5 buttons */
+                font-size: 0.8rem;   
+                padding: 0 0.5rem;    
             }
-            /* Adjust container to handle wider buttons */
+            /* Widen container to fit the new "About Me" button */
             @media screen and (min-width: 737px) {
                 #header .content .inner {
-                    max-width: 50rem;
+                    max-width: 55rem; /* Increased from 50rem */
                 }
             }
         </style>
@@ -41,6 +41,7 @@
                             <ul>
                                 <li><a href="#datascience">Data Science</a></li>
                                 <li><a href="#engineering">Engineering</a></li>
+                                <li><a href="#about">About Me</a></li>
                                 <li><a href="#resume">Resume</a></li>
                                 <li><a href="#contact">Contact</a></li>
                             </ul>
@@ -90,17 +91,33 @@
                                 <p><strong>Focus: OpenCV, Python, Ensemble ML</strong><br />
                                 Developed an automated diagnostic pipeline using OpenCV and Random Forest models to analyze skin prick tests. The system processes 500+ clinical images with >90% correlation to clinician scoring, reducing diagnosis time from 5 minutes to 45 seconds per patient.</p>
 
+                                <hr />
+
                                 <h3>Technical Stack</h3>
-                                <ul>
-                                    <li><strong>Languages:</strong> Python, R, SQL, C++, Rust</li>
-                                    <li><strong>AI & Tools:</strong> PyTorch, RAG, VLMs, OpenCV, Kubernetes, Docker, AWS</li>
-                                </ul>
+                                <div class="table-wrapper">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Languages</strong></td>
+                                                <td>Python, C++, Rust, SQL, R, MATLAB</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Machine Learning</strong></td>
+                                                <td>PyTorch, TensorFlow, Scikit-learn, OpenCV, LLMs, RAG</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Data & Tools</strong></td>
+                                                <td>Pandas, NumPy, Docker, Kubernetes, AWS, Git</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </article>
 
                         <article id="engineering">
                                 <h2 class="major">R&D Engineering</h2>
-                                <h3>Medical Device R&D (UF Orthopedics)</h3>
                                 
+                                <h3>Medical Device R&D (UF Orthopedics)</h3>
                                 <div class="box alt">
                                     <div class="row gtr-50 uniform">
                                         <div class="col-6">
@@ -113,7 +130,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <p><strong>The Challenge:</strong> Quantify gait abnormalities in stroke patients to assist rehabilitation decisions.<br />
                                 <strong>The Solution:</strong> Working under Dr. Andrew Dubin to develop a data acquisition pipeline using Shimmer3 EMG sensors. I programmed Python scripts to clean and visualize raw electromyography signals, isolating muscle activation patterns during walking trials.<br />
                                 <strong>Outcome:</strong> The system currently provides real-time feedback on muscle firing rates, helping clinicians adjust physical therapy regimens.</p>
@@ -121,14 +137,12 @@
                                 <hr />
 
                                 <h3>Nanocomposite Material Research</h3>
-                                
                                 <p>
                                     <strong>Role:</strong> Primary Author | <strong>Published:</strong> 
                                     <a href="https://doi.org/10.1002/pc.29076" target="_blank" style="font-weight: bold; border-bottom: 1px dotted;">
                                         Polymer Composites (DOI: 10.1002/pc.29076)
                                     </a>
                                 </p>
-
                                 <div class="box alt">
                                     <div class="row gtr-50 uniform">
                                         <div class="col-4">
@@ -145,7 +159,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <p><strong>The Challenge:</strong> Improve the compressive strength of epoxy composites for aerospace applications without significantly increasing weight.<br />
                                 <strong>The Solution:</strong> Investigated Carbon Nanotube (CNT) reinforcement strategies. I developed a novel ultrasonic homogenization protocol to disperse CNTs evenly and utilized SEM/TEM microscopy to analyze the microstructural bonding.<br />
                                 <strong>Outcome:</strong> Achieved a 15-20% improvement in compressive strength. Findings were peer-reviewed and published in <em>Polymer Composites</em>.</p>
@@ -153,7 +166,6 @@
                                 <hr />
 
                                 <h3>Stony Brook Solar Racing | Propulsion Lead</h3>
-                                
                                 <div class="box alt">
                                     <div class="row gtr-50 uniform">
                                         <div class="col-6">
@@ -166,16 +178,55 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <p><strong>The Challenge:</strong> Design a high-efficiency propulsion system for the 2024 Solar Splash Competition, balancing weight constraints with power output.<br />
                                 <strong>The Solution:</strong> Spearheaded the mechanical design using Fusion 360 and SolidWorks. I personally machined custom drivetrain components (motor mounts, couplers) using manual mills and lathes to ensure sub-millimeter tolerance.<br />
                                 <strong>Outcome:</strong> Successfully integrated the electric motor system, allowing the vehicle to meet all competition safety and performance benchmarks.</p>
+
+                                <hr />
+
+                                <h3>Engineering Skills</h3>
+                                <div class="table-wrapper">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>CAD & Simulation</strong></td>
+                                                <td>SolidWorks, Fusion 360, AutoCAD, FEA (Finite Element Analysis)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Manufacturing</strong></td>
+                                                <td>CNC Machining, Manual Mill/Lathe, 3D Printing, GD&T</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Lab & Research</strong></td>
+                                                <td>SEM/TEM Microscopy, Instron Mechanical Testing, Circuit Analysis</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </article>
+
+                        <article id="about">
+                                <h2 class="major">About Me</h2>
+                                <span class="image main"><img src="images/headshot.jpg" alt="Soroush Saririan" /></span>
+                                
+                                <h3>The Intersection of Hardware & Intelligence</h3>
+                                <p>I am a Mechanical Engineer and Applied Data Scientist driven by a single goal: bridging the gap between physical hardware and intelligent software to improve human health. Currently, I am a Researcher at the University of Florida and an AI/ML Engineer for Raytheon, where I navigate the complex intersection of cybersecurity, generative AI, and legacy systems.</p>
+                                
+                                <h3>My Journey</h3>
+                                <p>My passion lies in medical technology. Witnessing the impact of mobility challenges on loved ones inspired me to explore how engineering can restore function and dignity. This led me to work on gait analysis for stroke patients at UF Orthopedics and to investigate advanced nanocomposites for lighter, stronger prosthetics.</p>
+                                
+                                <p>I believe the next generation of medical devices won't just be mechanical—they will be intelligent. By combining my background in rigorous hardware R&D (Solar Racing, Materials Science) with advanced Data Science (LLMs, Computer Vision), I aim to build systems that are not only robust but capable of adapting to the human body.</p>
+
+                                <h3>Education</h3>
+                                <ul>
+                                    <li><strong>University of Florida:</strong> Researcher, Materials Science & Orthopedics</li>
+                                    <li><strong>Certifications:</strong> Engineer in Training (EIT)</li>
+                                </ul>
                             </article>
 
                         <article id="resume">
                                 <h2 class="major">Resume</h2>
                                 <p>Select the version that best fits your team's needs:</p>
-                                
                                 <ul class="actions">
                                     <li><a href="Soroush_Saririan_Data_Science_Resume.pdf" class="button primary" target="_blank">Download Data Science CV</a></li>
                                     <li><a href="Soroush_Saririan_Engineering_Resume.pdf" class="button" target="_blank">Download Engineering CV</a></li>
