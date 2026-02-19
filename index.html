@@ -6,6 +6,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="assets/css/main.css" />
         <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        
+        <style>
+            /* Make menu buttons wider to fit "Engineering" comfortably */
+            #header nav ul li a {
+                min-width: 9rem;     /* Wider boxes */
+                font-size: 0.8rem;   /* Balanced text size */
+                padding: 0 1rem;     /* Extra breathing room on sides */
+            }
+            /* Adjust container to handle wider buttons */
+            @media screen and (min-width: 737px) {
+                #header .content .inner {
+                    max-width: 50rem;
+                }
+            }
+        </style>
     </head>
     <body class="is-preload">
 
