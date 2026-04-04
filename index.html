@@ -63,6 +63,26 @@
                                 
                                 <hr />
 
+                                <h3>SymptaAI | Clinical AI Decision Support Platform</h3>
+                                <p style="font-size: 0.8em; color: #aaa; margin-top: -1em; margin-bottom: 2em; letter-spacing: 0.05em;">
+                                    <em>Full-Stack · Multi-Agent AI · Healthcare</em>
+                                </p>
+
+                                <p><strong>The Challenge:</strong> Physicians face information overload during clinical decision-making — lab results, medical records, medication histories, and symptom patterns must all be synthesized rapidly and accurately to avoid diagnostic errors.<br />
+                                <strong>The Solution:</strong> Built SymptaAI, a full-stack clinical AI platform powered by a LangGraph multi-agent pipeline. Eight specialized agents run in sequence — patient intake, record summarization, symptom analysis, lab interpretation, drug interaction checking, differential diagnosis, care plan generation, and clinical report compilation — each passing enriched context to the next. The backend is a FastAPI async REST API with JWT authentication, SQLAlchemy ORM, and real-time Server-Sent Events streaming so physicians watch each agent reason live. The frontend is Next.js 14 with a purpose-built clinical dashboard.<br />
+                                <strong>Impact:</strong> Produces a structured clinical report with ICD-10 coded differential diagnoses ranked by probability, flagged drug interactions, and a prioritized care plan in under two minutes. Deployed with NVIDIA NIM inference for zero-cost LLM access.</p>
+
+                                <ul style="margin-top: -0.5em;">
+                                    <li>8-agent LangGraph workflow with parallel execution and state accumulation</li>
+                                    <li>Real-time SSE streaming — watch each agent's reasoning as it runs</li>
+                                    <li>Drug interaction checking, lab interpretation with critical value flagging</li>
+                                    <li>Stack: Python 3.14, FastAPI, LangGraph, Next.js 14, SQLAlchemy, NVIDIA NIM</li>
+                                </ul>
+
+                                <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/SymptaAI" target="_blank">github.com/soroushsaririan/SymptaAI</a></p>
+
+                                <hr />
+
                                 <h3>RetinAI | Diabetic Retinopathy Screening</h3>
                                 <span class="image fit"><img src="images/retinai_demo.gif" alt="RetinAI Demo" /></span>
                                 <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">Vision Language Model (VLM) Analysis Pipeline</p>
