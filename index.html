@@ -63,6 +63,29 @@
                                 
                                 <hr />
 
+                                <h3>VitalStream | Serverless Real-Time Patient Telemetry Pipeline</h3>
+                                <span class="image fit"><img src="images/vitalstream_aws.png" alt="VitalStream AWS Infrastructure" /></span>
+                                <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">Live AWS Deployment — 7 VPC PrivateLink Endpoints, HIPAA-Aligned Architecture</p>
+                                <p style="font-size: 0.8em; color: #aaa; margin-top: -1em; margin-bottom: 2em; letter-spacing: 0.05em;">
+                                    <em>AWS · MLOps · Serverless · Healthcare · HIPAA</em>
+                                </p>
+
+                                <p><strong>The Challenge:</strong> Continuous physiological monitoring generates high-frequency, multi-channel time-series data (ECG at 500 Hz, sEMG at 2000 Hz) that must be processed, analyzed, and acted on in near real-time — with zero tolerance for data loss, strict PHI isolation, and clinical-grade audit trails.<br />
+                                <strong>The Solution:</strong> Built VitalStream, a fully serverless real-time telemetry pipeline on AWS. Devices publish via MQTT over mutual TLS to AWS IoT Core, which routes records into Kinesis Data Streams (SSE-KMS encrypted). A Lambda stream consumer performs bandpass filtering, spectral entropy extraction, and HRV analysis, then invokes a SageMaker Multi-Model Endpoint running a 1D-CNN + BiLSTM ensemble for anomaly detection. Results are persisted to DynamoDB with idempotency guards, and DynamoDB Streams triggers alert routing for clinical notification.<br />
+                                <strong>Infrastructure:</strong> Entire stack provisioned via Terraform — 3-AZ private VPC with zero public-internet PHI exposure, 7 VPC PrivateLink endpoints (KMS, Kinesis, Secrets Manager, S3, DynamoDB, CloudWatch), customer-managed KMS CMKs with annual auto-rotation on all data stores, and S3 Object Lock for 7-year HIPAA-compliant retention. CI/CD via GitHub Actions with Bandit security scanning and 80% coverage gate.</p>
+
+                                <ul style="margin-top: -0.5em;">
+                                    <li>1D-CNN + BiLSTM model with Focal Loss for class-imbalanced arrhythmia detection (AFIB, VT, STEMI)</li>
+                                    <li>Blue/green SageMaker deployment with automatic rollback on CloudWatch alarm breach</li>
+                                    <li>SageMaker Pipeline: data prep → training → clinical metric evaluation (precision@recall90, FNR ≤ 5%) → gated model registration</li>
+                                    <li>34 passing tests — unit (DSP correctness, idempotency) + integration (moto-emulated DDB, partial-batch failure semantics)</li>
+                                    <li>Stack: Python, PyTorch, AWS Lambda, Kinesis, DynamoDB, SageMaker, S3, KMS, IoT Core, Terraform, GitHub Actions</li>
+                                </ul>
+
+                                <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/VitalStream" target="_blank">github.com/soroushsaririan/VitalStream</a></p>
+
+                                <hr />
+
                                 <h3>SymptaAI | Clinical AI Decision Support Platform</h3>
                                 <span class="image fit"><img src="images/synapptaie.gif" alt="SymptaAI Demo" /></span>
                                 <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">Multi-Agent Clinical AI Pipeline — Live Agent Reasoning</p>
