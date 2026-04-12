@@ -84,7 +84,7 @@
                                     <li>Blue/green SageMaker deployment with automatic rollback on CloudWatch alarm breach</li>
                                     <li>SageMaker Pipeline: data prep → training → clinical metric evaluation (precision@recall90, FNR ≤ 5%) → gated model registration</li>
                                     <li>34 passing tests — unit (DSP correctness, idempotency) + integration (moto-emulated DDB, partial-batch failure semantics)</li>
-                                    <li>Stack: Python, PyTorch, AWS Lambda, Kinesis, DynamoDB, SageMaker, S3, KMS, IoT Core, Terraform, GitHub Actions</li>
+                                    <li>Stack: Python, PyTorch, AWS Lambda, Kinesis, DynamoDB, SageMaker, S3, KMS, Terraform, GitHub Actions</li>
                                 </ul>
 
                                 <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/VitalStream" target="_blank">github.com/soroushsaririan/VitalStream</a></p>
@@ -92,7 +92,12 @@
                                 <hr />
 
                                 <h3>SymptaAI | Clinical AI Decision Support Platform</h3>
-                                <span class="image fit"><img src="images/synapptaie.gif" alt="SymptaAI Demo" /></span>
+                                <span class="image fit">
+                                  <video autoplay loop muted playsinline style="width:100%;border-radius:4px;">
+                                    <source src="images/symptaai_demo.mp4" type="video/mp4" />
+                                    <img src="images/synapptaie.gif" alt="SymptaAI Demo" />
+                                  </video>
+                                </span>
                                 <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">Multi-Agent Clinical AI Pipeline — Live Agent Reasoning</p>
                                 <p style="font-size: 0.8em; color: #aaa; margin-top: -1em; margin-bottom: 2em; letter-spacing: 0.05em;">
                                     <em>Full-Stack · Multi-Agent AI · Healthcare</em>
@@ -120,7 +125,9 @@
                                 <p><strong>The Challenge:</strong> Diabetic retinopathy is a leading cause of blindness, yet early detection remains inaccessible in many underserved communities.<br />
                                 <strong>The Solution:</strong> Developed an accessible screening tool utilizing Vision Language Models (VLMs). The system analyzes retinal images to automatically flag symptoms of retinopathy with high precision.<br />
                                 <strong>Impact:</strong> Designed to assist healthcare providers in resource-limited settings, enabling earlier intervention and preventing irreversible vision loss.</p>
-                                
+
+                                <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/RetinAI" target="_blank">github.com/soroushsaririan/RetinAI</a></p>
+
                                 <hr />
 
                                 <h3>medxplAIn | 3D Liver Tumor Segmentation</h3>
@@ -130,6 +137,8 @@
                                 <p><strong>The Challenge:</strong> Liver cancer treatment relies on accurate segmentation for radiation therapy and diagnosis, but manual segmentation is subjective and time-consuming.<br />
                                 <strong>The Solution:</strong> Implemented "MedxplAIn," an end-to-end PyTorch pipeline for segmenting livers and tumors from 3D CT scan volumes. The system utilizes a 3D U-Net architecture to automate the extraction of regions of interest.<br />
                                 <strong>Impact:</strong> Reduces the segmentation workload from hours to minutes while standardizing diagnostic outputs for clinicians.</p>
+
+                                <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/medxplAin-DR" target="_blank">github.com/soroushsaririan/medxplAin-DR</a></p>
 
                                 <hr />
 
@@ -337,9 +346,16 @@
                                     <div class="skill-category">
                                         <h4>Cloud & DevOps</h4>
                                         <div class="skill-tags">
+                                            <span class="skill-tag">AWS</span>
+                                            <span class="skill-tag">Lambda</span>
+                                            <span class="skill-tag">Kinesis</span>
+                                            <span class="skill-tag">SageMaker</span>
+                                            <span class="skill-tag">DynamoDB</span>
+                                            <span class="skill-tag">KMS</span>
+                                            <span class="skill-tag">Terraform</span>
                                             <span class="skill-tag">Docker</span>
                                             <span class="skill-tag">Kubernetes</span>
-                                            <span class="skill-tag">AWS</span>
+                                            <span class="skill-tag">GitHub Actions</span>
                                             <span class="skill-tag">Git</span>
                                             <span class="skill-tag">NVIDIA NIM</span>
                                         </div>
