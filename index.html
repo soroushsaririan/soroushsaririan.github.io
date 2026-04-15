@@ -199,9 +199,142 @@
             #header .content   { animation: fadeUp 0.7s 0.15s ease both; }
             #header nav        { animation: fadeUp 0.7s 0.28s ease both; }
             .header-social     { animation: fadeUp 0.7s 0.4s ease both; }
+            .tech-marquee-wrap { animation: fadeUp 0.7s 0.52s ease both; }
+
+            /* ── Grain overlay ──────────────────────────────── */
+            .grain-overlay {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                pointer-events: none;
+                z-index: 9998;
+                opacity: 0.03;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+                background-size: 180px 180px;
+                animation: grainShift 0.5s steps(3) infinite;
+            }
+            @keyframes grainShift {
+                0%   { transform: translate(0, 0); }
+                33%  { transform: translate(-3px, 5px); }
+                66%  { transform: translate(4px, -2px); }
+                100% { transform: translate(-2px, 3px); }
+            }
+
+            /* ── Custom cursor ──────────────────────────────── */
+            .cursor-dot {
+                position: fixed;
+                width: 5px; height: 5px;
+                background: var(--accent);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 10000;
+                transform: translate(-50%, -50%);
+            }
+            .cursor-ring {
+                position: fixed;
+                width: 28px; height: 28px;
+                border: 1px solid rgba(56, 189, 248, 0.4);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.22s ease, height 0.22s ease,
+                            border-color 0.22s ease, background 0.22s ease;
+            }
+            body.cursor-hover .cursor-ring {
+                width: 46px; height: 46px;
+                border-color: var(--accent);
+                background: rgba(56, 189, 248, 0.05);
+            }
+            @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
+
+            /* ── Mouse glow ─────────────────────────────────── */
+            .mouse-glow {
+                position: fixed;
+                width: 300px; height: 300px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(56,189,248,0.055) 0%, transparent 70%);
+                pointer-events: none;
+                z-index: 2;
+                transform: translate(-50%, -50%);
+            }
+
+            /* ── Tech marquee ───────────────────────────────── */
+            .tech-marquee-wrap {
+                width: 100%;
+                overflow: hidden;
+                margin-top: 1.8rem !important;
+                padding: 0.15rem 0;
+            }
+            .tech-marquee-wrap::before { display: none !important; }
+            .marquee-track {
+                display: flex;
+                width: max-content;
+                animation: marqueeScroll 40s linear infinite;
+            }
+            .tech-marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+            .marquee-inner { display: flex; align-items: center; }
+            @keyframes marqueeScroll {
+                from { transform: translateX(0); }
+                to   { transform: translateX(-50%); }
+            }
+            .marquee-item {
+                font-size: 0.58rem;
+                letter-spacing: 0.13rem;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.25);
+                padding: 0 1rem;
+                font-family: 'Outfit', sans-serif;
+                white-space: nowrap;
+                cursor: default;
+                transition: color 0.2s;
+            }
+            .marquee-item:hover { color: var(--accent); }
+            .marquee-sep { color: rgba(56, 189, 248, 0.22); font-size: 0.35rem; padding: 0 0.1rem; }
+            body.is-article-visible .tech-marquee-wrap {
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s;
+            }
+
+            /* ── Back to top ────────────────────────────────── */
+            #back-to-top {
+                position: fixed;
+                bottom: 1.6rem; right: 1.6rem;
+                width: 36px; height: 36px;
+                background: rgba(10, 18, 32, 0.75);
+                border: 1px solid rgba(56, 189, 248, 0.28);
+                border-radius: 50%;
+                color: var(--accent);
+                cursor: pointer;
+                z-index: 1000;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.3s, transform 0.3s, background 0.2s, border-color 0.2s;
+                pointer-events: none;
+                display: flex; align-items: center; justify-content: center;
+                backdrop-filter: blur(6px);
+            }
+            #back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+            #back-to-top:hover { background: rgba(56,189,248,0.14); border-color: var(--accent); }
+            #back-to-top svg { pointer-events: none; }
+
+            /* ── Article scroll reveal ──────────────────────── */
+            .art-reveal {
+                opacity: 0;
+                transform: translateY(18px);
+                transition: opacity 0.5s ease, transform 0.5s ease;
+            }
+            .art-reveal.in { opacity: 1; transform: translateY(0); }
+
+            /* ── 3D tilt on skill cards ─────────────────────── */
+            .skill-category { will-change: transform; }
         </style>
     </head>
     <body class="is-preload">
+
+        <div class="grain-overlay"></div>
+        <div class="mouse-glow" id="mouse-glow"></div>
 
         <div id="wrapper">
 
@@ -242,6 +375,76 @@
                             <a href="mailto:saririan.s.eng@gmail.com">
                                 <i class="fas fa-envelope"></i> Email
                             </a>
+                        </div>
+                        <div class="tech-marquee-wrap" aria-hidden="true">
+                            <div class="marquee-track">
+                                <div class="marquee-inner">
+                                    <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">PyTorch</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">TensorFlow</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">LangGraph</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">LangChain</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">LlamaIndex</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Hugging Face</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">RAG</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">OpenCV</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">XGBoost</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">CatBoost</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Scikit-learn</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Pandas</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">NumPy</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">FastAPI</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">PostgreSQL</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">ChromaDB</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">FAISS</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">AWS Lambda</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">AWS SageMaker</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">AWS Kinesis</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Docker</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Kubernetes</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Terraform</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">NVIDIA NIM</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Streamlit</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Tableau</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Rust</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">C++</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">SQL</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">R</span><span class="marquee-sep">·</span>
+                                </div>
+                                <div class="marquee-inner" aria-hidden="true">
+                                    <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">PyTorch</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">TensorFlow</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">LangGraph</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">LangChain</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">LlamaIndex</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Hugging Face</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">RAG</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">OpenCV</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">XGBoost</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">CatBoost</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Scikit-learn</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Pandas</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">NumPy</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">FastAPI</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">PostgreSQL</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">ChromaDB</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">FAISS</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">AWS Lambda</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">AWS SageMaker</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">AWS Kinesis</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Docker</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Kubernetes</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Terraform</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">NVIDIA NIM</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Streamlit</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Tableau</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">Rust</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">C++</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">SQL</span><span class="marquee-sep">·</span>
+                                    <span class="marquee-item">R</span><span class="marquee-sep">·</span>
+                                </div>
+                            </div>
                         </div>
                     </header>
 
@@ -779,11 +982,164 @@
             })();
         </script>
 
+        <button id="back-to-top" aria-label="Scroll to top">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+        </button>
+
         <script src="assets/js/jquery.min.js"></script>
             <script src="assets/js/browser.min.js"></script>
             <script src="assets/js/breakpoints.min.js"></script>
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
+
+        <script>
+        /* ── Custom cursor ──────────────────────────────── */
+        (function () {
+            if (!window.matchMedia('(hover: hover)').matches) return;
+            var dot  = document.createElement('div'); dot.className  = 'cursor-dot';
+            var ring = document.createElement('div'); ring.className = 'cursor-ring';
+            document.body.appendChild(dot);
+            document.body.appendChild(ring);
+
+            var mx = -200, my = -200, rx = -200, ry = -200;
+            document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; });
+
+            var hoverSel = 'a, button, .skill-category, .image.fit, nav ul li a';
+            document.addEventListener('mouseover', function (e) {
+                if (e.target.closest(hoverSel)) document.body.classList.add('cursor-hover');
+            });
+            document.addEventListener('mouseout', function (e) {
+                if (e.target.closest(hoverSel)) document.body.classList.remove('cursor-hover');
+            });
+
+            (function loop() {
+                dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
+                rx += (mx - rx) * 0.14;      ry += (my - ry) * 0.14;
+                ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+                requestAnimationFrame(loop);
+            })();
+        })();
+
+        /* ── Mouse glow ─────────────────────────────────── */
+        (function () {
+            if (!window.matchMedia('(hover: hover)').matches) return;
+            var glow = document.getElementById('mouse-glow');
+            if (!glow) return;
+            var gx = -300, gy = -300;
+            document.addEventListener('mousemove', function (e) {
+                gx += (e.clientX - gx) * 0.1;
+                gy += (e.clientY - gy) * 0.1;
+            });
+            (function loop() {
+                glow.style.left = gx + 'px';
+                glow.style.top  = gy + 'px';
+                requestAnimationFrame(loop);
+            })();
+        })();
+
+        /* ── Back to top ────────────────────────────────── */
+        (function () {
+            var btn = document.getElementById('back-to-top');
+            if (!btn) return;
+
+            function getActiveArticle() {
+                return document.querySelector('#main article[style*="display: block"]') ||
+                       document.querySelector('#main article.active');
+            }
+
+            // Watch article scroll
+            document.querySelectorAll('#main article').forEach(function (art) {
+                art.addEventListener('scroll', function () {
+                    btn.classList.toggle('visible', art.scrollTop > 280);
+                });
+            });
+
+            // Hide when no article is open
+            var bodyObserver = new MutationObserver(function () {
+                if (!document.body.classList.contains('is-article-visible')) {
+                    btn.classList.remove('visible');
+                }
+            });
+            bodyObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+            btn.addEventListener('click', function () {
+                var art = getActiveArticle();
+                if (art) { art.scrollTo({ top: 0, behavior: 'smooth' }); }
+            });
+        })();
+
+        /* ── Article scroll reveal ──────────────────────── */
+        (function () {
+            function setupReveal(article) {
+                var els = article.querySelectorAll('h3, .image.fit, .skill-grid, .table-wrapper');
+                els.forEach(function (el) {
+                    if (el.classList.contains('art-reveal')) return;
+                    el.classList.add('art-reveal');
+                });
+                var obs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+                article.querySelectorAll('.art-reveal').forEach(function (el) { obs.observe(el); });
+            }
+
+            // Trigger on hash change (when user opens an article)
+            window.addEventListener('hashchange', function () {
+                var hash = window.location.hash;
+                if (!hash) return;
+                var art = document.querySelector('#main ' + hash);
+                if (art) { setTimeout(function () { setupReveal(art); }, 350); }
+            });
+
+            // Also handle initial load with hash
+            if (window.location.hash) {
+                var art = document.querySelector('#main ' + window.location.hash);
+                if (art) { setTimeout(function () { setupReveal(art); }, 500); }
+            }
+        })();
+
+        /* ── 3D tilt on skill cards ─────────────────────── */
+        (function () {
+            if (!window.matchMedia('(hover: hover)').matches) return;
+            var ticking = false;
+
+            document.addEventListener('mousemove', function (e) {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(function () {
+                    var el = document.elementFromPoint(e.clientX, e.clientY);
+                    var card = el && el.closest('.skill-category');
+                    // Reset any card not being hovered
+                    document.querySelectorAll('.skill-category.tilting').forEach(function (c) {
+                        if (c !== card) {
+                            c.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+                            c.style.transform = '';
+                            c.classList.remove('tilting');
+                        }
+                    });
+                    if (card) {
+                        var r = card.getBoundingClientRect();
+                        var cx = r.left + r.width  / 2;
+                        var cy = r.top  + r.height / 2;
+                        var rx = -((e.clientY - cy) / (r.height / 2)) * 5;
+                        var ry =  ((e.clientX - cx) / (r.width  / 2)) * 5;
+                        rx = Math.max(-6, Math.min(6, rx));
+                        ry = Math.max(-6, Math.min(6, ry));
+                        card.style.transition = '';
+                        card.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) scale3d(1.02,1.02,1.02)';
+                        card.classList.add('tilting');
+                    }
+                    ticking = false;
+                });
+            });
+        })();
+        </script>
 
     </body>
 </html>
