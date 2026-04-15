@@ -75,15 +75,14 @@
                                     <em>AWS · MLOps · Serverless · Healthcare · HIPAA</em>
                                 </p>
 
-                                <p><strong>The Challenge:</strong> Continuous physiological monitoring generates high-frequency, multi-channel time-series data (ECG at 500 Hz, sEMG at 2000 Hz) that must be processed, analyzed, and acted on in near real-time — with zero tolerance for data loss, strict PHI isolation, and clinical-grade audit trails.<br />
-                                <strong>The Solution:</strong> Built VitalStream, a fully serverless real-time telemetry pipeline on AWS. Devices publish via MQTT over mutual TLS to AWS IoT Core, which routes records into Kinesis Data Streams (SSE-KMS encrypted). A Lambda stream consumer performs bandpass filtering, spectral entropy extraction, and HRV analysis, then invokes a SageMaker Multi-Model Endpoint running a 1D-CNN + BiLSTM ensemble for anomaly detection. Results are persisted to DynamoDB with idempotency guards, and DynamoDB Streams triggers alert routing for clinical notification.<br />
-                                <strong>Infrastructure:</strong> Entire stack provisioned via Terraform — 3-AZ private VPC with zero public-internet PHI exposure, 7 VPC PrivateLink endpoints (KMS, Kinesis, Secrets Manager, S3, DynamoDB, CloudWatch), customer-managed KMS CMKs with annual auto-rotation on all data stores, and S3 Object Lock for 7-year HIPAA-compliant retention. CI/CD via GitHub Actions with Bandit security scanning and 80% coverage gate.</p>
+                                <p><strong>The Challenge:</strong> High-frequency physiological data (ECG at 500 Hz, sEMG at 2000 Hz) must be processed and acted on in near real-time — with zero data loss, strict PHI isolation, and clinical-grade audit trails.<br />
+                                <strong>The Solution:</strong> Built VitalStream, a fully serverless real-time telemetry pipeline on AWS. Devices publish via MQTT to IoT Core → Kinesis Data Streams → Lambda (DSP + HRV analysis) → SageMaker 1D-CNN + BiLSTM ensemble for anomaly detection → DynamoDB with alert routing.<br />
+                                <strong>Infrastructure:</strong> Terraform-provisioned 3-AZ private VPC, 7 VPC PrivateLink endpoints, customer-managed KMS CMKs, S3 Object Lock for 7-year HIPAA retention. CI/CD via GitHub Actions with security scanning and 80% coverage gate.</p>
 
                                 <ul style="margin-top: -0.5em;">
-                                    <li>1D-CNN + BiLSTM model with Focal Loss for class-imbalanced arrhythmia detection (AFIB, VT, STEMI)</li>
-                                    <li>Blue/green SageMaker deployment with automatic rollback on CloudWatch alarm breach</li>
-                                    <li>SageMaker Pipeline: data prep → training → clinical metric evaluation (precision@recall90, FNR ≤ 5%) → gated model registration</li>
-                                    <li>34 passing tests — unit (DSP correctness, idempotency) + integration (moto-emulated DDB, partial-batch failure semantics)</li>
+                                    <li>1D-CNN + BiLSTM with Focal Loss for arrhythmia detection (AFIB, VT, STEMI)</li>
+                                    <li>Blue/green SageMaker deployment with automatic CloudWatch rollback</li>
+                                    <li>34 passing tests — unit + integration (moto-emulated DDB, partial-batch failure)</li>
                                     <li>Stack: Python, PyTorch, AWS Lambda, Kinesis, DynamoDB, SageMaker, S3, KMS, Terraform, GitHub Actions</li>
                                 </ul>
 
@@ -103,9 +102,9 @@
                                     <em>Full-Stack · Multi-Agent AI · Healthcare</em>
                                 </p>
 
-                                <p><strong>The Challenge:</strong> Physicians face information overload during clinical decision-making — lab results, medical records, medication histories, and symptom patterns must all be synthesized rapidly and accurately to avoid diagnostic errors.<br />
-                                <strong>The Solution:</strong> Built SymptaAI, a full-stack clinical AI platform powered by a LangGraph multi-agent pipeline. Eight specialized agents run in sequence — patient intake, record summarization, symptom analysis, lab interpretation, drug interaction checking, differential diagnosis, care plan generation, and clinical report compilation — each passing enriched context to the next. The backend is a FastAPI async REST API with JWT authentication, SQLAlchemy ORM, and real-time Server-Sent Events streaming so physicians watch each agent reason live. The frontend is Next.js 14 with a purpose-built clinical dashboard.<br />
-                                <strong>Impact:</strong> Produces a structured clinical report with ICD-10 coded differential diagnoses ranked by probability, flagged drug interactions, and a prioritized care plan in under two minutes. Deployed with NVIDIA NIM inference for zero-cost LLM access.</p>
+                                <p><strong>The Challenge:</strong> Physicians must rapidly synthesize lab results, records, medication histories, and symptoms — information overload that drives diagnostic errors.<br />
+                                <strong>The Solution:</strong> Built SymptaAI, a full-stack clinical AI platform powered by an 8-agent LangGraph pipeline — covering intake, record summarization, symptom analysis, lab interpretation, drug interaction checking, differential diagnosis, and care plan generation. FastAPI backend with JWT auth and real-time SSE streaming lets physicians watch each agent reason live.<br />
+                                <strong>Impact:</strong> Delivers ICD-10 coded differentials, flagged drug interactions, and a prioritized care plan in under two minutes. Deployed with NVIDIA NIM for zero-cost LLM inference.</p>
 
                                 <ul style="margin-top: -0.5em;">
                                     <li>8-agent LangGraph workflow with parallel execution and state accumulation</li>
