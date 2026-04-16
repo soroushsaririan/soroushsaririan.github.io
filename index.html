@@ -1,1477 +1,1779 @@
 <!DOCTYPE HTML>
-<html>
-    <head>
-        <title>Soroush Saririan | Portfolio</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="assets/css/main.css" />
-        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600&display=swap" rel="stylesheet" />
+<html lang="en">
+<head>
+    <title>Soroush Saririan | Portfolio</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <style>
-            /* ── Accent palette ─────────────────────────────── */
-            :root {
-                --accent:      #38bdf8;
-                --accent-dim:  rgba(56, 189, 248, 0.12);
-                --accent-glow: rgba(56, 189, 248, 0.35);
-                --line-color:  rgba(255, 255, 255, 0.18);
-            }
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/brands.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/solid.min.css" />
 
-            /* ── Background canvas overlay ──────────────────── */
-            #particles-canvas {
-                position: fixed;
-                top: 0; left: 0;
-                width: 100%; height: 100%;
-                z-index: 2;
-                pointer-events: none;
-            }
+    <style>
+    /* ─── RESET ────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background: #09080f;
+        color: rgba(255,255,255,0.82);
+        line-height: 1.7;
+        overflow-x: hidden;
+        cursor: none;
+    }
 
-            /* ── Background enhancement ─────────────────────── */
-            #bg:before {
-                background-image: linear-gradient(to top, rgba(10,15,30,0.65), rgba(10,15,30,0.35)), url("../../images/overlay.png") !important;
-            }
+    a { color: inherit; text-decoration: none; }
+    img, video { max-width: 100%; height: auto; display: block; }
 
-            /* ── Connecting lines ───────────────────────────── */
-            #header > *:before {
-                background: linear-gradient(to bottom, transparent, rgba(56,189,248,0.4), rgba(255,255,255,0.15));
-            }
+    /* ─── VARIABLES ────────────────────────────────────────────── */
+    :root {
+        --accent:      #38bdf8;
+        --accent-dim:  rgba(56,189,248,0.12);
+        --accent-glow: rgba(56,189,248,0.35);
+        --bg:          #09080f;
+        --bg-card:     rgba(12,19,33,0.85);
+        --border:      rgba(255,255,255,0.07);
+        --border-a:    rgba(56,189,248,0.2);
+        --muted:       rgba(255,255,255,0.42);
+        --nav-h:       64px;
+    }
 
-            /* ── Logo / headshot ────────────────────────────── */
-            #header .logo {
-                width: 7rem;
-                height: 7rem;
-                line-height: 7rem;
-                border: 2px solid rgba(56, 189, 248, 0.55);
-                box-shadow:
-                    0 0 0 4px rgba(56, 189, 248, 0.08),
-                    0 0 24px var(--accent-glow),
-                    0 0 60px rgba(56, 189, 248, 0.12);
-                animation: logoPulse 4s ease-in-out infinite;
-                transition: box-shadow 0.3s ease;
-            }
-            #header .logo:hover {
-                box-shadow:
-                    0 0 0 6px rgba(56, 189, 248, 0.12),
-                    0 0 36px var(--accent-glow),
-                    0 0 80px rgba(56, 189, 248, 0.2);
-            }
-            @keyframes logoPulse {
-                0%,100% { box-shadow: 0 0 0 4px rgba(56,189,248,0.08), 0 0 24px var(--accent-glow), 0 0 60px rgba(56,189,248,0.12); }
-                50%     { box-shadow: 0 0 0 6px rgba(56,189,248,0.14), 0 0 38px var(--accent-glow), 0 0 80px rgba(56,189,248,0.2); }
-            }
+    /* ─── FIXED LAYERS ─────────────────────────────────────────── */
+    #particles-canvas {
+        position: fixed; inset: 0;
+        width: 100%; height: 100%;
+        z-index: 2; pointer-events: none;
+    }
+    .bg-blob {
+        position: fixed; border-radius: 50%;
+        pointer-events: none; z-index: 1;
+        filter: blur(72px);
+        mix-blend-mode: screen;
+        will-change: transform;
+    }
+    /* violet — upper-center-left */
+    .bg-blob-1 {
+        width: 760px; height: 760px; top: -5%; left: 15%;
+        background: radial-gradient(circle, rgba(139,92,246,0.36) 0%, rgba(109,40,217,0.14) 50%, transparent 70%);
+        animation: blobDrift1 34s ease-in-out infinite;
+    }
+    /* amber — lower-center-right */
+    .bg-blob-2 {
+        width: 700px; height: 700px; top: 45%; left: 45%;
+        background: radial-gradient(circle, rgba(251,146,60,0.34) 0%, rgba(234,88,12,0.14) 50%, transparent 70%);
+        animation: blobDrift2 40s ease-in-out infinite;
+    }
+    /* sky-blue — center */
+    .bg-blob-3 {
+        width: 640px; height: 640px; top: 20%; left: 35%;
+        background: radial-gradient(circle, rgba(56,189,248,0.22) 0%, rgba(14,165,233,0.08) 50%, transparent 70%);
+        animation: blobDrift3 38s ease-in-out infinite;
+    }
+    /* rose — upper-right */
+    .bg-blob-4 {
+        width: 580px; height: 580px; top: 5%; left: 58%;
+        background: radial-gradient(circle, rgba(251,113,133,0.22) 0%, rgba(244,63,94,0.08) 50%, transparent 70%);
+        animation: blobDrift4 44s ease-in-out infinite;
+    }
+    /* extra violet — lower-left, fills gaps */
+    .bg-blob-5 {
+        width: 580px; height: 580px; top: 60%; left: -8%;
+        background: radial-gradient(circle, rgba(139,92,246,0.22) 0%, transparent 70%);
+        animation: blobDrift5 48s ease-in-out infinite;
+    }
+    @keyframes blobDrift1 {
+        0%,100% { transform: translate(0,0) scale(1); }
+        20%     { transform: translate(10vw, 12vh) scale(1.08); }
+        40%     { transform: translate(-6vw, 20vh) scale(0.96); }
+        60%     { transform: translate(14vw,  6vh) scale(1.1); }
+        80%     { transform: translate(-4vw, 16vh) scale(1.04); }
+    }
+    @keyframes blobDrift2 {
+        0%,100% { transform: translate(0,0) scale(1); }
+        25%     { transform: translate(-14vw,-10vh) scale(1.1); }
+        50%     { transform: translate(-8vw, -18vh) scale(0.92); }
+        75%     { transform: translate(10vw, -6vh)  scale(1.06); }
+    }
+    @keyframes blobDrift3 {
+        0%,100% { transform: translate(0,0) scale(1); }
+        33%     { transform: translate(-12vw,-14vh) scale(1.1); }
+        66%     { transform: translate(10vw,  10vh) scale(0.93); }
+    }
+    @keyframes blobDrift4 {
+        0%,100% { transform: translate(0,0) scale(1); }
+        30%     { transform: translate(-10vw, 12vh) scale(1.07); }
+        60%     { transform: translate( 6vw, -8vh)  scale(0.95); }
+    }
+    @keyframes blobDrift5 {
+        0%,100% { transform: translate(0,0) scale(1); }
+        25%     { transform: translate(12vw,-8vh)  scale(1.09); }
+        50%     { transform: translate(18vw, 6vh)  scale(0.94); }
+        75%     { transform: translate( 6vw,-14vh) scale(1.05); }
+    }
 
-            /* ── Name heading ───────────────────────────────── */
-            #header h1 {
-                font-family: 'Outfit', 'Source Sans Pro', sans-serif;
-                font-weight: 300;
-                letter-spacing: 0.45rem;
-                font-size: 2.2rem;
-                line-height: 1.3;
-            }
-            #header h1 .eit {
-                color: var(--accent);
-                font-weight: 400;
-            }
+    .grain-overlay {
+        position: fixed; inset: 0;
+        pointer-events: none; z-index: 9998; opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 180px 180px;
+        animation: grainShift 0.5s steps(3) infinite;
+    }
+    @keyframes grainShift { 0%{transform:translate(0,0)} 33%{transform:translate(-3px,5px)} 66%{transform:translate(4px,-2px)} 100%{transform:translate(-2px,3px)} }
 
-            /* ── Content borders ────────────────────────────── */
-            #header .content {
-                border-color: var(--line-color);
-                position: relative;
-            }
-            #header .content::before {
-                content: '';
-                position: absolute;
-                top: -1px; left: 50%;
-                transform: translateX(-50%);
-                width: 55%;
-                height: 1px;
-                background: linear-gradient(to right, transparent, var(--accent), transparent);
-                opacity: 0.7;
-            }
-            #header .content::after {
-                content: '';
-                position: absolute;
-                bottom: -1px; left: 50%;
-                transform: translateX(-50%);
-                width: 30%;
-                height: 1px;
-                background: linear-gradient(to right, transparent, var(--accent), transparent);
-                opacity: 0.4;
-            }
-            #header .content p {
-                color: rgba(255, 255, 255, 0.6);
-                font-size: 0.72rem;
-                letter-spacing: 0.22rem;
-            }
+    .mouse-glow {
+        position: fixed; width: 280px; height: 280px; border-radius: 50%;
+        background: radial-gradient(circle,
+            rgba(251,146,60,0.045) 0%,
+            rgba(56,189,248,0.025) 45%,
+            transparent 70%);
+        pointer-events: none; z-index: 2;
+        transform: translate(-50%,-50%);
+    }
 
-            /* ── Widen inner container ──────────────────────── */
-            @media screen and (min-width: 737px) {
-                #header .content .inner {
-                    max-width: 55rem;
-                    padding: 2.4rem 2rem;
-                }
-            }
+    /* ─── PAGE LOADER ──────────────────────────────────────────── */
+    #page-loader {
+        position: fixed; inset: 0; background: #09080f;
+        z-index: 99999; display: flex; align-items: center; justify-content: center;
+        transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), visibility 0.65s;
+    }
+    #page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-inner { text-align: center; }
+    .loader-initials {
+        font-family: 'Outfit', sans-serif; font-weight: 200;
+        font-size: 3rem; letter-spacing: 0.55rem; color: #38bdf8;
+        display: block; margin-bottom: 1.8rem; text-transform: uppercase;
+    }
+    .loader-initials span { color: rgba(56,189,248,0.3); font-weight: 100; }
+    .loader-bar-track { width:90px;height:1.5px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;margin:0 auto; }
+    .loader-bar-fill { height:100%;background:linear-gradient(90deg,#38bdf8,rgba(56,189,248,0.35));border-radius:2px;animation:loaderFill 0.85s cubic-bezier(0.4,0,0.2,1) forwards; }
+    @keyframes loaderFill { from{transform:translateX(-100%)} to{transform:translateX(0)} }
 
-            /* ── Keyword chips ──────────────────────────────── */
-            .header-chips {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.4rem;
-                justify-content: center;
-                margin-top: 1.1rem;
-                margin-bottom: 0;
-            }
-            .header-chip {
-                padding: 0.22rem 0.75rem;
-                border: 1px solid rgba(56, 189, 248, 0.28);
-                border-radius: 20px;
-                font-size: 0.58rem;
-                letter-spacing: 0.12rem;
-                text-transform: uppercase;
-                color: rgba(56, 189, 248, 0.85);
-                background: rgba(56, 189, 248, 0.06);
-                white-space: nowrap;
-            }
+    /* ─── SCROLL PROGRESS ──────────────────────────────────────── */
+    #scroll-progress {
+        position: fixed; top: 0; left: 0; height: 2px; width: 0;
+        background: linear-gradient(90deg,#38bdf8,rgba(56,189,248,0.3));
+        z-index: 9997; border-radius: 0 1px 1px 0; transition: width 0.08s linear;
+    }
 
-            /* ── Nav ────────────────────────────────────────── */
-            #header nav ul {
-                border: 1px solid var(--line-color);
-                border-radius: 50px;
-                overflow: hidden;
-                backdrop-filter: blur(8px);
-                background: rgba(0, 0, 0, 0.15);
-            }
-            #header nav ul li {
-                border-left-color: var(--line-color);
-            }
-            #header nav ul li a {
-                min-width: 8.5rem;
-                font-family: 'Outfit', 'Source Sans Pro', sans-serif;
-                font-size: 0.68rem;
-                letter-spacing: 0.18rem;
-                padding: 0 0.5rem;
-                transition: color 0.2s ease, background-color 0.2s ease;
-            }
-            #header nav ul li a:hover {
-                background-color: var(--accent-dim) !important;
-                color: var(--accent) !important;
-            }
-            #header nav ul li a:active {
-                background-color: rgba(56,189,248,0.18) !important;
-            }
+    /* ─── CURSOR ───────────────────────────────────────────────── */
+    .cursor-dot {
+        position: fixed; width: 5px; height: 5px; background: var(--accent);
+        border-radius: 50%; pointer-events: none; z-index: 10000;
+        transform: translate(-50%,-50%);
+    }
+    .cursor-ring {
+        position: fixed; width: 28px; height: 28px;
+        border: 1px solid rgba(56,189,248,0.4); border-radius: 50%;
+        pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+        transition: width 0.22s, height 0.22s, border-color 0.22s, background 0.22s;
+    }
+    body.cursor-hover .cursor-ring { width:46px;height:46px;border-color:rgba(251,146,60,0.7);background:rgba(251,146,60,0.05); }
+    @media (hover:none) { .cursor-dot,.cursor-ring { display:none } body { cursor:auto } }
 
-            /* ── Social links ───────────────────────────────── */
-            .header-social {
-                display: flex;
-                gap: 1.4rem;
-                justify-content: center;
-                align-items: center;
-                margin: 0;
-            }
-            .header-social a {
-                display: flex;
-                align-items: center;
-                gap: 0.45rem;
-                font-size: 0.65rem;
-                letter-spacing: 0.14rem;
-                text-transform: uppercase;
-                color: rgba(255, 255, 255, 0.4);
-                border-bottom: none !important;
-                transition: color 0.2s ease;
-            }
-            .header-social a:hover {
-                color: var(--accent) !important;
-                border-bottom: none !important;
-            }
-            .header-social .fab {
-                font-size: 1rem;
-            }
+    /* ─── OPEN TO WORK ─────────────────────────────────────────── */
+    .open-to-work {
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        padding: 0.24rem 0.8rem;
+        border: 1px solid rgba(34,197,94,0.3); border-radius: 20px;
+        font-size: 0.72rem; letter-spacing: 0.1rem; text-transform: uppercase;
+        color: rgba(134,239,172,0.88); background: rgba(34,197,94,0.07);
+        font-family: 'Outfit', sans-serif;
+    }
+    .otw-dot { width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:otwPulse 2.2s ease-in-out infinite; }
+    @keyframes otwPulse { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.6)} 50%{box-shadow:0 0 0 5px rgba(34,197,94,0)} }
 
-            /* ── Open to Work badge ────────────────────────── */
-            .open-to-work {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.45rem;
-                padding: 0.24rem 0.8rem;
-                border: 1px solid rgba(34, 197, 94, 0.3);
-                border-radius: 20px;
-                font-size: 0.58rem;
-                letter-spacing: 0.13rem;
-                text-transform: uppercase;
-                color: rgba(134, 239, 172, 0.88);
-                background: rgba(34, 197, 94, 0.07);
-                font-family: 'Outfit', sans-serif;
-                margin-bottom: 1rem;
-            }
-            .otw-dot {
-                width: 6px; height: 6px;
-                border-radius: 50%;
-                background: #22c55e;
-                flex-shrink: 0;
-                animation: otwPulse 2.2s ease-in-out infinite;
-            }
-            @keyframes otwPulse {
-                0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
-                50%       { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
-            }
+    /* ─── NAVBAR ───────────────────────────────────────────────── */
+    #navbar {
+        position: fixed; top: 0; left: 0; right: 0;
+        height: var(--nav-h); z-index: 1000;
+        display: flex; align-items: center; padding: 0 2.5rem;
+        transition: background 0.35s, border-color 0.35s;
+        border-bottom: 1px solid transparent;
+    }
+    #navbar.scrolled {
+        background: rgba(6,13,31,0.88);
+        backdrop-filter: blur(14px) saturate(1.4);
+        border-color: rgba(255,255,255,0.05);
+    }
+    .nav-container { width:100%;max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between; }
+    .nav-logo {
+        font-family: 'Outfit', sans-serif; font-weight: 300;
+        font-size: 1.2rem; letter-spacing: 0.22rem; color: #fff;
+    }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display:flex;align-items:center;gap:0.15rem; }
+    .nav-links a {
+        font-family: 'Outfit', sans-serif; font-size: 0.7rem;
+        letter-spacing: 0.14rem; text-transform: uppercase;
+        color: rgba(255,255,255,0.48); padding: 0.4rem 0.85rem;
+        border-radius: 5px; transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-dim); }
+    .nav-cta {
+        font-family: 'Outfit', sans-serif; font-size: 0.7rem;
+        letter-spacing: 0.12rem; text-transform: uppercase;
+        padding: 0.44rem 1.1rem; border: 1px solid var(--border-a);
+        border-radius: 6px; color: var(--accent); background: var(--accent-dim);
+        transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { background: rgba(56,189,248,0.22); border-color: var(--accent); }
+    .nav-hamburger { display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px; }
+    .nav-hamburger span { display:block;width:22px;height:1.5px;background:rgba(255,255,255,0.7);transition:transform 0.3s,opacity 0.3s; }
+    .nav-hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity:0; }
+    .nav-hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
 
-            /* ── Background override — replace bg.jpg ───────── */
-            #bg:after {
-                background-image: none !important;
-                background: #060d1f !important;
-            }
-            #bg:before {
-                background-image: linear-gradient(to top, rgba(6,13,31,0.4), rgba(6,13,31,0.15)) !important;
-            }
+    .nav-mobile {
+        display: none; position: fixed;
+        top: var(--nav-h); left: 0; right: 0;
+        background: rgba(6,13,31,0.97); backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        padding: 1.2rem 2rem 1.8rem; z-index: 998;
+    }
+    .nav-mobile.open { display: block; }
+    .nav-mobile a {
+        display: block; font-family: 'Outfit', sans-serif;
+        font-size: 0.82rem; letter-spacing: 0.14rem; text-transform: uppercase;
+        color: rgba(255,255,255,0.55); padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.2s;
+    }
+    .nav-mobile a:hover { color: var(--accent); }
 
-            /* ── Animated background blobs ──────────────────── */
-            .bg-blob {
-                position: fixed;
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 1;
-                filter: blur(110px);
-            }
-            .bg-blob-1 {
-                width: 560px; height: 560px;
-                top: -8%; left: -8%;
-                background: radial-gradient(circle, rgba(79,70,229,0.22), transparent 70%);
-                animation: blobDrift1 24s ease-in-out infinite;
-            }
-            .bg-blob-2 {
-                width: 480px; height: 480px;
-                bottom: -8%; right: -6%;
-                background: radial-gradient(circle, rgba(13,148,136,0.18), transparent 70%);
-                animation: blobDrift2 30s ease-in-out infinite;
-            }
-            .bg-blob-3 {
-                width: 420px; height: 420px;
-                top: 38%; left: 44%;
-                background: radial-gradient(circle, rgba(56,189,248,0.11), transparent 70%);
-                animation: blobDrift3 26s ease-in-out infinite;
-            }
-            @keyframes blobDrift1 {
-                0%,100% { transform: translate(0,0) scale(1); }
-                25%     { transform: translate(12vw,8vh) scale(1.1); }
-                50%     { transform: translate(4vw,22vh) scale(0.95); }
-                75%     { transform: translate(-7vw,10vh) scale(1.05); }
-            }
-            @keyframes blobDrift2 {
-                0%,100% { transform: translate(0,0) scale(1); }
-                25%     { transform: translate(-9vw,-12vh) scale(1.08); }
-                50%     { transform: translate(-4vw,-18vh) scale(1.12); }
-                75%     { transform: translate(7vw,-7vh) scale(0.94); }
-            }
-            @keyframes blobDrift3 {
-                0%,100% { transform: translate(-50%,0) scale(1); }
-                33%     { transform: translate(-35%,-14vh) scale(1.1); }
-                66%     { transform: translate(-62%,9vh) scale(0.92); }
-            }
+    /* ─── WRAPPER ──────────────────────────────────────────────── */
+    #site-wrapper { position: relative; z-index: 3; padding-top: var(--nav-h); }
 
-            /* ── Page loader ────────────────────────────────── */
-            #page-loader {
-                position: fixed;
-                inset: 0;
-                background: #060d1f;
-                z-index: 99999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
-                            visibility 0.65s ease;
-            }
-            #page-loader.hidden {
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-            }
-            .loader-inner { text-align: center; }
-            .loader-initials {
-                font-family: 'Outfit', sans-serif;
-                font-weight: 200;
-                font-size: 3rem;
-                letter-spacing: 0.55rem;
-                color: #38bdf8;
-                display: block;
-                margin-bottom: 1.8rem;
-                text-transform: uppercase;
-            }
-            .loader-initials span { color: rgba(56,189,248,0.3); font-weight: 100; }
-            .loader-bar-track {
-                width: 90px; height: 1.5px;
-                background: rgba(255,255,255,0.07);
-                border-radius: 2px;
-                overflow: hidden;
-                margin: 0 auto;
-            }
-            .loader-bar-fill {
-                height: 100%;
-                background: linear-gradient(90deg, #38bdf8, rgba(56,189,248,0.35));
-                border-radius: 2px;
-                animation: loaderFill 0.85s cubic-bezier(0.4,0,0.2,1) forwards;
-            }
-            @keyframes loaderFill {
-                from { transform: translateX(-100%); }
-                to   { transform: translateX(0); }
-            }
+    /* ─── HERO ─────────────────────────────────────────────────── */
+    #hero {
+        min-height: calc(100vh - var(--nav-h));
+        display: flex; align-items: center;
+        padding: 4rem 2.5rem;
+    }
+    .hero-container {
+        width: 100%; max-width: 1280px; margin: 0 auto;
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 4rem; align-items: center;
+    }
+    .hero-left { display: flex; flex-direction: column; gap: 1.35rem; position: relative; z-index: 2; }
 
-            /* ── Scroll progress bar ────────────────────────── */
-            #scroll-progress {
-                position: fixed;
-                top: 0; left: 0;
-                height: 2px; width: 0;
-                background: linear-gradient(90deg, #38bdf8, rgba(56,189,248,0.3));
-                z-index: 9997;
-                border-radius: 0 1px 1px 0;
-                transition: width 0.08s linear;
-            }
+    .hero-title {
+        font-family: 'Outfit', sans-serif; font-weight: 200;
+        font-size: clamp(2.4rem, 4.2vw, 3.9rem);
+        line-height: 1.12; letter-spacing: 0.01rem; color: #fff;
+    }
+    .hero-title .eit {
+        font-size: 0.55em; color: var(--accent);
+        font-weight: 400; letter-spacing: 0.15em;
+        vertical-align: middle; margin-left: 0.3em;
+    }
+    .hero-subtitle { font-size: 1rem; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; }
+    .hero-typed { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+    .typed-cursor {
+        display: inline-block; width: 2px; height: 0.85em;
+        background: var(--accent); margin-left: 2px;
+        vertical-align: middle; animation: blinkCursor 1s step-end infinite;
+    }
+    @keyframes blinkCursor { 0%,100%{opacity:1} 50%{opacity:0} }
 
-            /* ── Typing cursor ──────────────────────────────── */
-            .typed-cursor {
-                display: inline-block;
-                width: 2px;
-                height: 0.8em;
-                background: var(--accent);
-                margin-left: 2px;
-                vertical-align: middle;
-                animation: blinkCursor 1s step-end infinite;
-            }
-            @keyframes blinkCursor {
-                0%,100% { opacity: 1; }
-                50%     { opacity: 0; }
-            }
-            #typed-role { color: rgba(255,255,255,0.75); }
+    .hero-chips { display:flex;flex-wrap:wrap;gap:0.4rem; }
+    .hero-chip {
+        padding: 0.22rem 0.75rem;
+        border: 1px solid rgba(56,189,248,0.22); border-radius: 20px;
+        font-size: 0.62rem; letter-spacing: 0.1rem; text-transform: uppercase;
+        color: rgba(56,189,248,0.78); background: rgba(56,189,248,0.05);
+        white-space: nowrap;
+    }
+    .hero-actions { display:flex;flex-wrap:wrap;gap:0.8rem;align-items:center; }
+    .btn-primary {
+        font-family: 'Outfit', sans-serif; font-size: 0.72rem;
+        letter-spacing: 0.1rem; text-transform: uppercase;
+        padding: 0.75rem 1.9rem; background: var(--accent);
+        color: #060d1f; font-weight: 600; border-radius: 6px;
+        border: none; cursor: pointer;
+        transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        display: inline-block;
+    }
+    .btn-primary:hover { background:#7dd3fc;box-shadow:0 0 24px rgba(56,189,248,0.45);transform:translateY(-2px); }
+    .btn-outline {
+        font-family: 'Outfit', sans-serif; font-size: 0.72rem;
+        letter-spacing: 0.1rem; text-transform: uppercase;
+        padding: 0.72rem 1.9rem; border: 1px solid var(--border-a);
+        border-radius: 6px; color: rgba(255,255,255,0.7);
+        background: transparent; cursor: pointer;
+        transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+        display: inline-block;
+    }
+    .btn-outline:hover { border-color:var(--accent);color:#fff;background:var(--accent-dim);transform:translateY(-2px); }
 
-            /* ── Spring entrance animation ──────────────────── */
-            @keyframes springUp {
-                0%   { opacity: 0; transform: translateY(30px) scale(0.96); }
-                60%  { opacity: 1; transform: translateY(-5px) scale(1.005); }
-                100% { opacity: 1; transform: translateY(0) scale(1); }
-            }
-            #header .logo      { animation: springUp 0.8s cubic-bezier(0.22,1,0.36,1) both,
-                                            logoPulse 4s 0.8s ease-in-out infinite; }
-            #header .content   { animation: springUp 0.8s 0.12s cubic-bezier(0.22,1,0.36,1) both; }
-            #header nav        { animation: springUp 0.8s 0.22s cubic-bezier(0.22,1,0.36,1) both; }
-            .header-social     { animation: springUp 0.8s 0.32s cubic-bezier(0.22,1,0.36,1) both; }
-            .tech-marquee-wrap { animation: springUp 0.8s 0.42s cubic-bezier(0.22,1,0.36,1) both; }
+    .hero-social { display:flex;gap:1.2rem;align-items:center; }
+    .hero-social a {
+        display: flex; align-items: center; gap: 0.4rem;
+        font-size: 0.66rem; letter-spacing: 0.12rem; text-transform: uppercase;
+        color: rgba(255,255,255,0.32); transition: color 0.2s;
+    }
+    .hero-social a:hover { color: var(--accent); }
+    .hero-social .fab, .hero-social .fas { font-size: 0.95rem; }
 
-            /* ── Grain overlay ──────────────────────────────── */
-            .grain-overlay {
-                position: fixed;
-                top: 0; left: 0;
-                width: 100%; height: 100%;
-                pointer-events: none;
-                z-index: 9998;
-                opacity: 0.03;
-                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-                background-size: 180px 180px;
-                animation: grainShift 0.5s steps(3) infinite;
-            }
-            @keyframes grainShift {
-                0%   { transform: translate(0, 0); }
-                33%  { transform: translate(-3px, 5px); }
-                66%  { transform: translate(4px, -2px); }
-                100% { transform: translate(-2px, 3px); }
-            }
+    /* Hero Right */
+    .hero-right { display:flex;justify-content:center;align-items:center;position:relative;z-index:1; }
+    .hero-photo-wrap { position:relative;display:inline-block; }
+    .hero-photo-ring {
+        width: 290px; height: 290px; border-radius: 50%;
+        border: 2px solid rgba(56,189,248,0.38);
+        box-shadow: 0 0 0 10px rgba(56,189,248,0.05), 0 0 50px rgba(56,189,248,0.22), 0 0 90px rgba(56,189,248,0.08);
+        overflow: hidden; position: relative; z-index: 1;
+        animation: photoPulse 4s ease-in-out infinite;
+    }
+    .hero-photo-ring img { width:100%;height:100%;object-fit:cover;opacity:0.92; }
+    @keyframes photoPulse {
+        0%,100%{box-shadow:0 0 0 10px rgba(56,189,248,0.05),0 0 50px rgba(56,189,248,0.22),0 0 90px rgba(56,189,248,0.08)}
+        50%{box-shadow:0 0 0 14px rgba(56,189,248,0.08),0 0 66px rgba(56,189,248,0.32),0 0 110px rgba(56,189,248,0.12)}
+    }
 
-            /* ── Custom cursor ──────────────────────────────── */
-            .cursor-dot {
-                position: fixed;
-                width: 5px; height: 5px;
-                background: var(--accent);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 10000;
-                transform: translate(-50%, -50%);
-            }
-            .cursor-ring {
-                position: fixed;
-                width: 28px; height: 28px;
-                border: 1px solid rgba(56, 189, 248, 0.4);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: width 0.22s ease, height 0.22s ease,
-                            border-color 0.22s ease, background 0.22s ease;
-            }
-            body.cursor-hover .cursor-ring {
-                width: 46px; height: 46px;
-                border-color: var(--accent);
-                background: rgba(56, 189, 248, 0.05);
-            }
-            @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
+    /* Spring entrance */
+    @keyframes springUp {
+        0%   { opacity:0;transform:translateY(28px) scale(0.96) }
+        60%  { opacity:1;transform:translateY(-4px) scale(1.005) }
+        100% { opacity:1;transform:translateY(0) scale(1) }
+    }
+    .hero-left .open-to-work  { animation:springUp 0.8s 0s   cubic-bezier(0.22,1,0.36,1) both }
+    .hero-left .hero-title    { animation:springUp 0.8s 0.1s  cubic-bezier(0.22,1,0.36,1) both }
+    .hero-left .hero-subtitle { animation:springUp 0.8s 0.18s cubic-bezier(0.22,1,0.36,1) both }
+    .hero-left .hero-typed    { animation:springUp 0.8s 0.24s cubic-bezier(0.22,1,0.36,1) both }
+    .hero-left .hero-chips    { animation:springUp 0.8s 0.3s  cubic-bezier(0.22,1,0.36,1) both }
+    .hero-left .hero-actions  { animation:springUp 0.8s 0.38s cubic-bezier(0.22,1,0.36,1) both }
+    .hero-left .hero-social   { animation:springUp 0.8s 0.46s cubic-bezier(0.22,1,0.36,1) both }
+    .hero-right               { animation:springUp 0.8s 0.22s cubic-bezier(0.22,1,0.36,1) both }
 
-            /* ── Mouse glow ─────────────────────────────────── */
-            .mouse-glow {
-                position: fixed;
-                width: 300px; height: 300px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(56,189,248,0.055) 0%, transparent 70%);
-                pointer-events: none;
-                z-index: 2;
-                transform: translate(-50%, -50%);
-            }
+    /* ─── TECH MARQUEE ─────────────────────────────────────────── */
+    .tech-marquee-section {
+        overflow: hidden;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        padding: 1.2rem 0;
+        animation: springUp 0.8s 0.54s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .marquee-track { display:flex;width:max-content;animation:marqueeScroll 42s linear infinite; }
+    .tech-marquee-section:hover .marquee-track { animation-play-state:paused; }
+    .marquee-inner { display:flex;align-items:center; }
+    @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .marquee-item { font-size:0.58rem;letter-spacing:0.13rem;text-transform:uppercase;color:rgba(255,255,255,0.24);padding:0 1rem;font-family:'Outfit',sans-serif;white-space:nowrap;cursor:default;transition:color 0.2s; }
+    .marquee-item:hover { color:var(--accent); }
+    .marquee-sep { color:rgba(56,189,248,0.2);font-size:0.35rem;padding:0 0.1rem; }
 
-            /* ── Tech marquee ───────────────────────────────── */
-            .tech-marquee-wrap {
-                width: 100%;
-                overflow: hidden;
-                margin-top: 1.8rem !important;
-                padding: 0.15rem 0;
-            }
-            .tech-marquee-wrap::before { display: none !important; }
-            .marquee-track {
-                display: flex;
-                width: max-content;
-                animation: marqueeScroll 40s linear infinite;
-            }
-            .tech-marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-            .marquee-inner { display: flex; align-items: center; }
-            @keyframes marqueeScroll {
-                from { transform: translateX(0); }
-                to   { transform: translateX(-50%); }
-            }
-            .marquee-item {
-                font-size: 0.58rem;
-                letter-spacing: 0.13rem;
-                text-transform: uppercase;
-                color: rgba(255, 255, 255, 0.25);
-                padding: 0 1rem;
-                font-family: 'Outfit', sans-serif;
-                white-space: nowrap;
-                cursor: default;
-                transition: color 0.2s;
-            }
-            .marquee-item:hover { color: var(--accent); }
-            .marquee-sep { color: rgba(56, 189, 248, 0.22); font-size: 0.35rem; padding: 0 0.1rem; }
-            body.is-article-visible .tech-marquee-wrap {
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.25s;
-            }
+    /* ─── SECTIONS ─────────────────────────────────────────────── */
+    section { padding: 6rem 2.5rem; position: relative; }
+    .section-container { width:100%;max-width:1280px;margin:0 auto; }
+    .section-label {
+        font-family: 'Outfit', sans-serif; font-size: 0.62rem;
+        letter-spacing: 0.22rem; text-transform: uppercase;
+        color: var(--accent); margin-bottom: 0.7rem;
+    }
+    .section-title {
+        font-family: 'Outfit', sans-serif; font-weight: 200;
+        font-size: clamp(1.9rem, 3vw, 2.7rem);
+        letter-spacing: 0.03rem; line-height: 1.2;
+        margin-bottom: 0.6rem; color: #fff;
+        display: inline-block; position: relative;
+    }
+    .section-title::after {
+        content: ''; position: absolute;
+        bottom: -0.4rem; left: 0;
+        width: 3rem; height: 2px;
+        background: linear-gradient(to right, var(--accent), transparent);
+    }
+    .section-intro { font-size:0.9rem;color:rgba(255,255,255,0.48);max-width:700px;margin-top:1.2rem; }
 
-            /* ── Back to top ────────────────────────────────── */
-            #back-to-top {
-                position: fixed;
-                bottom: 1.6rem; right: 1.6rem;
-                width: 36px; height: 36px;
-                background: rgba(10, 18, 32, 0.75);
-                border: 1px solid rgba(56, 189, 248, 0.28);
-                border-radius: 50%;
-                color: var(--accent);
-                cursor: pointer;
-                z-index: 1000;
-                opacity: 0;
-                transform: translateY(10px);
-                transition: opacity 0.3s, transform 0.3s, background 0.2s, border-color 0.2s;
-                pointer-events: none;
-                display: flex; align-items: center; justify-content: center;
-                backdrop-filter: blur(6px);
-            }
-            #back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-            #back-to-top:hover { background: rgba(56,189,248,0.14); border-color: var(--accent); }
-            #back-to-top svg { pointer-events: none; }
+    /* ─── PROJECT CARDS ────────────────────────────────────────── */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.8rem;
+        margin-top: 3rem;
+    }
+    .projects-col {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+    }
+    .project-card {
+        background: var(--bg-card);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-top: 2px solid rgba(56,189,248,0.2);
+        border-radius: 10px; padding: 2rem;
+        backdrop-filter: blur(6px);
+        transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s, border-top-color 0.25s;
+        position: relative; overflow: hidden;
+    }
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 32px rgba(56,189,248,0.06);
+        border-top-color: rgba(56,189,248,0.45);
+    }
+    .project-card::after {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top, rgba(56,189,248,0.04), transparent 60%);
+        opacity: 0; transition: opacity 0.35s; pointer-events: none;
+    }
+    .project-card:hover::after { opacity: 1; }
 
-            /* ── Article scroll reveal ──────────────────────── */
-            .art-reveal {
-                opacity: 0;
-                transform: translateY(18px);
-                transition: opacity 0.5s ease, transform 0.5s ease;
-            }
-            .art-reveal.in { opacity: 1; transform: translateY(0); }
+    .project-badge {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.6rem; letter-spacing: 0.1rem; text-transform: uppercase;
+        padding: 0.18rem 0.65rem; border-radius: 20px;
+        background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.18);
+        color: var(--accent); margin-bottom: 0.9rem;
+    }
+    .project-card h3 {
+        font-family: 'Outfit', sans-serif; font-weight: 400;
+        font-size: 1.08rem; letter-spacing: 0.03rem;
+        color: #fff; margin-bottom: 0.4rem; line-height: 1.3;
+    }
+    .project-meta { font-size:0.7rem;color:var(--muted);font-style:italic;margin-bottom:0.9rem; }
 
-            /* ── 3D tilt on skill cards ─────────────────────── */
-            .skill-category { will-change: transform; }
+    .project-card p { font-size:0.875rem;color:rgba(255,255,255,0.62);line-height:1.72;margin-bottom:0.75rem; }
+    .project-card strong { color:rgba(255,255,255,0.9); }
 
-            /* ════════════════════════════════════════════════
-               ARTICLE PANEL IMPROVEMENTS
-               ════════════════════════════════════════════════ */
+    .project-card ul { padding-left:1.1rem;margin-bottom:0.75rem; }
+    .project-card ul li { font-size:0.83rem;color:rgba(255,255,255,0.56);line-height:1.65;margin-bottom:0.28rem; }
+    .project-card ul li::marker { color:var(--accent); }
 
-            /* Container */
-            #main article {
-                background: linear-gradient(160deg, rgba(12,19,33,0.93) 0%, rgba(18,26,42,0.93) 100%) !important;
-                border-radius: 10px !important;
-                border-top: 1px solid rgba(56, 189, 248, 0.18) !important;
-                box-shadow:
-                    0 0 0 1px rgba(255,255,255,0.04),
-                    0 24px 64px rgba(0,0,0,0.55),
-                    0 0 50px rgba(56,189,248,0.03) !important;
-                backdrop-filter: blur(6px);
-            }
+    .project-media {
+        position: relative; margin: 1rem 0;
+        border-radius: 7px; overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.07);
+    }
+    .project-media img, .project-media video {
+        width: 100%; display: block;
+        transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    .project-media:hover img, .project-media:hover video { transform: scale(1.04); }
+    .project-media-overlay {
+        position: absolute; inset: 0;
+        background: rgba(5,4,12,0.72);
+        backdrop-filter: blur(3px);
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .project-media:hover .project-media-overlay { opacity: 1; }
+    .overlay-github-btn {
+        display: flex; align-items: center; gap: 0.55rem;
+        font-family: 'Outfit', sans-serif; font-size: 0.72rem;
+        letter-spacing: 0.1rem; text-transform: uppercase;
+        padding: 0.68rem 1.5rem;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 6px; color: #fff;
+        transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .overlay-github-btn:hover {
+        background: var(--accent); border-color: var(--accent);
+        color: #09080f; transform: scale(1.04);
+    }
+    .overlay-github-btn i { font-size: 1rem; }
+    .project-caption { font-size:0.68rem;color:rgba(255,255,255,0.3);text-align:center;margin-top:0.4rem; }
 
-            /* Article title */
-            #main article h2.major {
-                border-bottom: none !important;
-                padding-bottom: 0.65rem;
-                position: relative;
-                letter-spacing: 0.4rem;
-                font-family: 'Outfit', 'Source Sans Pro', sans-serif;
-                font-weight: 300;
-            }
-            #main article h2.major::after {
-                content: '';
-                position: absolute;
-                bottom: 0; left: 0;
-                width: 100%;
-                height: 1px;
-                background: linear-gradient(to right, var(--accent), rgba(56,189,248,0.3), transparent);
-            }
+    .project-stack { display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem; }
+    .stack-tag {
+        font-size:0.64rem;letter-spacing:0.05rem;color:rgba(255,255,255,0.46);
+        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+        border-radius:3px;padding:0.15rem 0.5rem;
+        transition:color 0.2s,border-color 0.2s;
+    }
+    .stack-tag:hover { color:var(--accent);border-color:rgba(56,189,248,0.25); }
 
-            /* Section headings */
-            #main article h3 {
-                border-left: 2px solid var(--accent);
-                padding-left: 0.65rem;
-                margin-left: -0.65rem;
-                color: rgba(255,255,255,0.9);
-                letter-spacing: 0.08rem;
-            }
+    .project-link {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.72rem; letter-spacing: 0.07rem;
+        color: var(--accent); margin-top: 0.8rem;
+        border-bottom: 1px solid rgba(56,189,248,0.25);
+        padding-bottom: 1px; transition: border-color 0.2s, opacity 0.2s;
+    }
+    .project-link:hover { border-color:var(--accent);opacity:0.8; }
 
-            /* HR dividers */
-            #main article hr {
-                border: none !important;
-                border-bottom: none !important;
-                height: 1px;
-                background: linear-gradient(to right, rgba(56,189,248,0.18), rgba(255,255,255,0.07), transparent);
-                margin: 2.5rem 0;
-            }
+    .confidential-tag {
+        font-size:0.65rem;letter-spacing:0.1rem;text-transform:uppercase;
+        color:rgba(255,255,255,0.22);font-style:italic;
+    }
 
-            /* Links */
-            #main article a:not(.close) {
-                color: var(--accent);
-                border-bottom-color: rgba(56,189,248,0.28);
-                transition: border-bottom-color 0.2s, opacity 0.2s;
-            }
-            #main article a:not(.close):hover {
-                border-bottom-color: var(--accent);
-                opacity: 0.85;
-            }
+    /* ─── IMAGE GALLERIES ──────────────────────────────────────── */
+    .img-gallery-2 { display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin:0.9rem 0; }
+    .img-gallery-3 { display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.9rem;margin:0.9rem 0; }
+    .img-gallery-2 figure,.img-gallery-3 figure { margin:0; }
+    .img-gallery-2 img,.img-gallery-3 img { width:100%;border-radius:6px;border:1px solid rgba(255,255,255,0.07); }
+    .img-gallery-2 figcaption,.img-gallery-3 figcaption { font-size:0.66rem;text-align:center;color:rgba(255,255,255,0.28);margin-top:0.3rem; }
 
-            /* Close button accent */
-            #main article .close:hover:before {
-                background-color: rgba(56,189,248,0.08) !important;
-            }
+    /* ─── SKILL GRID ───────────────────────────────────────────── */
+    .skill-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:0.9rem;margin-top:2.5rem; }
+    .skill-category {
+        border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+        padding: 1rem 1.15rem; background: rgba(255,255,255,0.02);
+        transition: border-color 0.25s, background 0.25s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+        will-change: transform;
+    }
+    .skill-category:hover { border-color:rgba(56,189,248,0.22);background:rgba(56,189,248,0.03); }
+    .skill-category h4 { font-size:0.63rem;letter-spacing:0.15rem;text-transform:uppercase;color:rgba(255,255,255,0.38);margin:0 0 0.6rem;font-family:'Outfit',sans-serif; }
+    .skill-tags { display:flex;flex-wrap:wrap;gap:0.35rem; }
+    .skill-tag { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:0.18rem 0.5rem;font-size:0.76rem;color:#ccc;white-space:nowrap; }
 
-            /* Scrollbar */
-            #main article::-webkit-scrollbar { width: 3px; }
-            #main article::-webkit-scrollbar-track { background: transparent; }
-            #main article::-webkit-scrollbar-thumb {
-                background: rgba(56,189,248,0.2);
-                border-radius: 2px;
-            }
-            #main article::-webkit-scrollbar-thumb:hover {
-                background: rgba(56,189,248,0.45);
-            }
+    /* ─── SECTION DIVIDER ──────────────────────────────────────── */
+    .section-divider { height:1px;background:linear-gradient(to right,rgba(56,189,248,0.12),rgba(255,255,255,0.04),transparent);margin:4rem 0; }
 
-            /* Table — accent on label column */
-            #main article .table-wrapper table td:first-child {
-                color: rgba(56,189,248,0.85);
-                font-weight: 400;
-            }
-            #main article .table-wrapper table tbody tr {
-                border-bottom: 1px solid rgba(255,255,255,0.04);
-            }
+    /* ─── ABOUT ────────────────────────────────────────────────── */
+    .about-grid { display:grid;grid-template-columns:3fr 2fr;gap:4rem;align-items:start;margin-top:2.5rem; }
+    .about-text h3 {
+        font-family: 'Outfit', sans-serif; font-weight: 300;
+        font-size: 1.05rem; color: rgba(255,255,255,0.85);
+        margin: 2rem 0 0.6rem;
+        border-left: 2px solid var(--accent); padding-left: 0.7rem;
+        margin-left: -0.7rem;
+    }
+    .about-text h3:first-child { margin-top: 0; }
+    .about-text p { font-size:0.9rem;color:rgba(255,255,255,0.6);line-height:1.78;margin-bottom:0.9rem; }
+    .about-text ul { padding-left:1.2rem;margin-bottom:1rem; }
+    .about-text ul li { font-size:0.87rem;color:rgba(255,255,255,0.58);line-height:1.7;margin-bottom:0.3rem; }
+    .about-text ul li::marker { color:var(--accent); }
+    .about-photo-img {
+        width: 100%; border-radius: 12px;
+        border: 1px solid rgba(56,189,248,0.14);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 32px rgba(56,189,248,0.07);
+    }
 
-            /* Images & videos — rounded */
-            #main article .image.fit img,
-            #main article .image.fit video {
-                border-radius: 6px;
-            }
+    /* ─── RESUME ───────────────────────────────────────────────── */
+    #resume { text-align: center; }
+    .resume-desc { font-size:0.9rem;color:rgba(255,255,255,0.46);max-width:480px;margin:1.4rem auto 2.4rem;line-height:1.7; }
+    .resume-actions { display:flex;flex-wrap:wrap;gap:1rem;justify-content:center; }
 
-            /* Caption/metadata italics */
-            #main article p em {
-                color: rgba(255,255,255,0.42);
-            }
+    /* ─── CONTACT ──────────────────────────────────────────────── */
+    .contact-grid { display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;margin-top:2.5rem;align-items:start; }
+    .contact-info h3 { font-family:'Outfit',sans-serif;font-weight:300;font-size:1.05rem;color:rgba(255,255,255,0.85);margin-bottom:0.9rem; }
+    .contact-info p { font-size:0.88rem;color:rgba(255,255,255,0.48);line-height:1.72;margin-bottom:1.5rem; }
+    .contact-links { display:flex;flex-direction:column;gap:0.75rem; }
+    .contact-link-item {
+        display: flex; align-items: center; gap: 0.65rem;
+        font-size: 0.83rem; color: rgba(255,255,255,0.5);
+        transition: color 0.2s;
+    }
+    .contact-link-item:hover { color:var(--accent); }
+    .contact-link-item i { width:1.1rem;color:var(--accent);font-size:0.95rem; }
 
-            /* Strong text accent */
-            #main article p strong {
-                color: rgba(255,255,255,0.95);
-            }
+    .contact-form { display:flex;flex-direction:column;gap:1.1rem; }
+    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
+    .form-group { display:flex;flex-direction:column;gap:0.4rem; }
+    .form-group label { font-size:0.67rem;letter-spacing:0.12rem;text-transform:uppercase;color:rgba(255,255,255,0.38);font-family:'Outfit',sans-serif; }
+    .form-group input, .form-group textarea {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 6px; padding: 0.75rem 1rem;
+        color: #fff; font-family: 'DM Sans', sans-serif;
+        font-size: 0.88rem; outline: none;
+        transition: border-color 0.2s, background 0.2s;
+        resize: vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+        border-color: rgba(56,189,248,0.4);
+        background: rgba(56,189,248,0.03);
+    }
+    .form-group textarea { min-height: 120px; }
+    .form-submit { display:flex;gap:0.8rem;align-items:center;flex-wrap:wrap; }
+    .btn-reset {
+        font-family: 'Outfit', sans-serif; font-size: 0.7rem;
+        letter-spacing: 0.1rem; text-transform: uppercase;
+        padding: 0.72rem 1.4rem; border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 6px; color: rgba(255,255,255,0.45);
+        background: transparent; cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover { border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7); }
 
-            /* Bullet list marker color */
-            #main article ul li {
-                position: relative;
-            }
-        </style>
-    </head>
-    <body class="is-preload">
+    /* ─── FOOTER ───────────────────────────────────────────────── */
+    footer {
+        padding: 2rem 2.5rem;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        text-align: center;
+    }
+    footer p { font-size:0.45rem;opacity:0.25;letter-spacing:0.05rem;color:#fff; }
+    footer a { border-bottom: none; }
 
-        <!-- Page loader -->
-        <div id="page-loader">
-            <div class="loader-inner">
-                <span class="loader-initials">S<span>·</span>S</span>
-                <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+    /* ─── BACK TO TOP ──────────────────────────────────────────── */
+    #back-to-top {
+        position: fixed; bottom: 1.6rem; right: 1.6rem;
+        width: 38px; height: 38px;
+        background: rgba(10,18,32,0.78); border: 1px solid rgba(56,189,248,0.28);
+        border-radius: 50%; color: var(--accent); cursor: pointer;
+        z-index: 1000; opacity: 0; transform: translateY(10px);
+        transition: opacity 0.3s, transform 0.3s, background 0.2s;
+        pointer-events: none; display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(6px);
+    }
+    #back-to-top.visible { opacity:1;transform:translateY(0);pointer-events:all; }
+    #back-to-top:hover { background:rgba(56,189,248,0.15);border-color:var(--accent); }
+
+    /* ─── SCROLL REVEAL ────────────────────────────────────────── */
+    .reveal-el {
+        opacity: 0; transform: translateY(22px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal-el.revealed { opacity:1;transform:none; }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+        .hero-container { gap: 2.5rem; }
+        .hero-photo-ring { width: 240px; height: 240px; }
+        .projects-grid { grid-template-columns: 1fr; }
+        .skill-grid { grid-template-columns: 1fr 1fr; }
+        .about-grid { grid-template-columns: 1fr; }
+        .about-photo { display: none; }
+        .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+        #navbar { padding: 0 1.5rem; }
+        .nav-links, .nav-cta { display: none; }
+        .nav-hamburger { display: flex; }
+        section { padding: 4rem 1.5rem; }
+        #hero { padding: 2.5rem 1.5rem; }
+        .hero-container { grid-template-columns: 1fr; gap: 2rem; }
+        .hero-right { display: none; }
+        .projects-grid { grid-template-columns: 1fr; }
+        .form-row { grid-template-columns: 1fr; }
+        .img-gallery-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+        .skill-grid { grid-template-columns: 1fr; }
+        .img-gallery-2 { grid-template-columns: 1fr; }
+        .img-gallery-3 { grid-template-columns: 1fr; }
+    }
+    </style>
+</head>
+<body>
+
+
+<!-- ── PAGE LOADER ────────────────────────────────────────── -->
+<div id="page-loader">
+    <div class="loader-inner">
+        <span class="loader-initials">S<span>·</span>S</span>
+        <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+    </div>
+</div>
+
+<!-- ── SCROLL PROGRESS ───────────────────────────────────── -->
+<div id="scroll-progress"></div>
+
+<!-- ── FIXED BG LAYERS ───────────────────────────────────── -->
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<div class="bg-blob bg-blob-3"></div>
+<div class="bg-blob bg-blob-4"></div>
+<div class="bg-blob bg-blob-5"></div>
+<div class="grain-overlay"></div>
+<div class="mouse-glow" id="mouse-glow"></div>
+<canvas id="particles-canvas"></canvas>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────── -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="#hero" class="nav-logo">S<span class="dot">·</span>S</a>
+        <div class="nav-links">
+            <a href="#datascience">Data Science</a>
+            <a href="#engineering">Engineering</a>
+            <a href="#about">About</a>
+            <a href="#resume">Resume</a>
+        </div>
+        <a href="#contact" class="nav-cta">Contact</a>
+        <div class="nav-hamburger" id="nav-hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+    <a href="#datascience">Data Science</a>
+    <a href="#engineering">Engineering</a>
+    <a href="#about">About</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<!-- ── SITE CONTENT ──────────────────────────────────────── -->
+<div id="site-wrapper">
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-container">
+            <div class="hero-left">
+                <div class="open-to-work">
+                    <span class="otw-dot"></span>Open to Work
+                </div>
+                <h1 class="hero-title">
+                    Soroush Saririan<span class="eit">EIT</span>
+                </h1>
+                <p class="hero-subtitle">Applied Data Scientist &amp; Mechanical Engineer</p>
+                <p class="hero-typed">Specializing in <span id="typed-role"></span><span class="typed-cursor"></span></p>
+                <div class="hero-chips">
+                    <span class="hero-chip">Multi-Agent AI</span>
+                    <span class="hero-chip">Computer Vision</span>
+                    <span class="hero-chip">MLOps &amp; AWS</span>
+                    <span class="hero-chip">Raytheon Co-op</span>
+                    <span class="hero-chip">UF M.S. 2026</span>
+                </div>
+                <div class="hero-actions">
+                    <a href="#datascience" class="btn-primary">View Projects</a>
+                    <a href="Soroush_Saririan_Data_Science_Resume.pdf" class="btn-outline" target="_blank">Download Resume</a>
+                </div>
+                <div class="hero-social">
+                    <a href="https://www.linkedin.com/in/soroush-saririan" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/soroushsaririan" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="mailto:saririan.s.eng@gmail.com">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-photo-wrap">
+                    <div class="hero-photo-ring">
+                        <img src="images/headshot.jpg" alt="Soroush Saririan" />
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Scroll progress -->
-        <div id="scroll-progress"></div>
+    <!-- TECH MARQUEE -->
+    <div class="tech-marquee-section" aria-hidden="true">
+        <div class="marquee-track">
+            <div class="marquee-inner">
+                <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">PyTorch</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">TensorFlow</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">LangGraph</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">LangChain</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">LlamaIndex</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Hugging Face</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">RAG</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">OpenCV</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">XGBoost</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">CatBoost</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Scikit-learn</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Pandas</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">NumPy</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">FastAPI</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">PostgreSQL</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">ChromaDB</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">FAISS</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">AWS Lambda</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">AWS SageMaker</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">AWS Kinesis</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Docker</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Kubernetes</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Terraform</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">NVIDIA NIM</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Streamlit</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Tableau</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Rust</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">C++</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">SQL</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">R</span><span class="marquee-sep">·</span>
+            </div>
+            <div class="marquee-inner" aria-hidden="true">
+                <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">PyTorch</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">TensorFlow</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">LangGraph</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">LangChain</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">LlamaIndex</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Hugging Face</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">RAG</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">OpenCV</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">XGBoost</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">CatBoost</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Scikit-learn</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Pandas</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">NumPy</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">FastAPI</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">PostgreSQL</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">ChromaDB</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">FAISS</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">AWS Lambda</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">AWS SageMaker</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">AWS Kinesis</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Docker</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Kubernetes</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Terraform</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">NVIDIA NIM</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Streamlit</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Tableau</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">Rust</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">C++</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">SQL</span><span class="marquee-sep">·</span>
+                <span class="marquee-item">R</span><span class="marquee-sep">·</span>
+            </div>
+        </div>
+    </div>
 
-        <!-- Background blobs -->
-        <div class="bg-blob bg-blob-1"></div>
-        <div class="bg-blob bg-blob-2"></div>
-        <div class="bg-blob bg-blob-3"></div>
+    <!-- ═══ DATA SCIENCE ═══════════════════════════════════════ -->
+    <section id="datascience">
+        <div class="section-container">
+            <p class="section-label reveal-el">Work &amp; Projects</p>
+            <h2 class="section-title reveal-el">Applied Data Science</h2>
+            <p class="section-intro reveal-el">AI/ML engineering across medical devices, defense systems, and clinical decision support.</p>
 
-        <div class="grain-overlay"></div>
-        <div class="mouse-glow" id="mouse-glow"></div>
+            <div class="projects-grid">
+            <div class="projects-col">
 
-        <div id="wrapper">
-
-                <header id="header">
-                        <div class="logo">
-                            <img src="images/headshot.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; opacity: 0.92;" />
-                        </div>
-                        <div class="content">
-                            <div class="inner">
-                                <div class="open-to-work">
-                                    <span class="otw-dot"></span>
-                                    Open to Work
-                                </div>
-                                <h1>Soroush Saririan, <span class="eit">EIT</span></h1>
-                                <p>Applied Data Scientist &amp; Mechanical Engineer</p>
-                                <p style="margin-bottom:0;">Specializing in <span id="typed-role"></span><span class="typed-cursor"></span></p>
-                                <div class="header-chips">
-                                    <span class="header-chip">Multi-Agent AI</span>
-                                    <span class="header-chip">Computer Vision</span>
-                                    <span class="header-chip">MLOps &amp; AWS</span>
-                                    <span class="header-chip">Raytheon Co-op</span>
-                                    <span class="header-chip">UF M.S. 2026</span>
-                                </div>
-                            </div>
-                        </div>
-                        <nav>
-                            <ul>
-                                <li><a href="#datascience">Data Science</a></li>
-                                <li><a href="#engineering">Engineering</a></li>
-                                <li><a href="#about">About Me</a></li>
-                                <li><a href="#resume">Resume</a></li>
-                                <li><a href="#contact">Contact</a></li>
-                            </ul>
-                        </nav>
-                        <div class="header-social">
-                            <a href="https://www.linkedin.com/in/soroush-saririan" target="_blank">
-                                <i class="fab fa-linkedin"></i> LinkedIn
-                            </a>
-                            <a href="https://github.com/soroushsaririan" target="_blank">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                            <a href="mailto:saririan.s.eng@gmail.com">
-                                <i class="fas fa-envelope"></i> Email
-                            </a>
-                        </div>
-                        <div class="tech-marquee-wrap" aria-hidden="true">
-                            <div class="marquee-track">
-                                <div class="marquee-inner">
-                                    <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">PyTorch</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">TensorFlow</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">LangGraph</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">LangChain</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">LlamaIndex</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Hugging Face</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">RAG</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">OpenCV</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">XGBoost</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">CatBoost</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Scikit-learn</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Pandas</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">NumPy</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">FastAPI</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">PostgreSQL</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">ChromaDB</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">FAISS</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">AWS Lambda</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">AWS SageMaker</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">AWS Kinesis</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Docker</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Kubernetes</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Terraform</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">NVIDIA NIM</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Streamlit</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Tableau</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Rust</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">C++</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">SQL</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">R</span><span class="marquee-sep">·</span>
-                                </div>
-                                <div class="marquee-inner" aria-hidden="true">
-                                    <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">PyTorch</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">TensorFlow</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">LangGraph</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">LangChain</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">LlamaIndex</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Hugging Face</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">RAG</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">OpenCV</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">XGBoost</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">CatBoost</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Scikit-learn</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Pandas</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">NumPy</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">FastAPI</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">PostgreSQL</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">ChromaDB</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">FAISS</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">AWS Lambda</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">AWS SageMaker</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">AWS Kinesis</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Docker</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Kubernetes</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Terraform</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">NVIDIA NIM</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Streamlit</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Tableau</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">Rust</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">C++</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">SQL</span><span class="marquee-sep">·</span>
-                                    <span class="marquee-item">R</span><span class="marquee-sep">·</span>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-
-                <div id="main">
-
-                        <article id="datascience">
-                                <h2 class="major">Applied Data Science</h2>
-                                
-                                <h3>Raytheon | AI/ML Engineering Intern</h3>
-                                <p style="font-size: 0.8em; color: #aaa; margin-top: -1em; margin-bottom: 2em; letter-spacing: 0.05em;">
-                                    <em>CONFIDENTIAL / NDA PROTECTED</em>
-                                </p>
-
-                                <p><strong>Focus: LLMs, C++/Rust, DARPA Cyber Grand Challenge</strong><br />
-                                Currently working on integrating Large Language Models (LLMs) into Cyber Reasoning Systems to analyze and patch legacy Ada code. The project involves translating critical systems into memory-safe C++ and Rust, managing a 900+ hour engineering effort to modernize defense software infrastructure.</p>
-                                
-                                <hr />
-
-                                <h3>VitalStream | Serverless Real-Time Patient Telemetry Pipeline</h3>
-                                <span class="image fit">
-                                  <video autoplay loop muted playsinline style="width:100%;border-radius:4px;">
-                                    <source src="images/vitalstream_demo.mp4" type="video/mp4" />
-                                    <img src="images/vitalstream_aws.png" alt="VitalStream AWS Infrastructure" />
-                                  </video>
-                                </span>
-                                <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">Live AWS Deployment — 7 VPC PrivateLink Endpoints, HIPAA-Aligned Architecture</p>
-                                <p style="font-size: 0.8em; color: #aaa; margin-top: -1em; margin-bottom: 2em; letter-spacing: 0.05em;">
-                                    <em>AWS · MLOps · Serverless · Healthcare · HIPAA</em>
-                                </p>
-
-                                <p><strong>The Challenge:</strong> High-frequency physiological data (ECG at 500 Hz, sEMG at 2000 Hz) must be processed and acted on in near real-time — with zero data loss, strict PHI isolation, and clinical-grade audit trails.<br />
-                                <strong>The Solution:</strong> Built VitalStream, a fully serverless real-time telemetry pipeline on AWS. Devices publish via MQTT to IoT Core → Kinesis Data Streams → Lambda (DSP + HRV analysis) → SageMaker 1D-CNN + BiLSTM ensemble for anomaly detection → DynamoDB with alert routing.<br />
-                                <strong>Infrastructure:</strong> Terraform-provisioned 3-AZ private VPC, 7 VPC PrivateLink endpoints, customer-managed KMS CMKs, S3 Object Lock for 7-year HIPAA retention. CI/CD via GitHub Actions with security scanning and 80% coverage gate.</p>
-
-                                <ul style="margin-top: -0.5em;">
-                                    <li>1D-CNN + BiLSTM with Focal Loss for arrhythmia detection (AFIB, VT, STEMI)</li>
-                                    <li>Blue/green SageMaker deployment with automatic CloudWatch rollback</li>
-                                    <li>34 passing tests — unit + integration (moto-emulated DDB, partial-batch failure)</li>
-                                    <li>Stack: Python, PyTorch, AWS Lambda, Kinesis, DynamoDB, SageMaker, S3, KMS, Terraform, GitHub Actions</li>
-                                </ul>
-
-                                <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/VitalStream" target="_blank">github.com/soroushsaririan/VitalStream</a></p>
-
-                                <hr />
-
-                                <h3>SymptaAI | Clinical AI Decision Support Platform</h3>
-                                <span class="image fit">
-                                  <video autoplay loop muted playsinline style="width:100%;border-radius:4px;">
-                                    <source src="images/symptaai_demo.mp4" type="video/mp4" />
-                                    <img src="images/synapptaie.gif" alt="SymptaAI Demo" />
-                                  </video>
-                                </span>
-                                <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">Multi-Agent Clinical AI Pipeline — Live Agent Reasoning</p>
-                                <p style="font-size: 0.8em; color: #aaa; margin-top: -1em; margin-bottom: 2em; letter-spacing: 0.05em;">
-                                    <em>Full-Stack · Multi-Agent AI · Healthcare</em>
-                                </p>
-
-                                <p><strong>The Challenge:</strong> Physicians must rapidly synthesize lab results, records, medication histories, and symptoms — information overload that drives diagnostic errors.<br />
-                                <strong>The Solution:</strong> Built SymptaAI, a full-stack clinical AI platform powered by an 8-agent LangGraph pipeline — covering intake, record summarization, symptom analysis, lab interpretation, drug interaction checking, differential diagnosis, and care plan generation. FastAPI backend with JWT auth and real-time SSE streaming lets physicians watch each agent reason live.<br />
-                                <strong>Impact:</strong> Delivers ICD-10 coded differentials, flagged drug interactions, and a prioritized care plan in under two minutes. Deployed with NVIDIA NIM for zero-cost LLM inference.</p>
-
-                                <ul style="margin-top: -0.5em;">
-                                    <li>8-agent LangGraph workflow with parallel execution and state accumulation</li>
-                                    <li>Real-time SSE streaming — watch each agent's reasoning as it runs</li>
-                                    <li>Drug interaction checking, lab interpretation with critical value flagging</li>
-                                    <li>Stack: Python, FastAPI, LangGraph, LangChain, Next.js 14, TypeScript, React Query, SQLAlchemy, SQLite/PostgreSQL, JWT Auth, SSE, NVIDIA NIM (OpenAI-compatible LLM API), Tailwind CSS, shadcn/ui</li>
-                                </ul>
-
-                                <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/SymptaAI" target="_blank">github.com/soroushsaririan/SymptaAI</a></p>
-
-                                <hr />
-
-                                <h3>RetinAI | Diabetic Retinopathy Screening</h3>
-                                <span class="image fit"><img src="images/retinai_demo.gif" alt="RetinAI Demo" /></span>
-                                <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">Vision Language Model (VLM) Analysis Pipeline</p>
-                                
-                                <p><strong>The Challenge:</strong> Diabetic retinopathy is a leading cause of blindness, yet early detection remains inaccessible in many underserved communities.<br />
-                                <strong>The Solution:</strong> Developed an accessible screening tool utilizing Vision Language Models (VLMs). The system analyzes retinal images to automatically flag symptoms of retinopathy with high precision.<br />
-                                <strong>Impact:</strong> Designed to assist healthcare providers in resource-limited settings, enabling earlier intervention and preventing irreversible vision loss.</p>
-
-                                <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/RetinAI" target="_blank">github.com/soroushsaririan/RetinAI</a></p>
-
-                                <hr />
-
-                                <h3>medxplAIn | 3D Liver Tumor Segmentation</h3>
-                                <span class="image fit"><img src="images/medxplain_structure.jpg" alt="Project Structure" /></span>
-                                <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">U-Net Architecture & Project Directory</p>
-
-                                <p><strong>The Challenge:</strong> Liver cancer treatment relies on accurate segmentation for radiation therapy and diagnosis, but manual segmentation is subjective and time-consuming.<br />
-                                <strong>The Solution:</strong> Implemented "MedxplAIn," an end-to-end PyTorch pipeline for segmenting livers and tumors from 3D CT scan volumes. The system utilizes a 3D U-Net architecture to automate the extraction of regions of interest.<br />
-                                <strong>Impact:</strong> Reduces the segmentation workload from hours to minutes while standardizing diagnostic outputs for clinicians.</p>
-
-                                <p style="margin-top: -0.5em;"><a href="https://github.com/soroushsaririan/medxplAin-DR" target="_blank">github.com/soroushsaririan/medxplAin-DR</a></p>
-
-                                <hr />
-
-                                <h3>Laser Metal Bending | Predictive Modeling</h3>
-                                <span class="image fit"><img src="images/laser_interface.jpg" alt="Laser Interface" /></span>
-                                <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em; margin-bottom: 2em;">Ensemble Regression Analysis</p>
-                                
-                                <p><strong>The Challenge:</strong> Achieving precise control of metal deformation requires accurate predictive modeling of complex thermal-mechanical interactions.<br />
-                                <strong>The Solution:</strong> Developed a comparative modeling framework using 16 different algorithms to predict deformation angles. I implemented advanced <strong>Ensemble Models</strong> (Voting, Stacking with Ridge Meta-Estimator, Gradient Boosting), <strong>Support Vector Machines</strong> (RBF/Poly kernels), and <strong>Neural Networks</strong> (MLPRegressor) to validate experimental data against simulations.<br />
-                                <strong>Outcome:</strong> Identified optimal regression strategies (RandomForest vs. XGBoost/CatBoost) to minimize prediction error, enabling robust control for non-contact manufacturing.</p>
-                                
-                                <hr />
-
-                                <h3>Skin Allergen Computer Vision</h3>
-                                <p style="font-size: 0.8em; color: #aaa; margin-top: -1em; margin-bottom: 2em; letter-spacing: 0.05em;">
-                                    <em>PRIVATE PROJECT</em>
-                                </p>
-
-                                <p><strong>Focus: OpenCV, Python, Ensemble ML</strong><br />
-                                Developed an automated diagnostic pipeline using OpenCV and Random Forest models to analyze skin prick tests. The system processes 500+ clinical images with >90% correlation to clinician scoring, reducing diagnosis time from 5 minutes to 45 seconds per patient.</p>
-
-                                <hr />
-
-                                <h3>Technical Skills</h3>
-                                <div class="skill-grid">
-                                    <div class="skill-category">
-                                        <h4>Languages</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">Python</span>
-                                            <span class="skill-tag">R</span>
-                                            <span class="skill-tag">SQL</span>
-                                            <span class="skill-tag">C++</span>
-                                            <span class="skill-tag">Rust</span>
-                                            <span class="skill-tag">MATLAB</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>ML & AI</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">PyTorch</span>
-                                            <span class="skill-tag">TensorFlow</span>
-                                            <span class="skill-tag">Scikit-learn</span>
-                                            <span class="skill-tag">OpenCV</span>
-                                            <span class="skill-tag">Pandas</span>
-                                            <span class="skill-tag">NumPy</span>
-                                            <span class="skill-tag">SciPy</span>
-                                            <span class="skill-tag">LangGraph</span>
-                                            <span class="skill-tag">LangChain</span>
-                                            <span class="skill-tag">LlamaIndex</span>
-                                            <span class="skill-tag">Hugging Face</span>
-                                            <span class="skill-tag">LLMs / VLMs</span>
-                                            <span class="skill-tag">RAG</span>
-                                            <span class="skill-tag">XGBoost</span>
-                                            <span class="skill-tag">CatBoost</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Data & Visualization</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">Matplotlib</span>
-                                            <span class="skill-tag">Seaborn</span>
-                                            <span class="skill-tag">Streamlit</span>
-                                            <span class="skill-tag">Tableau</span>
-                                            <span class="skill-tag">Power BI</span>
-                                            <span class="skill-tag">Excel</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Cloud & MLOps</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">AWS IoT Core</span>
-                                            <span class="skill-tag">AWS Lambda</span>
-                                            <span class="skill-tag">AWS Kinesis</span>
-                                            <span class="skill-tag">AWS SageMaker</span>
-                                            <span class="skill-tag">AWS DynamoDB</span>
-                                            <span class="skill-tag">AWS S3</span>
-                                            <span class="skill-tag">AWS KMS</span>
-                                            <span class="skill-tag">AWS CloudWatch</span>
-                                            <span class="skill-tag">Docker</span>
-                                            <span class="skill-tag">Kubernetes</span>
-                                            <span class="skill-tag">Terraform</span>
-                                            <span class="skill-tag">GitHub Actions</span>
-                                            <span class="skill-tag">Linux</span>
-                                            <span class="skill-tag">NVIDIA NIM</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Databases & Search</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">PostgreSQL</span>
-                                            <span class="skill-tag">ChromaDB</span>
-                                            <span class="skill-tag">FAISS</span>
-                                            <span class="skill-tag">FastAPI</span>
-                                            <span class="skill-tag">SQLAlchemy</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Domain Expertise</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">Multi-Agent AI</span>
-                                            <span class="skill-tag">Computer Vision</span>
-                                            <span class="skill-tag">Clinical Decision Support</span>
-                                            <span class="skill-tag">Time-Series Analysis</span>
-                                            <span class="skill-tag">sEMG Signal Processing</span>
-                                            <span class="skill-tag">Static Code Analysis</span>
-                                            <span class="skill-tag">Statistical Modeling</span>
-                                            <span class="skill-tag">Design of Experiments</span>
-                                            <span class="skill-tag">A/B Testing</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-
-                        <article id="engineering">
-                                <h2 class="major">R&D Engineering</h2>
-                                
-                                <h3>Medical Device R&D (UF Orthopedics)</h3>
-                                <div class="box alt">
-                                    <div class="row gtr-50 uniform">
-                                        <div class="col-6">
-                                            <span class="image fit"><img src="images/emg_sensor.jpg" alt="Shimmer3 Sensor" /></span>
-                                            <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em;">Shimmer3 Sensor Deployment</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="image fit"><img src="images/emg_interface.gif" alt="Python Interface Demo" /></span>
-                                            <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em;">Custom Python Data Interface</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><strong>The Challenge:</strong> Quantify gait abnormalities in stroke patients to assist rehabilitation decisions.<br />
-                                <strong>The Solution:</strong> Working under Dr. Sharareh Sharififar and Dr. Andrew Dubin to develop a data acquisition pipeline using Shimmer3 EMG sensors. I programmed Python scripts to clean and visualize raw electromyography signals, isolating muscle activation patterns during walking trials.<br />
-                                <strong>Outcome:</strong> The system currently provides real-time feedback on muscle firing rates, helping clinicians adjust physical therapy regimens.</p>
-                                
-                                <hr />
-
-                                <h3>Nanocomposite Material Research</h3>
-                                <p>
-                                    <strong>Role:</strong> Primary Author | <strong>Published:</strong> 
-                                    <a href="https://doi.org/10.1002/pc.29076" target="_blank" style="font-weight: bold; border-bottom: 1px dotted;">
-                                        Polymer Composites (DOI: 10.1002/pc.29076)
-                                    </a>
-                                </p>
-                                <div class="box alt">
-                                    <div class="row gtr-50 uniform">
-                                        <div class="col-4">
-                                            <span class="image fit"><img src="images/nano_setup.jpg" alt="Lab Setup" /></span>
-                                            <p style="text-align: center; font-size: 0.7em; color: #ccc; margin-top: -1em;">Ultrasonic Homogenization Setup</p>
-                                        </div>
-                                        <div class="col-4">
-                                            <span class="image fit"><img src="images/nano_sample.jpg" alt="Composite Sample" /></span>
-                                            <p style="text-align: center; font-size: 0.7em; color: #ccc; margin-top: -1em;">Post-Compression Test Specimens</p>
-                                        </div>
-                                        <div class="col-4">
-                                            <span class="image fit"><img src="images/nano_plot.jpg" alt="Stress Strain Data" /></span>
-                                            <p style="text-align: center; font-size: 0.7em; color: #ccc; margin-top: -1em;">Stress-Strain Analysis Results</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><strong>The Challenge:</strong> Improve the compressive strength of epoxy composites without significantly increasing weight. CNT epoxy composites have previously been mainly tested under tensile conditions.<br />
-                                <strong>The Solution:</strong> Investigated Carbon Nanotube (CNT) reinforcement strategies for both straight and helical CNTs. I developed a novel ultrasonic homogenization protocol to disperse CNTs evenly and utilized SEM/TEM microscopy to analyze the microstructural bonding.<br />
-                                <strong>Outcome:</strong> Achieved a 15-20% improvement in compressive strength. Findings were peer-reviewed and published in <em>Polymer Composites</em>.</p>
-                                
-                                <hr />
-
-                                <h3>Stony Brook Solar Racing | Propulsion Lead</h3>
-                                <div class="box alt">
-                                    <div class="row gtr-50 uniform">
-                                        <div class="col-6">
-                                            <span class="image fit"><img src="images/solar_boat.jpg" alt="Solar Boat in Action" /></span>
-                                            <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em;">Final Assembly & Propulsion Testing</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="image fit"><img src="images/solar_cad.jpg" alt="Propulsion CAD Model" /></span>
-                                            <p style="text-align: center; font-size: 0.8em; color: #ccc; margin-top: -1em;">Outboard Propulsion System CAD (Fusion 360)</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><strong>The Challenge:</strong> Design a high-efficiency propulsion system for the 2024 Solar Splash Competition, balancing weight constraints with power output.<br />
-                                <strong>The Solution:</strong> Led the mechanical design using Fusion 360 and SolidWorks. I personally machined custom drivetrain components (motor mounts, couplers) using manual mills and lathes to ensure sub-millimeter tolerance.<br />
-                                <strong>Outcome:</strong> Successfully integrated the electric motor system, allowing the vehicle to meet all competition safety and performance benchmarks.</p>
-
-                                <hr />
-
-                                <h3>Engineering Skills</h3>
-                                <div class="skill-grid">
-                                    <div class="skill-category">
-                                        <h4>CAD &amp; Simulation</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">SolidWorks</span>
-                                            <span class="skill-tag">Fusion 360</span>
-                                            <span class="skill-tag">AutoCAD</span>
-                                            <span class="skill-tag">FEA</span>
-                                            <span class="skill-tag">GD&amp;T</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Manufacturing</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">CNC Machining</span>
-                                            <span class="skill-tag">Manual Mill / Lathe</span>
-                                            <span class="skill-tag">3D Printing</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Lab &amp; Research</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">SEM / TEM Microscopy</span>
-                                            <span class="skill-tag">Instron Testing</span>
-                                            <span class="skill-tag">Circuit Analysis</span>
-                                            <span class="skill-tag">EMG / Signal Processing</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-
-                        <article id="about">
-                                <h2 class="major">About Me</h2>
-                                <span class="image main"><img src="images/headshot.jpg" alt="Soroush Saririan" /></span>
-                                
-                                <h3>The Intersection of Hardware & Intelligence</h3>
-                                <p>I am a Mechanical Engineer and Applied Data Scientist driven by a single goal: bridging the gap between physical hardware and intelligent software to improve human health. Currently, I am a Researcher at the University of Florida and an AI/ML Engineer for Raytheon, where I navigate the complex intersection of cybersecurity, generative AI, and legacy systems.</p>
-                                
-                                <h3>My Journey</h3>
-                                <p>My passion lies in medical technology. Witnessing the impact of mobility challenges on loved ones inspired me to explore how engineering can restore function and dignity. This led me to work on gait analysis for stroke patients at UF Orthopedics and to investigate advanced nanocomposites for lighter, stronger prosthetics.</p>
-                                
-                                <p>I believe the next generation of medical devices won't just be mechanical—they will be intelligent. By combining my background in rigorous hardware R&D (Solar Racing, Materials Science) with advanced Data Science (LLMs, Computer Vision), I aim to build systems that are not only robust but capable of adapting to the human body.</p>
-
-                                <h3>Education</h3>
-                                <ul>
-                                    <li><strong>University of Florida:</strong> M.S. in Applied Data Science</li>
-                                    <li><strong>Stony Brook University:</strong> B.E. Mechanical Engineering</li>
-                                    <li><strong>Certifications:</strong> Engineer in Training (EIT)</li>
-                                </ul>
-
-                                <h3>Technical Skills</h3>
-                                <style>
-                                    .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.5rem; }
-                                    .skill-category { border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 0.9rem 1.1rem; }
-                                    .skill-category h4 { font-size: 0.7em; letter-spacing: 0.14em; text-transform: uppercase; color: #888; margin: 0 0 0.55rem 0; }
-                                    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-                                    .skill-tag { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.11); border-radius: 3px; padding: 0.18rem 0.5rem; font-size: 0.76em; color: #ccc; white-space: nowrap; }
-                                    @media (max-width: 600px) { .skill-grid { grid-template-columns: 1fr; } }
-                                </style>
-                                <div class="skill-grid">
-                                    <div class="skill-category">
-                                        <h4>Languages</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">Python</span>
-                                            <span class="skill-tag">R</span>
-                                            <span class="skill-tag">SQL</span>
-                                            <span class="skill-tag">C++</span>
-                                            <span class="skill-tag">Rust</span>
-                                            <span class="skill-tag">MATLAB</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>ML & AI</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">PyTorch</span>
-                                            <span class="skill-tag">TensorFlow</span>
-                                            <span class="skill-tag">Scikit-learn</span>
-                                            <span class="skill-tag">OpenCV</span>
-                                            <span class="skill-tag">Pandas</span>
-                                            <span class="skill-tag">NumPy</span>
-                                            <span class="skill-tag">SciPy</span>
-                                            <span class="skill-tag">LangGraph</span>
-                                            <span class="skill-tag">LangChain</span>
-                                            <span class="skill-tag">LlamaIndex</span>
-                                            <span class="skill-tag">Hugging Face</span>
-                                            <span class="skill-tag">LLMs / VLMs</span>
-                                            <span class="skill-tag">RAG</span>
-                                            <span class="skill-tag">XGBoost</span>
-                                            <span class="skill-tag">CatBoost</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Data & Visualization</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">Matplotlib</span>
-                                            <span class="skill-tag">Seaborn</span>
-                                            <span class="skill-tag">Streamlit</span>
-                                            <span class="skill-tag">Tableau</span>
-                                            <span class="skill-tag">Power BI</span>
-                                            <span class="skill-tag">Excel</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Cloud & DevOps</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">AWS IoT Core</span>
-                                            <span class="skill-tag">AWS Lambda</span>
-                                            <span class="skill-tag">AWS Kinesis</span>
-                                            <span class="skill-tag">AWS SageMaker</span>
-                                            <span class="skill-tag">AWS DynamoDB</span>
-                                            <span class="skill-tag">AWS S3</span>
-                                            <span class="skill-tag">AWS KMS</span>
-                                            <span class="skill-tag">AWS CloudWatch</span>
-                                            <span class="skill-tag">Docker</span>
-                                            <span class="skill-tag">Kubernetes</span>
-                                            <span class="skill-tag">Terraform</span>
-                                            <span class="skill-tag">GitHub Actions</span>
-                                            <span class="skill-tag">Linux</span>
-                                            <span class="skill-tag">NVIDIA NIM</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Databases & Search</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">PostgreSQL</span>
-                                            <span class="skill-tag">ChromaDB</span>
-                                            <span class="skill-tag">FAISS</span>
-                                            <span class="skill-tag">FastAPI</span>
-                                            <span class="skill-tag">SQLAlchemy</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Engineering & CAD</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">SolidWorks</span>
-                                            <span class="skill-tag">Fusion 360</span>
-                                            <span class="skill-tag">AutoCAD</span>
-                                            <span class="skill-tag">FEA</span>
-                                            <span class="skill-tag">GD&T</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill-category">
-                                        <h4>Manufacturing & Research</h4>
-                                        <div class="skill-tags">
-                                            <span class="skill-tag">CNC Machining</span>
-                                            <span class="skill-tag">Mill / Lathe</span>
-                                            <span class="skill-tag">3D Printing</span>
-                                            <span class="skill-tag">SEM / TEM</span>
-                                            <span class="skill-tag">Instron Testing</span>
-                                            <span class="skill-tag">EMG / Signal Processing</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-
-                        <article id="resume">
-                                <h2 class="major">Resume</h2>
-                                <p>Select the version that best fits your team's needs:</p>
-                                <ul class="actions">
-                                    <li><a href="Soroush_Saririan_Data_Science_Resume.pdf" class="button primary" target="_blank">Download Data Science CV</a></li>
-                                    <li><a href="Soroush_Saririan_Engineering_Resume.pdf" class="button" target="_blank">Download Engineering CV</a></li>
-                                </ul>
-                            </article>
-
-                        <article id="contact">
-                                <h2 class="major">Contact</h2>
-                                <p>Interested in my work? Send me a message below or connect via LinkedIn.</p>
-                                
-                                <form method="post" action="https://formspree.io/f/xlglnogn">
-                                    <div class="fields">
-                                        <div class="field half">
-                                            <label for="name">Name</label>
-                                            <input type="text" name="name" id="name" required />
-                                        </div>
-                                        <div class="field half">
-                                            <label for="email">Email</label>
-                                            <input type="email" name="email" id="email" required />
-                                        </div>
-                                        <div class="field">
-                                            <label for="message">Message</label>
-                                            <textarea name="message" id="message" rows="4" required></textarea>
-                                        </div>
-                                    </div>
-                                    <ul class="actions">
-                                        <li><input type="submit" value="Send Message" class="primary" /></li>
-                                        <li><input type="reset" value="Clear" /></li>
-                                    </ul>
-                                    <input type="hidden" name="_next" value="https://soroushsaririan.github.io">
-                                </form>
-
-                                <div style="text-align: center; margin-top: 2rem;">
-                                    <p>Or email me directly at:<br />
-                                    <a href="mailto:saririan.s.eng@gmail.com" style="border-bottom: none; font-weight: bold; color: inherit;">saririan.s.eng@gmail.com</a></p>
-                                </div>
-
-                                <ul class="icons">
-                                    <li><a href="https://www.linkedin.com/in/soroush-saririan" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                                    <li><a href="https://github.com/soroushsaririan" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-                                </ul>
-                            </article>
-
+                <!-- Raytheon -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">AI/ML Engineering Co-op</div>
+                    <h3>Raytheon | AI/ML Engineering Intern</h3>
+                    <p class="project-meta">CONFIDENTIAL / NDA PROTECTED</p>
+                    <p><strong>Focus: LLMs, C++/Rust, DARPA Cyber Grand Challenge</strong><br/>
+                    Integrating Large Language Models into Cyber Reasoning Systems to analyze and patch legacy Ada code. Translating critical systems into memory-safe C++ and Rust, managing a 900+ hour engineering effort to modernize defense software infrastructure.</p>
+                    <div class="project-stack">
+                        <span class="stack-tag">LLMs</span>
+                        <span class="stack-tag">C++</span>
+                        <span class="stack-tag">Rust</span>
+                        <span class="stack-tag">Static Analysis</span>
+                        <span class="stack-tag">DARPA CyberGC</span>
                     </div>
+                </div>
 
-                <footer id="footer">
-                        <p class="copyright" style="font-size:0.45rem; opacity:0.25; letter-spacing:0.05rem;">&copy; Soroush Saririan. Design: <a href="https://html5up.net" style="border-bottom:none;">HTML5 UP</a>.</p>
-                    </footer>
+                <!-- SymptaAI -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">Multi-Agent AI · Full-Stack</div>
+                    <h3>SymptaAI | Clinical AI Decision Support Platform</h3>
+                    <div class="project-media">
+                        <video autoplay loop muted playsinline>
+                            <source src="images/symptaai_demo.mp4" type="video/mp4" />
+                            <img src="images/synapptaie.gif" alt="SymptaAI Demo" />
+                        </video>
+                        <a href="https://github.com/soroushsaririan/SymptaAI" target="_blank" class="project-media-overlay">
+                            <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
+                        </a>
+                    </div>
+                    <p class="project-caption">Multi-Agent Clinical AI Pipeline — Live Agent Reasoning</p>
+                    <p><strong>The Challenge:</strong> Physicians must rapidly synthesize lab results, records, and symptoms — information overload that drives diagnostic errors.<br/>
+                    <strong>The Solution:</strong> 8-agent LangGraph pipeline covering intake, record summarization, symptom analysis, lab interpretation, drug interaction checking, differential diagnosis, and care plan generation. FastAPI backend with JWT auth and real-time SSE streaming.</p>
+                    <ul>
+                        <li>Parallel agent execution with state accumulation across the pipeline</li>
+                        <li>Drug interaction checking, lab interpretation with critical value flagging</li>
+                        <li>ICD-10 coded differentials + prioritized care plan in under 2 minutes</li>
+                    </ul>
+                    <div class="project-stack">
+                        <span class="stack-tag">LangGraph</span>
+                        <span class="stack-tag">FastAPI</span>
+                        <span class="stack-tag">Next.js</span>
+                        <span class="stack-tag">NVIDIA NIM</span>
+                        <span class="stack-tag">JWT</span>
+                        <span class="stack-tag">SSE</span>
+                        <span class="stack-tag">PostgreSQL</span>
+                    </div>
+                </div>
+
+                <!-- medxplAIn -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">Medical Imaging · Deep Learning</div>
+                    <h3>medxplAIn | 3D Liver Tumor Segmentation</h3>
+                    <div class="project-media">
+                        <img src="images/medxplain_structure.jpg" alt="U-Net Architecture" />
+                        <a href="https://github.com/soroushsaririan/medxplAin-DR" target="_blank" class="project-media-overlay">
+                            <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
+                        </a>
+                    </div>
+                    <p class="project-caption">U-Net Architecture &amp; Project Directory</p>
+                    <p><strong>The Challenge:</strong> Manual liver segmentation for radiation therapy planning is subjective and time-consuming.<br/>
+                    <strong>The Solution:</strong> End-to-end PyTorch pipeline using a 3D U-Net architecture to automate liver and tumor segmentation from 3D CT volumes. Reduces segmentation from hours to minutes while standardizing diagnostic outputs.</p>
+                    <div class="project-stack">
+                        <span class="stack-tag">PyTorch</span>
+                        <span class="stack-tag">3D U-Net</span>
+                        <span class="stack-tag">Medical Imaging</span>
+                        <span class="stack-tag">Python</span>
+                    </div>
+                </div>
+
+                <!-- Skin Allergen -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">Computer Vision · Clinical</div>
+                    <h3>Skin Allergen Computer Vision</h3>
+                    <p class="project-meta confidential-tag">PRIVATE PROJECT</p>
+                    <p><strong>Focus: OpenCV, Python, Ensemble ML</strong><br/>
+                    Automated diagnostic pipeline using OpenCV and Random Forest models to analyze skin prick tests. Processes 500+ clinical images with &gt;90% correlation to clinician scoring, reducing diagnosis time from 5 minutes to 45 seconds per patient.</p>
+                    <div class="project-stack">
+                        <span class="stack-tag">OpenCV</span>
+                        <span class="stack-tag">Random Forest</span>
+                        <span class="stack-tag">Python</span>
+                    </div>
+                </div>
+
+            </div><!-- /col 1 -->
+            <div class="projects-col">
+
+                <!-- VitalStream -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">MLOps · Healthcare · AWS</div>
+                    <h3>VitalStream | Serverless Real-Time Patient Telemetry Pipeline</h3>
+                    <div class="project-media">
+                        <video autoplay loop muted playsinline>
+                            <source src="images/vitalstream_demo.mp4" type="video/mp4" />
+                            <img src="images/vitalstream_aws.png" alt="VitalStream AWS Infrastructure" />
+                        </video>
+                        <a href="https://github.com/soroushsaririan/VitalStream" target="_blank" class="project-media-overlay">
+                            <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
+                        </a>
+                    </div>
+                    <p class="project-caption">Live AWS Deployment — 7 VPC PrivateLink Endpoints, HIPAA-Aligned Architecture</p>
+                    <p><strong>The Challenge:</strong> High-frequency physiological data (ECG at 500 Hz, sEMG at 2000 Hz) must be processed in near real-time — with zero data loss, strict PHI isolation, and clinical-grade audit trails.<br/>
+                    <strong>The Solution:</strong> Fully serverless pipeline on AWS. IoT Core → Kinesis → Lambda (DSP + HRV) → SageMaker 1D-CNN + BiLSTM ensemble → DynamoDB with alert routing. Terraform-provisioned 3-AZ VPC, customer-managed KMS CMKs, S3 Object Lock for 7-year HIPAA retention.</p>
+                    <ul>
+                        <li>1D-CNN + BiLSTM with Focal Loss for arrhythmia detection (AFIB, VT, STEMI)</li>
+                        <li>Blue/green SageMaker deployment with automatic CloudWatch rollback</li>
+                        <li>34 passing tests — unit + integration (moto-emulated DDB, partial-batch failure)</li>
+                    </ul>
+                    <div class="project-stack">
+                        <span class="stack-tag">PyTorch</span>
+                        <span class="stack-tag">AWS Lambda</span>
+                        <span class="stack-tag">Kinesis</span>
+                        <span class="stack-tag">DynamoDB</span>
+                        <span class="stack-tag">SageMaker</span>
+                        <span class="stack-tag">Terraform</span>
+                        <span class="stack-tag">GitHub Actions</span>
+                    </div>
+                </div>
+
+                <!-- RetinAI -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">Computer Vision · Healthcare</div>
+                    <h3>RetinAI | Diabetic Retinopathy Screening</h3>
+                    <div class="project-media">
+                        <img src="images/retinai_demo.gif" alt="RetinAI Demo" />
+                        <a href="https://github.com/soroushsaririan/RetinAI" target="_blank" class="project-media-overlay">
+                            <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
+                        </a>
+                    </div>
+                    <p class="project-caption">Vision Language Model (VLM) Analysis Pipeline</p>
+                    <p><strong>The Challenge:</strong> Diabetic retinopathy is a leading cause of blindness, yet early detection remains inaccessible in underserved communities.<br/>
+                    <strong>The Solution:</strong> Accessible screening tool using Vision Language Models to analyze retinal images and automatically flag retinopathy symptoms with high precision. Designed to assist healthcare providers in resource-limited settings.</p>
+                    <div class="project-stack">
+                        <span class="stack-tag">VLMs</span>
+                        <span class="stack-tag">OpenCV</span>
+                        <span class="stack-tag">Python</span>
+                    </div>
+                </div>
+
+                <!-- Laser Bending -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">Predictive Modeling · ML</div>
+                    <h3>Laser Metal Bending | Predictive Modeling</h3>
+                    <div class="project-media">
+                        <img src="images/laser_interface.jpg" alt="Laser Interface" />
+                        <div class="project-media-overlay" style="cursor:default;">
+                            <span class="overlay-github-btn" style="opacity:0.5;cursor:default;">Private Project</span>
+                        </div>
+                    </div>
+                    <p class="project-caption">Ensemble Regression Analysis</p>
+                    <p><strong>The Challenge:</strong> Achieving precise control of metal deformation requires accurate modeling of complex thermal-mechanical interactions.<br/>
+                    <strong>The Solution:</strong> Comparative framework using 16 algorithms — Ensemble Models (Voting, Stacking, Gradient Boosting), SVMs, and Neural Networks — to predict deformation angles and validate experimental data against simulations.</p>
+                    <div class="project-stack">
+                        <span class="stack-tag">XGBoost</span>
+                        <span class="stack-tag">CatBoost</span>
+                        <span class="stack-tag">Scikit-learn</span>
+                        <span class="stack-tag">RandomForest</span>
+                        <span class="stack-tag">SVM</span>
+                    </div>
+                </div>
+
+            </div><!-- /col 2 -->
+            </div><!-- /projects-grid -->
+
+            <div class="section-divider reveal-el"></div>
+
+            <!-- DS Skills -->
+            <p class="section-label reveal-el">Toolkit</p>
+            <h3 style="font-family:'Outfit',sans-serif;font-weight:300;font-size:1.3rem;color:rgba(255,255,255,0.85);margin-bottom:0;" class="reveal-el">Technical Skills</h3>
+            <div class="skill-grid">
+                <div class="skill-category reveal-el">
+                    <h4>Languages</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Rust</span>
+                        <span class="skill-tag">MATLAB</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>ML &amp; AI</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">SciPy</span>
+                        <span class="skill-tag">LangGraph</span>
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">LlamaIndex</span>
+                        <span class="skill-tag">Hugging Face</span>
+                        <span class="skill-tag">LLMs / VLMs</span>
+                        <span class="skill-tag">RAG</span>
+                        <span class="skill-tag">XGBoost</span>
+                        <span class="skill-tag">CatBoost</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Data &amp; Visualization</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Streamlit</span>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Excel</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Cloud &amp; MLOps</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS IoT Core</span>
+                        <span class="skill-tag">AWS Lambda</span>
+                        <span class="skill-tag">AWS Kinesis</span>
+                        <span class="skill-tag">AWS SageMaker</span>
+                        <span class="skill-tag">AWS DynamoDB</span>
+                        <span class="skill-tag">AWS S3</span>
+                        <span class="skill-tag">AWS KMS</span>
+                        <span class="skill-tag">AWS CloudWatch</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">Terraform</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">NVIDIA NIM</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Databases &amp; Search</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">ChromaDB</span>
+                        <span class="skill-tag">FAISS</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">SQLAlchemy</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Domain Expertise</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Multi-Agent AI</span>
+                        <span class="skill-tag">Computer Vision</span>
+                        <span class="skill-tag">Clinical Decision Support</span>
+                        <span class="skill-tag">Time-Series Analysis</span>
+                        <span class="skill-tag">sEMG Signal Processing</span>
+                        <span class="skill-tag">Static Code Analysis</span>
+                        <span class="skill-tag">Statistical Modeling</span>
+                        <span class="skill-tag">Design of Experiments</span>
+                        <span class="skill-tag">A/B Testing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ENGINEERING ════════════════════════════════════════ -->
+    <section id="engineering" style="background:rgba(56,189,248,0.012);">
+        <div class="section-container">
+            <p class="section-label reveal-el">Research &amp; Hardware</p>
+            <h2 class="section-title reveal-el">R&amp;D Engineering</h2>
+            <p class="section-intro reveal-el">From nanocomposites to medical devices — bridging physical hardware with data-driven analysis.</p>
+
+            <div class="projects-grid">
+
+                <!-- UF Orthopedics -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">Medical Device R&amp;D</div>
+                    <h3>Medical Device R&amp;D — UF Orthopedics</h3>
+                    <div class="img-gallery-2">
+                        <figure>
+                            <img src="images/emg_sensor.jpg" alt="Shimmer3 Sensor" />
+                            <figcaption>Shimmer3 Sensor Deployment</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="images/emg_interface.gif" alt="Python Interface Demo" />
+                            <figcaption>Custom Python Data Interface</figcaption>
+                        </figure>
+                    </div>
+                    <p><strong>The Challenge:</strong> Quantify gait abnormalities in stroke patients to assist rehabilitation decisions.<br/>
+                    <strong>The Solution:</strong> Working under Dr. Sharareh Sharififar and Dr. Andrew Dubin to develop a data acquisition pipeline using Shimmer3 EMG sensors. Programmed Python scripts to clean and visualize raw electromyography signals, isolating muscle activation patterns during walking trials.<br/>
+                    <strong>Outcome:</strong> Real-time feedback on muscle firing rates, helping clinicians adjust physical therapy regimens.</p>
+                    <div class="project-stack">
+                        <span class="stack-tag">Python</span>
+                        <span class="stack-tag">EMG</span>
+                        <span class="stack-tag">Signal Processing</span>
+                        <span class="stack-tag">Shimmer3</span>
+                    </div>
+                </div>
+
+                <!-- Nanocomposite -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">Published Research</div>
+                    <h3>Nanocomposite Material Research</h3>
+                    <p style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-bottom:0.8rem;">
+                        <strong>Role:</strong> Primary Author &nbsp;|&nbsp;
+                        <a href="https://doi.org/10.1002/pc.29076" target="_blank" style="color:var(--accent);border-bottom:1px dotted rgba(56,189,248,0.4);">Polymer Composites (DOI: 10.1002/pc.29076)</a>
+                    </p>
+                    <div class="img-gallery-3">
+                        <figure>
+                            <img src="images/nano_setup.jpg" alt="Lab Setup" />
+                            <figcaption>Ultrasonic Homogenization</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="images/nano_sample.jpg" alt="Composite Sample" />
+                            <figcaption>Post-Compression Specimens</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="images/nano_plot.jpg" alt="Stress Strain Data" />
+                            <figcaption>Stress-Strain Results</figcaption>
+                        </figure>
+                    </div>
+                    <p><strong>The Challenge:</strong> Improve compressive strength of epoxy composites without increasing weight. CNT epoxy composites had been mainly tested under tensile conditions.<br/>
+                    <strong>The Solution:</strong> Investigated Carbon Nanotube reinforcement for straight and helical CNTs. Developed novel ultrasonic homogenization protocol; utilized SEM/TEM microscopy for microstructural analysis.<br/>
+                    <strong>Outcome:</strong> 15–20% improvement in compressive strength. Findings peer-reviewed and published in <em>Polymer Composites</em>.</p>
+                    <div class="project-stack">
+                        <span class="stack-tag">Materials Science</span>
+                        <span class="stack-tag">CNT</span>
+                        <span class="stack-tag">SEM/TEM</span>
+                        <span class="stack-tag">Instron</span>
+                        <span class="stack-tag">Python</span>
+                    </div>
+                </div>
+
+                <!-- Solar Racing -->
+                <div class="project-card reveal-el">
+                    <div class="project-badge">Propulsion Lead · Competition</div>
+                    <h3>Stony Brook Solar Racing | Propulsion Lead</h3>
+                    <div class="img-gallery-2">
+                        <figure>
+                            <img src="images/solar_boat.jpg" alt="Solar Boat" />
+                            <figcaption>Final Assembly &amp; Propulsion Testing</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="images/solar_cad.jpg" alt="Propulsion CAD" />
+                            <figcaption>Outboard System CAD (Fusion 360)</figcaption>
+                        </figure>
+                    </div>
+                    <p><strong>The Challenge:</strong> Design a high-efficiency propulsion system for the 2024 Solar Splash Competition, balancing weight constraints with power output.<br/>
+                    <strong>The Solution:</strong> Led mechanical design using Fusion 360 and SolidWorks. Personally machined custom drivetrain components (motor mounts, couplers) using manual mills and lathes to ensure sub-millimeter tolerance.<br/>
+                    <strong>Outcome:</strong> Successfully integrated the electric motor system, meeting all competition safety and performance benchmarks.</p>
+                    <div class="project-stack">
+                        <span class="stack-tag">Fusion 360</span>
+                        <span class="stack-tag">SolidWorks</span>
+                        <span class="stack-tag">CNC Machining</span>
+                        <span class="stack-tag">Manual Mill/Lathe</span>
+                    </div>
+                </div>
 
             </div>
 
-        <div id="bg"></div>
-        <canvas id="particles-canvas"></canvas>
+            <div class="section-divider reveal-el"></div>
 
-        <script>
-            (function() {
-                var canvas = document.getElementById('particles-canvas');
-                var ctx = canvas.getContext('2d');
-                var W, H, particles = [];
-                var PARTICLE_COUNT = 55;
-                var ACCENT = { r: 56, g: 189, b: 248 };
+            <p class="section-label reveal-el">Toolkit</p>
+            <h3 style="font-family:'Outfit',sans-serif;font-weight:300;font-size:1.3rem;color:rgba(255,255,255,0.85);margin-bottom:0;" class="reveal-el">Engineering Skills</h3>
+            <div class="skill-grid" style="grid-template-columns:repeat(3,1fr);">
+                <div class="skill-category reveal-el">
+                    <h4>CAD &amp; Simulation</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SolidWorks</span>
+                        <span class="skill-tag">Fusion 360</span>
+                        <span class="skill-tag">AutoCAD</span>
+                        <span class="skill-tag">FEA</span>
+                        <span class="skill-tag">GD&amp;T</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Manufacturing</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">CNC Machining</span>
+                        <span class="skill-tag">Manual Mill / Lathe</span>
+                        <span class="skill-tag">3D Printing</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Lab &amp; Research</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SEM / TEM Microscopy</span>
+                        <span class="skill-tag">Instron Testing</span>
+                        <span class="skill-tag">Circuit Analysis</span>
+                        <span class="skill-tag">EMG / Signal Processing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                function resize() {
-                    W = canvas.width  = window.innerWidth;
-                    H = canvas.height = window.innerHeight;
-                }
-                window.addEventListener('resize', resize);
-                resize();
+    <!-- ═══ ABOUT ═══════════════════════════════════════════════ -->
+    <section id="about">
+        <div class="section-container">
+            <p class="section-label reveal-el">Background</p>
+            <h2 class="section-title reveal-el">About Me</h2>
 
-                for (var i = 0; i < PARTICLE_COUNT; i++) {
-                    particles.push({
-                        x: Math.random() * W,
-                        y: Math.random() * H,
-                        r: Math.random() * 1.4 + 0.3,
-                        vx: (Math.random() - 0.5) * 0.18,
-                        vy: (Math.random() - 0.5) * 0.18,
-                        a: Math.random() * 0.35 + 0.08
-                    });
-                }
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3 class="reveal-el">The Intersection of Hardware &amp; Intelligence</h3>
+                    <p class="reveal-el">I am a Mechanical Engineer and Applied Data Scientist driven by a single goal: bridging the gap between physical hardware and intelligent software to improve human health. Currently a Researcher at the University of Florida and AI/ML Engineer for Raytheon, navigating the complex intersection of cybersecurity, generative AI, and legacy systems.</p>
 
-                function draw() {
-                    ctx.clearRect(0, 0, W, H);
-                    for (var i = 0; i < particles.length; i++) {
-                        var p = particles[i];
-                        p.x += p.vx; p.y += p.vy;
-                        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-                        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-                        ctx.beginPath();
-                        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(' + ACCENT.r + ',' + ACCENT.g + ',' + ACCENT.b + ',' + p.a + ')';
-                        ctx.fill();
+                    <h3 class="reveal-el">My Journey</h3>
+                    <p class="reveal-el">My passion lies in medical technology. Witnessing the impact of mobility challenges on loved ones inspired me to explore how engineering can restore function and dignity. This led me to work on gait analysis for stroke patients at UF Orthopedics and to investigate advanced nanocomposites for lighter, stronger prosthetics.</p>
+                    <p class="reveal-el">I believe the next generation of medical devices won't just be mechanical — they will be intelligent. By combining my background in rigorous hardware R&amp;D (Solar Racing, Materials Science) with advanced Data Science (LLMs, Computer Vision), I aim to build systems that are not only robust but capable of adapting to the human body.</p>
 
-                        // draw connecting lines to nearby particles
-                        for (var j = i + 1; j < particles.length; j++) {
-                            var q = particles[j];
-                            var dx = p.x - q.x, dy = p.y - q.y;
-                            var dist = Math.sqrt(dx*dx + dy*dy);
-                            if (dist < 120) {
-                                ctx.beginPath();
-                                ctx.moveTo(p.x, p.y);
-                                ctx.lineTo(q.x, q.y);
-                                ctx.strokeStyle = 'rgba(' + ACCENT.r + ',' + ACCENT.g + ',' + ACCENT.b + ',' + (0.06 * (1 - dist/120)) + ')';
-                                ctx.lineWidth = 0.6;
-                                ctx.stroke();
-                            }
-                        }
-                    }
-                    requestAnimationFrame(draw);
-                }
-                draw();
-            })();
-        </script>
+                    <h3 class="reveal-el">Education</h3>
+                    <ul class="reveal-el">
+                        <li><strong>University of Florida:</strong> M.S. in Applied Data Science</li>
+                        <li><strong>Stony Brook University:</strong> B.E. Mechanical Engineering</li>
+                        <li><strong>Certifications:</strong> Engineer in Training (EIT)</li>
+                    </ul>
+                </div>
+                <div class="about-photo reveal-el">
+                    <img src="images/headshot.jpg" alt="Soroush Saririan" class="about-photo-img" />
+                </div>
+            </div>
 
-        <button id="back-to-top" aria-label="Scroll to top">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="18 15 12 9 6 15"></polyline>
-            </svg>
-        </button>
+            <div class="section-divider reveal-el"></div>
 
-        <script src="assets/js/jquery.min.js"></script>
-            <script src="assets/js/browser.min.js"></script>
-            <script src="assets/js/breakpoints.min.js"></script>
-            <script src="assets/js/util.js"></script>
-            <script src="assets/js/main.js"></script>
+            <!-- Full skills grid in About -->
+            <p class="section-label reveal-el">Full Skillset</p>
+            <div class="skill-grid">
+                <div class="skill-category reveal-el">
+                    <h4>Languages</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span><span class="skill-tag">R</span>
+                        <span class="skill-tag">SQL</span><span class="skill-tag">C++</span>
+                        <span class="skill-tag">Rust</span><span class="skill-tag">MATLAB</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>ML &amp; AI</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">Scikit-learn</span><span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">LangGraph</span><span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">LlamaIndex</span><span class="skill-tag">Hugging Face</span>
+                        <span class="skill-tag">LLMs / VLMs</span><span class="skill-tag">RAG</span>
+                        <span class="skill-tag">XGBoost</span><span class="skill-tag">CatBoost</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Cloud &amp; DevOps</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS IoT Core</span><span class="skill-tag">AWS Lambda</span>
+                        <span class="skill-tag">AWS Kinesis</span><span class="skill-tag">AWS SageMaker</span>
+                        <span class="skill-tag">AWS DynamoDB</span><span class="skill-tag">AWS S3</span>
+                        <span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">Terraform</span><span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">NVIDIA NIM</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Data &amp; Visualization</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Streamlit</span><span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Power BI</span><span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">PostgreSQL</span><span class="skill-tag">ChromaDB</span>
+                        <span class="skill-tag">FAISS</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Engineering &amp; CAD</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SolidWorks</span><span class="skill-tag">Fusion 360</span>
+                        <span class="skill-tag">AutoCAD</span><span class="skill-tag">FEA</span>
+                        <span class="skill-tag">GD&amp;T</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal-el">
+                    <h4>Manufacturing &amp; Research</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">CNC Machining</span><span class="skill-tag">Mill / Lathe</span>
+                        <span class="skill-tag">3D Printing</span><span class="skill-tag">SEM / TEM</span>
+                        <span class="skill-tag">Instron Testing</span><span class="skill-tag">EMG / Signal Processing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <script>
-        /* ── Page loader ────────────────────────────────── */
-        (function () {
-            var loader = document.getElementById('page-loader');
-            if (!loader) return;
-            setTimeout(function () { loader.classList.add('hidden'); }, 1050);
-        })();
+    <!-- ═══ RESUME ══════════════════════════════════════════════ -->
+    <section id="resume" style="background:rgba(56,189,248,0.012);">
+        <div class="section-container">
+            <p class="section-label reveal-el">Downloads</p>
+            <h2 class="section-title reveal-el">Resume</h2>
+            <p class="resume-desc reveal-el">Select the version that best fits your team's needs. Both are up to date.</p>
+            <div class="resume-actions reveal-el">
+                <a href="Soroush_Saririan_Data_Science_Resume.pdf" class="btn-primary" target="_blank">
+                    <i class="fas fa-download" style="margin-right:0.5rem;"></i>Data Science CV
+                </a>
+                <a href="Soroush_Saririan_Engineering_Resume.pdf" class="btn-outline" target="_blank">
+                    <i class="fas fa-download" style="margin-right:0.5rem;"></i>Engineering CV
+                </a>
+            </div>
+        </div>
+    </section>
 
-        /* ── Scroll progress bar ────────────────────────── */
-        (function () {
-            var bar = document.getElementById('scroll-progress');
-            if (!bar) return;
-            window.addEventListener('scroll', function () {
-                var st = document.documentElement.scrollTop || document.body.scrollTop;
-                var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                bar.style.width = (sh > 0 ? (st / sh) * 100 : 0) + '%';
-            }, { passive: true });
-        })();
+    <!-- ═══ CONTACT ══════════════════════════════════════════════ -->
+    <section id="contact">
+        <div class="section-container">
+            <p class="section-label reveal-el">Get in Touch</p>
+            <h2 class="section-title reveal-el">Contact</h2>
 
-        /* ── Typing animation ───────────────────────────── */
-        (function () {
-            var el = document.getElementById('typed-role');
-            if (!el) return;
-            var roles = ['Multi-Agent AI', 'Computer Vision', 'Clinical AI Systems', 'AWS MLOps', 'LLMs & RAG', 'sEMG Signal Processing'];
-            var ri = 0, ci = 0, deleting = false;
-            function tick() {
-                var cur = roles[ri];
-                el.textContent = deleting ? cur.slice(0, ci--) : cur.slice(0, ci++);
-                var delay = deleting ? 38 : 72;
-                if (!deleting && ci > cur.length)  { delay = 2200; deleting = true; ci = cur.length; }
-                if ( deleting && ci < 0)            { deleting = false; ci = 0; ri = (ri + 1) % roles.length; delay = 300; }
-                setTimeout(tick, delay);
+            <div class="contact-grid">
+                <div>
+                    <div class="contact-info reveal-el">
+                        <h3>Let's Connect</h3>
+                        <p>Interested in my work or have an opportunity to discuss? Send me a message or reach out directly via LinkedIn.</p>
+                    </div>
+                    <div class="contact-links reveal-el">
+                        <a href="mailto:saririan.s.eng@gmail.com" class="contact-link-item">
+                            <i class="fas fa-envelope"></i>
+                            saririan.s.eng@gmail.com
+                        </a>
+                        <a href="https://www.linkedin.com/in/soroush-saririan" target="_blank" class="contact-link-item">
+                            <i class="fab fa-linkedin"></i>
+                            linkedin.com/in/soroush-saririan
+                        </a>
+                        <a href="https://github.com/soroushsaririan" target="_blank" class="contact-link-item">
+                            <i class="fab fa-github"></i>
+                            github.com/soroushsaririan
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact-form reveal-el" method="post" action="https://formspree.io/f/xlglnogn">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="btn-primary">Send Message</button>
+                        <button type="reset" class="btn-reset">Clear</button>
+                    </div>
+                    <input type="hidden" name="_next" value="https://soroushsaririan.github.io" />
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Soroush Saririan</p>
+    </footer>
+
+</div><!-- /site-wrapper -->
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" aria-label="Scroll to top">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+</button>
+
+<!-- ═══ SCRIPTS ════════════════════════════════════════════════ -->
+
+<!-- Particles + Stars -->
+<script>
+(function () {
+    var canvas = document.getElementById('particles-canvas');
+    var ctx    = canvas.getContext('2d');
+    var W, H;
+    var ACCENT = {r:56, g:189, b:248};
+
+    /* ── star colours: white, warm-white, ice-blue, lavender ── */
+    var STAR_COLORS = [
+        [255,255,255],
+        [255,245,220],
+        [180,220,255],
+        [210,190,255]
+    ];
+
+    function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    /* ── stars ─────────────────────────────────────────────── */
+    var FLARE_COLOR = [255, 245, 190]; /* warm gold-white */
+
+    var STAR_COUNT = 210;
+    var stars = [];
+    for (var i = 0; i < STAR_COUNT; i++) {
+        var col    = STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)];
+        var flare  = i < 3;   /* first 3 = full lens-flare stars */
+        var bright = !flare && i < 18; /* next 15 = small cross-glow stars */
+        stars.push({
+            x:  Math.random() * W,
+            y:  Math.random() * H,
+            r:  flare  ? Math.random() * 0.6 + 1.4
+              : bright ? Math.random() * 0.8 + 1.0
+              :          Math.random() * 0.8 + 0.15,
+            col: flare ? FLARE_COLOR : col,
+            flare:  flare,
+            bright: bright,
+            baseA:  flare  ? Math.random() * 0.15 + 0.75
+                  : bright ? Math.random() * 0.2  + 0.55
+                  :          Math.random() * 0.32 + 0.08,
+            flickHz:    Math.random() * 0.0004 + 0.00007,
+            phase:      Math.random() * Math.PI * 2,
+            crossPhase: Math.random() * Math.PI * 2,
+            crossHz:    Math.random() * 0.00016 + 0.00005,
+            /* flare arm sizes */
+            vLen: Math.random() * 12 + 22, /* vertical arm  22–34px */
+            hLen: Math.random() * 7  + 12, /* horizontal arm 12–19px */
+            twinkleIn:  Math.floor(Math.random() * 600 + 120),
+            twinkleAge: 0,
+            twinkleLen: Math.floor(Math.random() * 40 + 25)
+        });
+    }
+
+    /* ── network particles ──────────────────────────────────── */
+    var NET_COUNT = 45;
+    var particles = [];
+    for (var i = 0; i < NET_COUNT; i++) {
+        particles.push({
+            x:  Math.random() * W, y:  Math.random() * H,
+            r:  Math.random() * 1.2 + 0.3,
+            vx: (Math.random() - 0.5) * 0.16,
+            vy: (Math.random() - 0.5) * 0.16,
+            a:  Math.random() * 0.28 + 0.06
+        });
+    }
+
+    var frame = 0;
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        frame++;
+
+        /* ── draw stars ─────────────────────────────────────── */
+        for (var i = 0; i < stars.length; i++) {
+            var s = stars[i];
+
+            /* gentle sine flicker */
+            var flicker = Math.sin(frame * s.flickHz * 55 + s.phase) * 0.5 + 0.5;
+            var a = s.baseA * (0.35 + flicker * 0.65);
+
+            /* occasional twinkle burst */
+            s.twinkleIn--;
+            if (s.twinkleIn <= 0 && s.twinkleAge === 0) {
+                s.twinkleAge = s.twinkleLen;
+                s.twinkleIn  = Math.floor(Math.random() * 700 + 200);
             }
-            setTimeout(tick, 1300);
-        })();
-
-        /* ── Custom cursor ──────────────────────────────── */
-        (function () {
-            if (!window.matchMedia('(hover: hover)').matches) return;
-            var dot  = document.createElement('div'); dot.className  = 'cursor-dot';
-            var ring = document.createElement('div'); ring.className = 'cursor-ring';
-            document.body.appendChild(dot);
-            document.body.appendChild(ring);
-
-            var mx = -200, my = -200, rx = -200, ry = -200;
-            document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; });
-
-            var hoverSel = 'a, button, .skill-category, .image.fit, nav ul li a';
-            document.addEventListener('mouseover', function (e) {
-                if (e.target.closest(hoverSel)) document.body.classList.add('cursor-hover');
-            });
-            document.addEventListener('mouseout', function (e) {
-                if (e.target.closest(hoverSel)) document.body.classList.remove('cursor-hover');
-            });
-
-            (function loop() {
-                dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
-                rx += (mx - rx) * 0.14;      ry += (my - ry) * 0.14;
-                ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-                requestAnimationFrame(loop);
-            })();
-        })();
-
-        /* ── Mouse glow ─────────────────────────────────── */
-        (function () {
-            if (!window.matchMedia('(hover: hover)').matches) return;
-            var glow = document.getElementById('mouse-glow');
-            if (!glow) return;
-            var gx = -300, gy = -300;
-            document.addEventListener('mousemove', function (e) {
-                gx += (e.clientX - gx) * 0.1;
-                gy += (e.clientY - gy) * 0.1;
-            });
-            (function loop() {
-                glow.style.left = gx + 'px';
-                glow.style.top  = gy + 'px';
-                requestAnimationFrame(loop);
-            })();
-        })();
-
-        /* ── Back to top ────────────────────────────────── */
-        (function () {
-            var btn = document.getElementById('back-to-top');
-            if (!btn) return;
-
-            function getActiveArticle() {
-                return document.querySelector('#main article[style*="display: block"]') ||
-                       document.querySelector('#main article.active');
+            if (s.twinkleAge > 0) {
+                /* smooth bell curve: rises then falls */
+                var t  = 1 - s.twinkleAge / s.twinkleLen;
+                var env = Math.sin(t * Math.PI);
+                a = Math.min(0.95, a + env * 0.72);
+                /* tiny cross-spike on peak */
+                if (env > 0.6 && s.r > 0.5) {
+                    var spike = (env - 0.6) / 0.4 * 3.5;
+                    ctx.strokeStyle = 'rgba('+s.col[0]+','+s.col[1]+','+s.col[2]+','+(a*0.35)+')';
+                    ctx.lineWidth   = 0.4;
+                    ctx.beginPath();
+                    ctx.moveTo(s.x - spike, s.y); ctx.lineTo(s.x + spike, s.y);
+                    ctx.moveTo(s.x, s.y - spike); ctx.lineTo(s.x, s.y + spike);
+                    ctx.stroke();
+                }
+                s.twinkleAge--;
             }
 
-            // Watch article scroll
-            document.querySelectorAll('#main article').forEach(function (art) {
-                art.addEventListener('scroll', function () {
-                    btn.classList.toggle('visible', art.scrollTop > 280);
-                });
-            });
+            /* persistent cross glow for bright stars */
+            if (s.bright) {
+                var crossPulse = Math.sin(frame * s.crossHz * 55 + s.crossPhase) * 0.5 + 0.5;
+                var armLen     = s.r * (3.5 + crossPulse * 3.5); /* 3.5–7× radius */
+                var armAlpha   = a * (0.18 + crossPulse * 0.22);
+                /* main arms */
+                ctx.save();
+                ctx.strokeStyle = 'rgba('+s.col[0]+','+s.col[1]+','+s.col[2]+','+armAlpha+')';
+                ctx.lineWidth   = 0.55;
+                ctx.lineCap     = 'round';
+                ctx.beginPath();
+                ctx.moveTo(s.x - armLen, s.y); ctx.lineTo(s.x + armLen, s.y);
+                ctx.moveTo(s.x, s.y - armLen); ctx.lineTo(s.x, s.y + armLen);
+                ctx.stroke();
+                /* diagonal arms (45°) — shorter */
+                var diagLen   = armLen * 0.45;
+                var diagAlpha = armAlpha * 0.5;
+                ctx.strokeStyle = 'rgba('+s.col[0]+','+s.col[1]+','+s.col[2]+','+diagAlpha+')';
+                ctx.lineWidth   = 0.35;
+                ctx.beginPath();
+                ctx.moveTo(s.x - diagLen, s.y - diagLen); ctx.lineTo(s.x + diagLen, s.y + diagLen);
+                ctx.moveTo(s.x + diagLen, s.y - diagLen); ctx.lineTo(s.x - diagLen, s.y + diagLen);
+                ctx.stroke();
+                ctx.restore();
+            }
 
-            // Hide when no article is open
-            var bodyObserver = new MutationObserver(function () {
-                if (!document.body.classList.contains('is-article-visible')) {
-                    btn.classList.remove('visible');
+            /* ── lens-flare stars ───────────────────────────── */
+            if (s.flare) {
+                var pulse = Math.sin(frame * s.crossHz * 55 + s.crossPhase) * 0.5 + 0.5;
+                var vL    = s.vLen * (0.78 + pulse * 0.22);
+                var hL    = s.hLen * (0.78 + pulse * 0.22);
+                var wV    = 1.6;  /* half-width of vertical diamond */
+                var wH    = 1.1;  /* half-width of horizontal diamond */
+                var col   = s.col[0]+','+s.col[1]+','+s.col[2];
+                ctx.save();
+                ctx.translate(s.x, s.y);
+
+                /* vertical arm — elongated diamond */
+                var gv = ctx.createLinearGradient(0, -vL, 0, vL);
+                gv.addColorStop(0,    'rgba('+col+',0)');
+                gv.addColorStop(0.40, 'rgba('+col+','+(a * 0.42)+')');
+                gv.addColorStop(0.50, 'rgba('+col+','+a+')');
+                gv.addColorStop(0.60, 'rgba('+col+','+(a * 0.42)+')');
+                gv.addColorStop(1,    'rgba('+col+',0)');
+                ctx.fillStyle = gv;
+                ctx.beginPath();
+                ctx.moveTo(0, -vL); ctx.lineTo(wV, 0); ctx.lineTo(0, vL); ctx.lineTo(-wV, 0);
+                ctx.closePath(); ctx.fill();
+
+                /* horizontal arm — shorter diamond */
+                var gh = ctx.createLinearGradient(-hL, 0, hL, 0);
+                gh.addColorStop(0,    'rgba('+col+',0)');
+                gh.addColorStop(0.40, 'rgba('+col+','+(a * 0.38)+')');
+                gh.addColorStop(0.50, 'rgba('+col+','+a+')');
+                gh.addColorStop(0.60, 'rgba('+col+','+(a * 0.38)+')');
+                gh.addColorStop(1,    'rgba('+col+',0)');
+                ctx.fillStyle = gh;
+                ctx.beginPath();
+                ctx.moveTo(-hL, 0); ctx.lineTo(0, wH); ctx.lineTo(hL, 0); ctx.lineTo(0, -wH);
+                ctx.closePath(); ctx.fill();
+
+                /* soft diagonal sub-arms (45°, half-intensity, 55% length) */
+                var dL = vL * 0.52;
+                var gd1 = ctx.createLinearGradient(-dL, -dL, dL, dL);
+                gd1.addColorStop(0,    'rgba('+col+',0)');
+                gd1.addColorStop(0.50, 'rgba('+col+','+(a * 0.22)+')');
+                gd1.addColorStop(1,    'rgba('+col+',0)');
+                ctx.fillStyle = gd1;
+                ctx.beginPath();
+                ctx.moveTo(-dL, -dL); ctx.lineTo(1.0, 0); ctx.lineTo(dL, dL); ctx.lineTo(-1.0, 0);
+                ctx.closePath(); ctx.fill();
+                var gd2 = ctx.createLinearGradient(dL, -dL, -dL, dL);
+                gd2.addColorStop(0,    'rgba('+col+',0)');
+                gd2.addColorStop(0.50, 'rgba('+col+','+(a * 0.22)+')');
+                gd2.addColorStop(1,    'rgba('+col+',0)');
+                ctx.fillStyle = gd2;
+                ctx.beginPath();
+                ctx.moveTo(dL, -dL); ctx.lineTo(1.0, 0); ctx.lineTo(-dL, dL); ctx.lineTo(-1.0, 0);
+                ctx.closePath(); ctx.fill();
+
+                /* radial core glow */
+                var coreR = s.r * 5.5;
+                var cg = ctx.createRadialGradient(0, 0, 0, 0, 0, coreR);
+                cg.addColorStop(0,   'rgba('+col+','+Math.min(a * 1.1, 0.95)+')');
+                cg.addColorStop(0.3, 'rgba('+col+','+(a * 0.5)+')');
+                cg.addColorStop(1,   'rgba('+col+',0)');
+                ctx.fillStyle = cg;
+                ctx.beginPath(); ctx.arc(0, 0, coreR, 0, Math.PI * 2); ctx.fill();
+
+                ctx.restore();
+            }
+
+            /* star core */
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba('+s.col[0]+','+s.col[1]+','+s.col[2]+','+a+')';
+            ctx.fill();
+        }
+
+        /* ── draw network particles ─────────────────────────── */
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+            if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fillStyle = 'rgba('+ACCENT.r+','+ACCENT.g+','+ACCENT.b+','+p.a+')';
+            ctx.fill();
+            for (var j = i+1; j < particles.length; j++) {
+                var q  = particles[j];
+                var dx = p.x-q.x, dy = p.y-q.y, d = Math.sqrt(dx*dx+dy*dy);
+                if (d < 120) {
+                    ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+                    ctx.strokeStyle = 'rgba('+ACCENT.r+','+ACCENT.g+','+ACCENT.b+','+(0.05*(1-d/120))+')';
+                    ctx.lineWidth = 0.5; ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+</script>
+
+<!-- Page Loader -->
+<script>
+(function () {
+    var loader = document.getElementById('page-loader');
+    if (!loader) return;
+    setTimeout(function () { loader.classList.add('hidden'); }, 1050);
+})();
+</script>
+
+<!-- Scroll Progress + Navbar + Back to Top -->
+<script>
+(function () {
+    var bar   = document.getElementById('scroll-progress');
+    var nav   = document.getElementById('navbar');
+    var btt   = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', function () {
+        var st = window.scrollY || document.documentElement.scrollTop;
+        var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (bar) bar.style.width = (sh > 0 ? (st / sh) * 100 : 0) + '%';
+        if (nav) nav.classList.toggle('scrolled', st > 30);
+        if (btt) btt.classList.toggle('visible', st > 400);
+    }, { passive: true });
+
+    if (btt) btt.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+})();
+</script>
+
+<!-- Typing Animation -->
+<script>
+(function () {
+    var el = document.getElementById('typed-role');
+    if (!el) return;
+    var roles = ['Multi-Agent AI', 'Computer Vision', 'Clinical AI Systems', 'AWS MLOps', 'LLMs & RAG', 'sEMG Signal Processing'];
+    var ri=0, ci=0, deleting=false;
+    function tick() {
+        var cur = roles[ri];
+        el.textContent = deleting ? cur.slice(0,ci--) : cur.slice(0,ci++);
+        var delay = deleting ? 38 : 72;
+        if (!deleting && ci > cur.length)  { delay=2200; deleting=true; ci=cur.length; }
+        if ( deleting && ci < 0)           { deleting=false; ci=0; ri=(ri+1)%roles.length; delay=300; }
+        setTimeout(tick, delay);
+    }
+    setTimeout(tick, 1300);
+})();
+</script>
+
+<!-- Custom Cursor -->
+<script>
+(function () {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    var dot  = document.createElement('div'); dot.className  = 'cursor-dot';
+    var ring = document.createElement('div'); ring.className = 'cursor-ring';
+    document.body.appendChild(dot); document.body.appendChild(ring);
+    var mx=-200,my=-200,rx=-200,ry=-200;
+    document.addEventListener('mousemove', function(e){mx=e.clientX;my=e.clientY;});
+    var sel = 'a, button, .skill-category, .project-card, .nav-hamburger';
+    document.addEventListener('mouseover',function(e){if(e.target.closest(sel))document.body.classList.add('cursor-hover');});
+    document.addEventListener('mouseout', function(e){if(e.target.closest(sel))document.body.classList.remove('cursor-hover');});
+    (function loop(){
+        dot.style.left=mx+'px'; dot.style.top=my+'px';
+        rx+=(mx-rx)*0.14; ry+=(my-ry)*0.14;
+        ring.style.left=rx+'px'; ring.style.top=ry+'px';
+        requestAnimationFrame(loop);
+    })();
+})();
+</script>
+
+<!-- Mouse Glow -->
+<script>
+(function () {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    var glow = document.getElementById('mouse-glow');
+    if (!glow) return;
+    var gx=-300,gy=-300;
+    document.addEventListener('mousemove', function(e){ gx+=(e.clientX-gx)*0.1; gy+=(e.clientY-gy)*0.1; });
+    (function loop(){ glow.style.left=gx+'px'; glow.style.top=gy+'px'; requestAnimationFrame(loop); })();
+})();
+</script>
+
+<!-- Navbar Mobile Toggle -->
+<script>
+(function () {
+    var ham   = document.getElementById('nav-hamburger');
+    var menu  = document.getElementById('nav-mobile');
+    if (!ham || !menu) return;
+    ham.addEventListener('click', function () {
+        ham.classList.toggle('open');
+        menu.classList.toggle('open');
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            ham.classList.remove('open');
+            menu.classList.remove('open');
+        });
+    });
+})();
+</script>
+
+<!-- Scroll Reveal (IntersectionObserver) -->
+<script>
+(function () {
+    var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+            if (e.isIntersecting) {
+                e.target.classList.add('revealed');
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-el').forEach(function (el) { obs.observe(el); });
+})();
+</script>
+
+<!-- 3D Tilt on skill + project cards -->
+<script>
+(function () {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    var ticking = false;
+    document.addEventListener('mousemove', function (e) {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(function () {
+            var el   = document.elementFromPoint(e.clientX, e.clientY);
+            var card = el && el.closest('.skill-category, .project-card');
+            document.querySelectorAll('.skill-category.tilting, .project-card.tilting').forEach(function (c) {
+                if (c !== card) {
+                    c.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+                    c.style.transform  = '';
+                    c.classList.remove('tilting');
                 }
             });
-            bodyObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-            btn.addEventListener('click', function () {
-                var art = getActiveArticle();
-                if (art) { art.scrollTo({ top: 0, behavior: 'smooth' }); }
-            });
-        })();
-
-        /* ── Article scroll reveal ──────────────────────── */
-        (function () {
-            function setupReveal(article) {
-                var els = article.querySelectorAll('h3, .image.fit, .skill-grid, .table-wrapper');
-                els.forEach(function (el) {
-                    if (el.classList.contains('art-reveal')) return;
-                    el.classList.add('art-reveal');
-                });
-                var obs = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('in');
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.12 });
-                article.querySelectorAll('.art-reveal').forEach(function (el) { obs.observe(el); });
+            if (card) {
+                var r  = card.getBoundingClientRect();
+                var rx = -((e.clientY - (r.top  + r.height/2)) / (r.height/2)) * 4;
+                var ry =  ((e.clientX - (r.left + r.width /2)) / (r.width /2)) * 4;
+                rx = Math.max(-5, Math.min(5, rx));
+                ry = Math.max(-5, Math.min(5, ry));
+                card.style.transition = '';
+                card.style.transform  = 'perspective(900px) rotateX('+rx+'deg) rotateY('+ry+'deg) scale3d(1.015,1.015,1.015)';
+                card.classList.add('tilting');
             }
+            ticking = false;
+        });
+    });
+})();
+</script>
 
-            // Trigger on hash change (when user opens an article)
-            window.addEventListener('hashchange', function () {
-                var hash = window.location.hash;
-                if (!hash) return;
-                var art = document.querySelector('#main ' + hash);
-                if (art) { setTimeout(function () { setupReveal(art); }, 350); }
-            });
-
-            // Also handle initial load with hash
-            if (window.location.hash) {
-                var art = document.querySelector('#main ' + window.location.hash);
-                if (art) { setTimeout(function () { setupReveal(art); }, 500); }
-            }
-        })();
-
-        /* ── 3D tilt on skill cards ─────────────────────── */
-        (function () {
-            if (!window.matchMedia('(hover: hover)').matches) return;
-            var ticking = false;
-
-            document.addEventListener('mousemove', function (e) {
-                if (ticking) return;
-                ticking = true;
-                requestAnimationFrame(function () {
-                    var el = document.elementFromPoint(e.clientX, e.clientY);
-                    var card = el && el.closest('.skill-category');
-                    // Reset any card not being hovered
-                    document.querySelectorAll('.skill-category.tilting').forEach(function (c) {
-                        if (c !== card) {
-                            c.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
-                            c.style.transform = '';
-                            c.classList.remove('tilting');
-                        }
-                    });
-                    if (card) {
-                        var r = card.getBoundingClientRect();
-                        var cx = r.left + r.width  / 2;
-                        var cy = r.top  + r.height / 2;
-                        var rx = -((e.clientY - cy) / (r.height / 2)) * 5;
-                        var ry =  ((e.clientX - cx) / (r.width  / 2)) * 5;
-                        rx = Math.max(-6, Math.min(6, rx));
-                        ry = Math.max(-6, Math.min(6, ry));
-                        card.style.transition = '';
-                        card.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) scale3d(1.02,1.02,1.02)';
-                        card.classList.add('tilting');
-                    }
-                    ticking = false;
-                });
-            });
-        })();
-        </script>
-
-    </body>
+</body>
 </html>
