@@ -218,16 +218,145 @@
                 50%       { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
             }
 
-            /* ── Entrance animation ─────────────────────────── */
-            @keyframes fadeUp {
-                from { opacity: 0; transform: translateY(16px); }
-                to   { opacity: 1; transform: translateY(0); }
+            /* ── Background override — replace bg.jpg ───────── */
+            #bg:after {
+                background-image: none !important;
+                background: #060d1f !important;
             }
-            #header .logo      { animation: fadeUp 0.7s ease forwards, logoPulse 4s 0.7s ease-in-out infinite; }
-            #header .content   { animation: fadeUp 0.7s 0.15s ease both; }
-            #header nav        { animation: fadeUp 0.7s 0.28s ease both; }
-            .header-social     { animation: fadeUp 0.7s 0.4s ease both; }
-            .tech-marquee-wrap { animation: fadeUp 0.7s 0.52s ease both; }
+            #bg:before {
+                background-image: linear-gradient(to top, rgba(6,13,31,0.4), rgba(6,13,31,0.15)) !important;
+            }
+
+            /* ── Animated background blobs ──────────────────── */
+            .bg-blob {
+                position: fixed;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1;
+                filter: blur(110px);
+            }
+            .bg-blob-1 {
+                width: 560px; height: 560px;
+                top: -8%; left: -8%;
+                background: radial-gradient(circle, rgba(79,70,229,0.22), transparent 70%);
+                animation: blobDrift1 24s ease-in-out infinite;
+            }
+            .bg-blob-2 {
+                width: 480px; height: 480px;
+                bottom: -8%; right: -6%;
+                background: radial-gradient(circle, rgba(13,148,136,0.18), transparent 70%);
+                animation: blobDrift2 30s ease-in-out infinite;
+            }
+            .bg-blob-3 {
+                width: 420px; height: 420px;
+                top: 38%; left: 44%;
+                background: radial-gradient(circle, rgba(56,189,248,0.11), transparent 70%);
+                animation: blobDrift3 26s ease-in-out infinite;
+            }
+            @keyframes blobDrift1 {
+                0%,100% { transform: translate(0,0) scale(1); }
+                25%     { transform: translate(12vw,8vh) scale(1.1); }
+                50%     { transform: translate(4vw,22vh) scale(0.95); }
+                75%     { transform: translate(-7vw,10vh) scale(1.05); }
+            }
+            @keyframes blobDrift2 {
+                0%,100% { transform: translate(0,0) scale(1); }
+                25%     { transform: translate(-9vw,-12vh) scale(1.08); }
+                50%     { transform: translate(-4vw,-18vh) scale(1.12); }
+                75%     { transform: translate(7vw,-7vh) scale(0.94); }
+            }
+            @keyframes blobDrift3 {
+                0%,100% { transform: translate(-50%,0) scale(1); }
+                33%     { transform: translate(-35%,-14vh) scale(1.1); }
+                66%     { transform: translate(-62%,9vh) scale(0.92); }
+            }
+
+            /* ── Page loader ────────────────────────────────── */
+            #page-loader {
+                position: fixed;
+                inset: 0;
+                background: #060d1f;
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                            visibility 0.65s ease;
+            }
+            #page-loader.hidden {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            .loader-inner { text-align: center; }
+            .loader-initials {
+                font-family: 'Outfit', sans-serif;
+                font-weight: 200;
+                font-size: 3rem;
+                letter-spacing: 0.55rem;
+                color: #38bdf8;
+                display: block;
+                margin-bottom: 1.8rem;
+                text-transform: uppercase;
+            }
+            .loader-initials span { color: rgba(56,189,248,0.3); font-weight: 100; }
+            .loader-bar-track {
+                width: 90px; height: 1.5px;
+                background: rgba(255,255,255,0.07);
+                border-radius: 2px;
+                overflow: hidden;
+                margin: 0 auto;
+            }
+            .loader-bar-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #38bdf8, rgba(56,189,248,0.35));
+                border-radius: 2px;
+                animation: loaderFill 0.85s cubic-bezier(0.4,0,0.2,1) forwards;
+            }
+            @keyframes loaderFill {
+                from { transform: translateX(-100%); }
+                to   { transform: translateX(0); }
+            }
+
+            /* ── Scroll progress bar ────────────────────────── */
+            #scroll-progress {
+                position: fixed;
+                top: 0; left: 0;
+                height: 2px; width: 0;
+                background: linear-gradient(90deg, #38bdf8, rgba(56,189,248,0.3));
+                z-index: 9997;
+                border-radius: 0 1px 1px 0;
+                transition: width 0.08s linear;
+            }
+
+            /* ── Typing cursor ──────────────────────────────── */
+            .typed-cursor {
+                display: inline-block;
+                width: 2px;
+                height: 0.8em;
+                background: var(--accent);
+                margin-left: 2px;
+                vertical-align: middle;
+                animation: blinkCursor 1s step-end infinite;
+            }
+            @keyframes blinkCursor {
+                0%,100% { opacity: 1; }
+                50%     { opacity: 0; }
+            }
+            #typed-role { color: rgba(255,255,255,0.75); }
+
+            /* ── Spring entrance animation ──────────────────── */
+            @keyframes springUp {
+                0%   { opacity: 0; transform: translateY(30px) scale(0.96); }
+                60%  { opacity: 1; transform: translateY(-5px) scale(1.005); }
+                100% { opacity: 1; transform: translateY(0) scale(1); }
+            }
+            #header .logo      { animation: springUp 0.8s cubic-bezier(0.22,1,0.36,1) both,
+                                            logoPulse 4s 0.8s ease-in-out infinite; }
+            #header .content   { animation: springUp 0.8s 0.12s cubic-bezier(0.22,1,0.36,1) both; }
+            #header nav        { animation: springUp 0.8s 0.22s cubic-bezier(0.22,1,0.36,1) both; }
+            .header-social     { animation: springUp 0.8s 0.32s cubic-bezier(0.22,1,0.36,1) both; }
+            .tech-marquee-wrap { animation: springUp 0.8s 0.42s cubic-bezier(0.22,1,0.36,1) both; }
 
             /* ── Grain overlay ──────────────────────────────── */
             .grain-overlay {
@@ -470,6 +599,22 @@
     </head>
     <body class="is-preload">
 
+        <!-- Page loader -->
+        <div id="page-loader">
+            <div class="loader-inner">
+                <span class="loader-initials">S<span>·</span>S</span>
+                <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+            </div>
+        </div>
+
+        <!-- Scroll progress -->
+        <div id="scroll-progress"></div>
+
+        <!-- Background blobs -->
+        <div class="bg-blob bg-blob-1"></div>
+        <div class="bg-blob bg-blob-2"></div>
+        <div class="bg-blob bg-blob-3"></div>
+
         <div class="grain-overlay"></div>
         <div class="mouse-glow" id="mouse-glow"></div>
 
@@ -486,8 +631,8 @@
                                     Open to Work
                                 </div>
                                 <h1>Soroush Saririan, <span class="eit">EIT</span></h1>
-                                <p>Applied Data Scientist &amp; Mechanical Engineer<br />
-                                Specializing in AI/ML, Computer Vision, and Hardware R&amp;D</p>
+                                <p>Applied Data Scientist &amp; Mechanical Engineer</p>
+                                <p style="margin-bottom:0;">Specializing in <span id="typed-role"></span><span class="typed-cursor"></span></p>
                                 <div class="header-chips">
                                     <span class="header-chip">Multi-Agent AI</span>
                                     <span class="header-chip">Computer Vision</span>
@@ -1147,6 +1292,41 @@
             <script src="assets/js/main.js"></script>
 
         <script>
+        /* ── Page loader ────────────────────────────────── */
+        (function () {
+            var loader = document.getElementById('page-loader');
+            if (!loader) return;
+            setTimeout(function () { loader.classList.add('hidden'); }, 1050);
+        })();
+
+        /* ── Scroll progress bar ────────────────────────── */
+        (function () {
+            var bar = document.getElementById('scroll-progress');
+            if (!bar) return;
+            window.addEventListener('scroll', function () {
+                var st = document.documentElement.scrollTop || document.body.scrollTop;
+                var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                bar.style.width = (sh > 0 ? (st / sh) * 100 : 0) + '%';
+            }, { passive: true });
+        })();
+
+        /* ── Typing animation ───────────────────────────── */
+        (function () {
+            var el = document.getElementById('typed-role');
+            if (!el) return;
+            var roles = ['Multi-Agent AI', 'Computer Vision', 'Clinical AI Systems', 'AWS MLOps', 'LLMs & RAG', 'sEMG Signal Processing'];
+            var ri = 0, ci = 0, deleting = false;
+            function tick() {
+                var cur = roles[ri];
+                el.textContent = deleting ? cur.slice(0, ci--) : cur.slice(0, ci++);
+                var delay = deleting ? 38 : 72;
+                if (!deleting && ci > cur.length)  { delay = 2200; deleting = true; ci = cur.length; }
+                if ( deleting && ci < 0)            { deleting = false; ci = 0; ri = (ri + 1) % roles.length; delay = 300; }
+                setTimeout(tick, delay);
+            }
+            setTimeout(tick, 1300);
+        })();
+
         /* ── Custom cursor ──────────────────────────────── */
         (function () {
             if (!window.matchMedia('(hover: hover)').matches) return;
