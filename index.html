@@ -1801,6 +1801,42 @@
 })();
 </script>
 
+<!-- 3D Tilt on project + skill cards (main view only) -->
+<script>
+(function () {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    var ticking = false;
+    document.addEventListener('mousemove', function (e) {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(function () {
+            var expandEl = document.getElementById('cardExpand');
+            /* skip tilt entirely while expanded overlay is open */
+            if (expandEl && expandEl.style.display === 'block') { ticking = false; return; }
+            var el   = document.elementFromPoint(e.clientX, e.clientY);
+            var card = el && el.closest('.skill-category, .project-card');
+            document.querySelectorAll('.skill-category.tilting, .project-card.tilting').forEach(function (c) {
+                if (c !== card) {
+                    c.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+                    c.style.transform  = '';
+                    c.classList.remove('tilting');
+                }
+            });
+            if (card) {
+                var r  = card.getBoundingClientRect();
+                var rx = -((e.clientY - (r.top  + r.height/2)) / (r.height/2)) * 4;
+                var ry =  ((e.clientX - (r.left + r.width /2)) / (r.width /2)) * 4;
+                rx = Math.max(-5, Math.min(5, rx));
+                ry = Math.max(-5, Math.min(5, ry));
+                card.style.transition = '';
+                card.style.transform  = 'perspective(900px) rotateX('+rx+'deg) rotateY('+ry+'deg) scale3d(1.015,1.015,1.015)';
+                card.classList.add('tilting');
+            }
+            ticking = false;
+        });
+    });
+})();
+</script>
+
 <!-- Card Expand Overlay -->
 <div class="card-expand-bg" id="cardExpandBg"></div>
 <div class="card-expand" id="cardExpand" role="dialog" aria-modal="true">
