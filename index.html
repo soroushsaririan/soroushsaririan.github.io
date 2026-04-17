@@ -408,9 +408,10 @@
         position: relative; overflow: hidden;
     }
     .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 32px rgba(56,189,248,0.06);
-        border-top-color: rgba(56,189,248,0.45);
+        transform: scale(1.04);
+        box-shadow: 0 28px 72px rgba(0,0,0,0.45), 0 0 40px rgba(56,189,248,0.1);
+        border-top-color: rgba(56,189,248,0.55);
+        z-index: 2;
     }
     .project-card::after {
         content: ''; position: absolute; inset: 0;
@@ -646,6 +647,64 @@
         .img-gallery-2 { grid-template-columns: 1fr; }
         .img-gallery-3 { grid-template-columns: 1fr; }
     }
+    /* ─── CARD EXPAND ─────────────────────────────────────────── */
+    .card-expand-bg {
+        position: fixed; inset: 0; z-index: 499;
+        background: rgba(0,0,0,0.82);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        opacity: 0; pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+    .card-expand-bg.active { opacity: 1; pointer-events: all; }
+    .card-expand {
+        position: fixed; z-index: 500;
+        background: rgba(10,16,28,0.98);
+        border: 1px solid rgba(56,189,248,0.22);
+        border-top: 2px solid rgba(56,189,248,0.55);
+        padding: 2rem 2.2rem 2.5rem;
+        box-shadow: 0 48px 120px rgba(0,0,0,0.75), 0 0 80px rgba(56,189,248,0.07);
+        display: none; overflow-x: hidden;
+    }
+    .card-expand-close {
+        position: absolute; top: 1rem; right: 1.2rem;
+        background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 6px; cursor: pointer;
+        color: rgba(255,255,255,0.55); font-size: 0.9rem;
+        width: 2rem; height: 2rem;
+        display: flex; align-items: center; justify-content: center;
+        transition: background 0.2s, color 0.2s; z-index: 10;
+    }
+    .card-expand-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .card-expand .project-media { margin: 1.2rem 0; cursor: default; }
+    .card-expand .project-media img,
+    .card-expand .project-media video {
+        width: 100%; max-height: 55vh; object-fit: contain; border-radius: 7px;
+        transform: none !important; transition: none !important;
+    }
+    .card-expand .project-media:hover img,
+    .card-expand .project-media:hover video { transform: none !important; }
+    .card-expand .project-media-overlay { display: none; }
+    /* stack galleries vertically in expanded view */
+    .card-expand .img-gallery-2,
+    .card-expand .img-gallery-3 {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    .card-expand .img-gallery-2 img,
+    .card-expand .img-gallery-3 img {
+        max-height: 60vh; width: 100%; object-fit: contain;
+    }
+    .card-expand-gh {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        margin-top: 1.4rem; padding: 0.6rem 1.3rem;
+        background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.22);
+        border-radius: 7px; font-size: 0.75rem; letter-spacing: 0.07rem;
+        text-transform: uppercase; color: var(--accent);
+        text-decoration: none; transition: background 0.2s, border-color 0.2s;
+    }
+    .card-expand-gh:hover { background: rgba(56,189,248,0.16); border-color: var(--accent); }
+    .project-card { cursor: pointer; }
     </style>
 </head>
 <body>
@@ -1742,35 +1801,127 @@
 })();
 </script>
 
-<!-- 3D Tilt on skill + project cards -->
+<!-- Card Expand Overlay -->
+<div class="card-expand-bg" id="cardExpandBg"></div>
+<div class="card-expand" id="cardExpand" role="dialog" aria-modal="true">
+    <button class="card-expand-close" id="cardExpandClose" aria-label="Close">&#x2715;</button>
+    <div id="cardExpandContent"></div>
+</div>
+
 <script>
 (function () {
-    if (!window.matchMedia('(hover: hover)').matches) return;
-    var ticking = false;
-    document.addEventListener('mousemove', function (e) {
-        if (ticking) return; ticking = true;
+    var bg       = document.getElementById('cardExpandBg');
+    var expand   = document.getElementById('cardExpand');
+    var content  = document.getElementById('cardExpandContent');
+    var closeBtn = document.getElementById('cardExpandClose');
+    var activeCard   = null;
+    var savedTransform = '';
+
+    function openCard(card) {
+        activeCard = card;
+        var rect = card.getBoundingClientRect();
+
+        /* ── final (expanded) position ── */
+        var W = Math.min(window.innerWidth * 0.88, 880);
+        var H = window.innerHeight * 0.88;
+        var L = (window.innerWidth  - W) / 2;
+        var T = window.innerHeight * 0.06;
+
+        /* centers */
+        var expandCX = L + W / 2;
+        var expandCY = T + H / 2;
+        var cardCX   = rect.left + rect.width  / 2;
+        var cardCY   = rect.top  + rect.height / 2;
+
+        /* transform that makes the big div look exactly like the card */
+        var dx = cardCX - expandCX;
+        var dy = cardCY - expandCY;
+        var sx = rect.width  / W;
+        var sy = rect.height / H;
+        savedTransform = 'translate('+dx+'px,'+dy+'px) scale('+sx+','+sy+')';
+
+        /* place the expand div at its final dimensions */
+        expand.style.top    = T  + 'px';
+        expand.style.left   = L  + 'px';
+        expand.style.width  = W  + 'px';
+        expand.style.height = H  + 'px';
+        expand.style.borderRadius   = '14px';
+        expand.style.overflowY      = 'hidden';
+        expand.style.transformOrigin = 'center center';
+
+        /* build content */
+        content.innerHTML = '';
+        var clone = card.cloneNode(true);
+
+        var origVid = card.querySelector('video');
+        if (origVid) origVid.pause();
+        var cloneVid = clone.querySelector('video');
+        if (cloneVid) {
+            cloneVid.removeAttribute('autoplay');
+            cloneVid.setAttribute('controls', '');
+            cloneVid.loop = false;
+            cloneVid.load();
+        }
+        content.appendChild(clone);
+
+        var ghLink = clone.querySelector('.project-media-overlay a');
+        if (ghLink) {
+            var ghBtn = document.createElement('a');
+            ghBtn.href = ghLink.href; ghBtn.target = '_blank';
+            ghBtn.rel  = 'noopener noreferrer';
+            ghBtn.className = 'card-expand-gh';
+            ghBtn.innerHTML = '<i class="fab fa-github"></i> View on GitHub';
+            content.appendChild(ghBtn);
+        }
+
+        /* start at card size/position, then animate to full */
+        expand.style.transition = 'none';
+        expand.style.transform  = savedTransform;
+        expand.style.display    = 'block';
+        bg.classList.add('active');
+        card.style.visibility   = 'hidden';
+        document.body.style.overflow = 'hidden';
+
         requestAnimationFrame(function () {
-            var el   = document.elementFromPoint(e.clientX, e.clientY);
-            var card = el && el.closest('.skill-category, .project-card');
-            document.querySelectorAll('.skill-category.tilting, .project-card.tilting').forEach(function (c) {
-                if (c !== card) {
-                    c.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
-                    c.style.transform  = '';
-                    c.classList.remove('tilting');
-                }
+            requestAnimationFrame(function () {
+                expand.style.transition = 'transform 0.48s cubic-bezier(0.22,1,0.36,1)';
+                expand.style.transform  = 'none';
+                setTimeout(function () { expand.style.overflowY = 'auto'; }, 480);
             });
-            if (card) {
-                var r  = card.getBoundingClientRect();
-                var rx = -((e.clientY - (r.top  + r.height/2)) / (r.height/2)) * 4;
-                var ry =  ((e.clientX - (r.left + r.width /2)) / (r.width /2)) * 4;
-                rx = Math.max(-5, Math.min(5, rx));
-                ry = Math.max(-5, Math.min(5, ry));
-                card.style.transition = '';
-                card.style.transform  = 'perspective(900px) rotateX('+rx+'deg) rotateY('+ry+'deg) scale3d(1.015,1.015,1.015)';
-                card.classList.add('tilting');
-            }
-            ticking = false;
         });
+    }
+
+    function closeCard() {
+        if (!activeCard) return;
+        var card = activeCard;
+        activeCard = null;
+        expand.style.overflowY  = 'hidden';
+        expand.style.transition = 'transform 0.48s cubic-bezier(0.22,1,0.36,1)';
+        expand.style.transform  = savedTransform;
+        bg.classList.remove('active');
+        document.body.style.overflow = '';
+
+        setTimeout(function () {
+            expand.style.display    = 'none';
+            expand.style.transform  = '';
+            expand.style.transition = '';
+            content.innerHTML = '';
+            card.style.visibility = '';
+            card.querySelectorAll('video').forEach(function (v) { v.play(); });
+        }, 480);
+    }
+
+    document.querySelectorAll('.project-card').forEach(function (card) {
+        card.addEventListener('click', function (e) {
+            if (e.target.closest('a')) return;
+            openCard(card);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeCard);
+    bg.addEventListener('click', closeCard);
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && expand.style.display === 'block') closeCard();
     });
 })();
 </script>
