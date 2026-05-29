@@ -113,32 +113,6 @@
         75%     { transform: translate( 6vw,-14vh) scale(1.05); }
     }
 
-    .grain-overlay {
-        position: fixed; inset: 0;
-        pointer-events: none; z-index: 9998; opacity: 0.03;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        background-size: 180px 180px;
-        animation: grainShift 0.5s steps(3) infinite;
-    }
-    @keyframes grainShift { 0%{transform:translate(0,0)} 33%{transform:translate(-3px,5px)} 66%{transform:translate(4px,-2px)} 100%{transform:translate(-2px,3px)} }
-
-    .mouse-glow {
-        position: fixed; width: 280px; height: 280px; border-radius: 50%;
-        background: radial-gradient(circle,
-            rgba(251,146,60,0.045) 0%,
-            rgba(180,220,255,0.025) 45%,
-            transparent 70%);
-        pointer-events: none; z-index: 2;
-        transform: translate(-50%,-50%);
-    }
-
-
-    /* ─── SCROLL PROGRESS ──────────────────────────────────────── */
-    #scroll-progress {
-        position: fixed; top: 0; left: 0; height: 2px; width: 0;
-        background: linear-gradient(90deg,#b4dcff,rgba(180,220,255,0.3));
-        z-index: 9997; border-radius: 0; transition: width 0.08s linear;
-    }
 
 
 
@@ -226,14 +200,6 @@
         vertical-align: middle; margin-left: 0.3em;
     }
     .hero-subtitle { font-size: 1rem; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; }
-    .hero-typed { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
-    .typed-cursor {
-        display: inline-block; width: 2px; height: 0.85em;
-        background: var(--accent); margin-left: 2px;
-        vertical-align: middle; animation: blinkCursor 1s step-end infinite;
-    }
-    @keyframes blinkCursor { 0%,100%{opacity:1} 50%{opacity:0} }
-
     .hero-chips { display:flex;flex-wrap:wrap;gap:0.4rem; }
     .hero-chip {
         padding: 0.22rem 0.75rem;
@@ -278,46 +244,11 @@
     .hero-photo-wrap { position:relative;display:inline-block; }
     .hero-photo-ring {
         width: 290px; height: 290px; border-radius: 50%;
-        border: 2px solid rgba(180,220,255,0.38);
-        box-shadow: 0 0 0 10px rgba(180,220,255,0.05), 0 0 50px rgba(180,220,255,0.22), 0 0 90px rgba(180,220,255,0.08);
+        border: 1px solid rgba(180,220,255,0.25);
         overflow: hidden; position: relative; z-index: 1;
-        animation: photoPulse 4s ease-in-out infinite;
     }
     .hero-photo-ring img { width:100%;height:100%;object-fit:cover;opacity:0.92; }
-    @keyframes photoPulse {
-        0%,100%{box-shadow:0 0 0 10px rgba(180,220,255,0.05),0 0 50px rgba(180,220,255,0.22),0 0 90px rgba(180,220,255,0.08)}
-        50%{box-shadow:0 0 0 14px rgba(180,220,255,0.08),0 0 66px rgba(180,220,255,0.32),0 0 110px rgba(180,220,255,0.12)}
-    }
 
-    /* Spring entrance */
-    @keyframes springUp {
-        0%   { opacity:0;transform:translateY(28px) scale(0.96) }
-        60%  { opacity:1;transform:translateY(-4px) scale(1.005) }
-        100% { opacity:1;transform:translateY(0) scale(1) }
-    }
-    .hero-left .hero-title    { animation:springUp 0.8s 0s   cubic-bezier(0.22,1,0.36,1) both }
-    .hero-left .hero-subtitle { animation:springUp 0.8s 0.18s cubic-bezier(0.22,1,0.36,1) both }
-    .hero-left .hero-typed    { animation:springUp 0.8s 0.24s cubic-bezier(0.22,1,0.36,1) both }
-    .hero-left .hero-chips    { animation:springUp 0.8s 0.3s  cubic-bezier(0.22,1,0.36,1) both }
-    .hero-left .hero-actions  { animation:springUp 0.8s 0.38s cubic-bezier(0.22,1,0.36,1) both }
-    .hero-left .hero-social   { animation:springUp 0.8s 0.46s cubic-bezier(0.22,1,0.36,1) both }
-    .hero-right               { animation:springUp 0.8s 0.22s cubic-bezier(0.22,1,0.36,1) both }
-
-    /* ─── TECH MARQUEE ─────────────────────────────────────────── */
-    .tech-marquee-section {
-        overflow: hidden;
-        border-top: 1px solid rgba(255,255,255,0.05);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-        padding: 1.2rem 0;
-        animation: springUp 0.8s 0.54s cubic-bezier(0.22,1,0.36,1) both;
-    }
-    .marquee-track { display:flex;width:max-content;animation:marqueeScroll 42s linear infinite; }
-    .tech-marquee-section:hover .marquee-track { animation-play-state:paused; }
-    .marquee-inner { display:flex;align-items:center; }
-    @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-    .marquee-item { font-size:0.58rem;letter-spacing:0.13rem;text-transform:uppercase;color:rgba(255,255,255,0.24);padding:0 1rem;font-family:'Outfit',sans-serif;white-space:nowrap;cursor:default;transition:color 0.2s; }
-    .marquee-item:hover { color:var(--accent); }
-    .marquee-sep { color:rgba(180,220,255,0.2);font-size:0.35rem;padding:0 0.1rem; }
 
     /* ─── SECTIONS ─────────────────────────────────────────────── */
     section { padding: 6rem 2.5rem; position: relative; }
@@ -569,12 +500,6 @@
     #back-to-top.visible { opacity:1;transform:translateY(0);pointer-events:all; }
     #back-to-top:hover { background:rgba(180,220,255,0.15);border-color:var(--accent); }
 
-    /* ─── SCROLL REVEAL ────────────────────────────────────────── */
-    .reveal-el {
-        opacity: 0; transform: translateY(22px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal-el.revealed { opacity:1;transform:none; }
 
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 1100px) {
@@ -666,17 +591,12 @@
 <body>
 
 
-<!-- ── SCROLL PROGRESS ───────────────────────────────────── -->
-<div id="scroll-progress"></div>
-
 <!-- ── FIXED BG LAYERS ───────────────────────────────────── -->
 <div class="bg-blob bg-blob-1"></div>
 <div class="bg-blob bg-blob-2"></div>
 <div class="bg-blob bg-blob-3"></div>
 <div class="bg-blob bg-blob-4"></div>
 <div class="bg-blob bg-blob-5"></div>
-<div class="grain-overlay"></div>
-<div class="mouse-glow" id="mouse-glow"></div>
 <canvas id="particles-canvas"></canvas>
 
 <!-- ── NAVBAR ─────────────────────────────────────────────── -->
@@ -714,8 +634,7 @@
                     Soroush Saririan<span class="eit">EIT</span>
                 </h1>
                 <p class="hero-subtitle">Applied Data Scientist &amp; Mechanical Engineer</p>
-                <p class="hero-typed">Specializing in <span id="typed-role"></span><span class="typed-cursor"></span></p>
-                <div class="hero-chips">
+<div class="hero-chips">
                     <span class="hero-chip">Multi-Agent AI</span>
                     <span class="hero-chip">Computer Vision</span>
                     <span class="hero-chip">MLOps &amp; AWS</span>
@@ -748,8 +667,8 @@
         </div>
     </section>
 
-    <!-- TECH MARQUEE -->
-    <div class="tech-marquee-section" aria-hidden="true">
+    <!-- TECH MARQUEE (removed) -->
+    <div class="tech-marquee-section" aria-hidden="true" style="display:none">
         <div class="marquee-track">
             <div class="marquee-inner">
                 <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
@@ -1647,36 +1566,6 @@
 })();
 </script>
 
-<!-- Typing Animation -->
-<script>
-(function () {
-    var el = document.getElementById('typed-role');
-    if (!el) return;
-    var roles = ['Multi-Agent AI', 'Computer Vision', 'Clinical AI Systems', 'AWS MLOps', 'LLMs & RAG', 'sEMG Signal Processing'];
-    var ri=0, ci=0, deleting=false;
-    function tick() {
-        var cur = roles[ri];
-        el.textContent = deleting ? cur.slice(0,ci--) : cur.slice(0,ci++);
-        var delay = deleting ? 38 : 72;
-        if (!deleting && ci > cur.length)  { delay=2200; deleting=true; ci=cur.length; }
-        if ( deleting && ci < 0)           { deleting=false; ci=0; ri=(ri+1)%roles.length; delay=300; }
-        setTimeout(tick, delay);
-    }
-    setTimeout(tick, 1300);
-})();
-</script>
-
-<!-- Mouse Glow -->
-<script>
-(function () {
-    if (!window.matchMedia('(hover: hover)').matches) return;
-    var glow = document.getElementById('mouse-glow');
-    if (!glow) return;
-    var gx=-300,gy=-300;
-    document.addEventListener('mousemove', function(e){ gx+=(e.clientX-gx)*0.1; gy+=(e.clientY-gy)*0.1; });
-    (function loop(){ glow.style.left=gx+'px'; glow.style.top=gy+'px'; requestAnimationFrame(loop); })();
-})();
-</script>
 
 <!-- Navbar Mobile Toggle -->
 <script>
@@ -1697,20 +1586,6 @@
 })();
 </script>
 
-<!-- Scroll Reveal (IntersectionObserver) -->
-<script>
-(function () {
-    var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-            if (e.isIntersecting) {
-                e.target.classList.add('revealed');
-                obs.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal-el').forEach(function (el) { obs.observe(el); });
-})();
-</script>
 
 <!-- 3D Tilt on project + skill cards (main view only) -->
 <script>
