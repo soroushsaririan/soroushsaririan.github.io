@@ -412,6 +412,103 @@
     /* ─── SECTION DIVIDER ──────────────────────────────────────── */
     .section-divider { height:1px;background:linear-gradient(to right,rgba(180,220,255,0.12),rgba(255,255,255,0.04),transparent);margin:4rem 0; }
 
+    /* ─── EXPERIENCE ───────────────────────────────────────────── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
+
+    .exp-employer {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 0 3rem;
+        padding: 2rem 0;
+        border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .exp-employer:last-child { border-bottom: 1px solid rgba(255,255,255,0.07); }
+
+    .exp-left {
+        padding-top: 0.1rem;
+    }
+    .exp-company {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.06rem;
+        color: #fff;
+        text-transform: uppercase;
+        margin-bottom: 0.3rem;
+    }
+    .exp-period {
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.35);
+        letter-spacing: 0.03rem;
+        line-height: 1.5;
+    }
+    .exp-current {
+        display: inline-block;
+        font-size: 0.58rem;
+        letter-spacing: 0.08rem;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid rgba(180,220,255,0.3);
+        padding: 0.1rem 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .exp-roles { display: flex; flex-direction: column; gap: 1.6rem; }
+
+    .exp-role { }
+    .exp-role-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.6rem;
+    }
+    .exp-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 400;
+        color: rgba(255,255,255,0.9);
+        letter-spacing: 0.02rem;
+    }
+    .exp-role-period {
+        font-size: 0.68rem;
+        color: rgba(255,255,255,0.3);
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    .exp-desc {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 0.8rem;
+    }
+    .exp-desc li {
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.52);
+        line-height: 1.68;
+        padding-left: 1rem;
+        position: relative;
+        margin-bottom: 0.3rem;
+    }
+    .exp-desc li::before {
+        content: '–';
+        position: absolute;
+        left: 0;
+        color: rgba(180,220,255,0.4);
+    }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .exp-tag {
+        font-size: 0.62rem;
+        letter-spacing: 0.04rem;
+        color: rgba(255,255,255,0.38);
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 0.12rem 0.45rem;
+    }
+
+    @media (max-width: 760px) {
+        .exp-employer { grid-template-columns: 1fr; gap: 1rem; }
+        .exp-role-header { flex-direction: column; gap: 0.2rem; }
+    }
+
     /* ─── ABOUT ────────────────────────────────────────────────── */
     .about-grid { display:grid;grid-template-columns:3fr 2fr;gap:4rem;align-items:start;margin-top:2.5rem; }
     .about-text h3 {
@@ -608,6 +705,7 @@
         <div class="nav-links">
             <a href="#datascience">Data Science</a>
             <a href="#engineering">Engineering</a>
+            <a href="#experience">Experience</a>
             <a href="#about">About</a>
             <a href="#resume">Resume</a>
         </div>
@@ -620,6 +718,7 @@
 <div class="nav-mobile" id="nav-mobile">
     <a href="#datascience">Data Science</a>
     <a href="#engineering">Engineering</a>
+    <a href="#experience">Experience</a>
     <a href="#about">About</a>
     <a href="#resume">Resume</a>
     <a href="#contact">Contact</a>
@@ -1132,6 +1231,166 @@
                         <span class="skill-tag">EMG / Signal Processing</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ EXPERIENCE ══════════════════════════════════════════ -->
+    <section id="experience">
+        <div class="section-container">
+            <h2 class="section-title">Experience</h2>
+            <div class="exp-list">
+
+                <!-- University of Florida -->
+                <div class="exp-employer">
+                    <div class="exp-left">
+                        <div class="exp-company">University of Florida</div>
+                        <div class="exp-period">Sep 2025 – Present</div>
+                        <span class="exp-current">Current</span>
+                    </div>
+                    <div class="exp-roles">
+
+                        <div class="exp-role">
+                            <div class="exp-role-header">
+                                <span class="exp-title">Graduate Research Assistant — Gait Lab</span>
+                                <span class="exp-role-period">Sep 2025 – Present · Gainesville, FL</span>
+                            </div>
+                            <ul class="exp-desc">
+                                <li>Led 3D gait data collection in stroke patients using motion capture, gait mat pressure sensors, and force plates to quantify spatiotemporal parameters, joint kinematics, and load distribution.</li>
+                                <li>Integrated multi-modal sensor data to build comprehensive movement profiles, supporting clinical evaluation of balance, gait symmetry, and compensatory patterns in post-stroke rehabilitation.</li>
+                                <li>Collaborated with orthopaedic surgeons, neurologists, and physical therapists to translate gait findings into actionable rehabilitation recommendations.</li>
+                            </ul>
+                            <div class="exp-tags">
+                                <span class="exp-tag">Python</span>
+                                <span class="exp-tag">Gait Analysis</span>
+                                <span class="exp-tag">Motion Capture</span>
+                                <span class="exp-tag">MATLAB</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-role">
+                            <div class="exp-role-header">
+                                <span class="exp-title">Clinical Research Assistant</span>
+                                <span class="exp-role-period">Sep 2025 – Present</span>
+                            </div>
+                            <ul class="exp-desc">
+                                <li>Coordinated and executed human subjects research protocols, managing IRB compliance documentation and participant screening for stroke rehabilitation studies.</li>
+                                <li>Administered study procedures end-to-end — informed consent, baseline vitals, and standardized experimental protocols.</li>
+                                <li>Maintained data integrity and protocol fidelity across a multidisciplinary clinical research team.</li>
+                            </ul>
+                        </div>
+
+                        <div class="exp-role">
+                            <div class="exp-role-header">
+                                <span class="exp-title">Graduate Research Assistant — EMG & Signal Processing</span>
+                                <span class="exp-role-period">Sep 2025 – Present</span>
+                            </div>
+                            <ul class="exp-desc">
+                                <li>Developed and validated data acquisition pipelines for the Shimmer3 EMG system, implementing signal processing techniques to filter noise and extract physiological features.</li>
+                                <li>Analyzed muscle activation patterns and co-contraction timing in stroke survivors using surface EMG, identifying neuromuscular abnormalities relevant to gait rehabilitation.</li>
+                                <li>Processed and interpreted EMG datasets using Python, MATLAB, and ConsensysPro to support ongoing clinical research.</li>
+                            </ul>
+                            <div class="exp-tags">
+                                <span class="exp-tag">Python</span>
+                                <span class="exp-tag">MATLAB</span>
+                                <span class="exp-tag">sEMG</span>
+                                <span class="exp-tag">Signal Processing</span>
+                                <span class="exp-tag">ConsensysPro</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-role">
+                            <div class="exp-role-header">
+                                <span class="exp-title">Graduate Researcher — Laser Metal Bending</span>
+                                <span class="exp-role-period">Feb 2025 – May 2026</span>
+                            </div>
+                            <ul class="exp-desc">
+                                <li>Collected and processed experimental data for a laser metal bending research project, applying mechanical engineering principles and statistical analysis to support accurate modeling outcomes.</li>
+                                <li>Contributed to research methodology design, ensuring data quality and reproducibility across experimental trials.</li>
+                            </ul>
+                            <div class="exp-tags">
+                                <span class="exp-tag">Laser</span>
+                                <span class="exp-tag">EDA</span>
+                                <span class="exp-tag">Statistical Analysis</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Raytheon -->
+                <div class="exp-employer">
+                    <div class="exp-left">
+                        <div class="exp-company">Raytheon</div>
+                        <div class="exp-period">Sep 2025 – May 2026</div>
+                        <span class="exp-current">Current</span>
+                    </div>
+                    <div class="exp-roles">
+
+                        <div class="exp-role">
+                            <div class="exp-role-header">
+                                <span class="exp-title">AI/ML Engineering Project Intern</span>
+                                <span class="exp-role-period">Sep 2025 – May 2026 · Gainesville, FL</span>
+                            </div>
+                            <ul class="exp-desc">
+                                <li>Selected for a competitive project-based internship focused on software security, leveraging Cyber Reasoning System (CRS) technology from DARPA's AI Cyber Grand Challenge (AIxCC).</li>
+                                <li>Implemented and integrated multiple CRS platforms to detect source code vulnerabilities and generate targeted remediation recommendations.</li>
+                                <li>Built AI-assisted tooling to translate legacy Ada code into memory-safe languages (C++ and Rust), reducing long-term security risk in mission-critical systems.</li>
+                                <li>Designed a Linux-based CRS environment with planned LLM integration to optimize token usage and operational cost.</li>
+                                <li>Managing a project valued at 912 hours of internal engineering time; delivering technical reports on system configuration, CRS selection, and deployment effectiveness.</li>
+                            </ul>
+                            <div class="exp-tags">
+                                <span class="exp-tag">Python</span>
+                                <span class="exp-tag">Rust</span>
+                                <span class="exp-tag">C++</span>
+                                <span class="exp-tag">LLMs</span>
+                                <span class="exp-tag">DARPA AIxCC</span>
+                                <span class="exp-tag">CRS</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Stony Brook -->
+                <div class="exp-employer">
+                    <div class="exp-left">
+                        <div class="exp-company">Stony Brook University</div>
+                        <div class="exp-period">Feb 2022 – May 2024</div>
+                    </div>
+                    <div class="exp-roles">
+
+                        <div class="exp-role">
+                            <div class="exp-role-header">
+                                <span class="exp-title">Undergraduate Research Fellow</span>
+                                <span class="exp-role-period">Feb 2023 – May 2024 · 1 yr 4 mos</span>
+                            </div>
+                            <ul class="exp-desc">
+                                <li>Manufactured and tested 100+ nanocomposite samples, achieving a 15–20% improvement in compressive strength through optimized carbon nanotube (CNT) reinforcement strategies.</li>
+                                <li>Processed samples via ultrasonic homogenization and characterized microstructure using SEM and TEM imaging.</li>
+                                <li>Published peer-reviewed research as lead author in the SPE Inspiring Plastics Journal; awarded the Richard S. Lee Research Excellence Award.</li>
+                            </ul>
+                            <div class="exp-tags">
+                                <span class="exp-tag">CNT Nanocomposites</span>
+                                <span class="exp-tag">SEM / TEM</span>
+                                <span class="exp-tag">SPE Journal</span>
+                                <span class="exp-tag">Published Research</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-role">
+                            <div class="exp-role-header">
+                                <span class="exp-title">Undergraduate Teaching Assistant</span>
+                                <span class="exp-role-period">Feb 2022 – May 2022 · Part-time</span>
+                            </div>
+                            <ul class="exp-desc">
+                                <li>Supported student learning in Classical Physics I and II through weekly office hours, clarifying concepts and working through problem sets one-on-one and in small groups.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
