@@ -273,6 +273,21 @@
     }
     .section-intro { font-size:0.9rem;color:rgba(255,255,255,0.48);max-width:700px;margin-top:1.2rem; }
 
+    /* ─── TECH MARQUEE ─────────────────────────────────────────── */
+    .tech-marquee-section {
+        overflow: hidden;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        padding: 1.2rem 0;
+    }
+    .marquee-track { display:flex;width:max-content;animation:marqueeScroll 42s linear infinite; }
+    .tech-marquee-section:hover .marquee-track { animation-play-state:paused; }
+    .marquee-inner { display:flex;align-items:center; }
+    @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .marquee-item { font-size:0.58rem;letter-spacing:0.13rem;text-transform:uppercase;color:rgba(255,255,255,0.24);padding:0 1rem;font-family:'Outfit',sans-serif;white-space:nowrap;cursor:default;transition:color 0.2s; }
+    .marquee-item:hover { color:var(--accent); }
+    .marquee-sep { color:rgba(180,220,255,0.2);font-size:0.35rem;padding:0 0.1rem; }
+
     /* ─── PROJECT CARDS ────────────────────────────────────────── */
     .projects-grid {
         display: grid;
@@ -667,8 +682,8 @@
         </div>
     </section>
 
-    <!-- TECH MARQUEE (removed) -->
-    <div class="tech-marquee-section" aria-hidden="true" style="display:none">
+    <!-- TECH MARQUEE -->
+    <div class="tech-marquee-section" aria-hidden="true">
         <div class="marquee-track">
             <div class="marquee-inner">
                 <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
