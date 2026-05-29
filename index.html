@@ -406,6 +406,83 @@
     .skill-tags { display:flex;flex-wrap:wrap;gap:0.35rem; }
     .skill-tag { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:0;padding:0.18rem 0.5rem;font-size:0.76rem;color:#ccc;white-space:nowrap; }
 
+    /* ─── INDEXED PROJECT LIST ─────────────────────────────────── */
+    .proj-table { margin-top: 2.5rem; }
+
+    .proj-col-header {
+        display: grid;
+        grid-template-columns: 42px 1fr 170px 52px 18px;
+        gap: 0 2rem;
+        padding: 0 1rem 0.7rem;
+        border-bottom: 1px solid rgba(255,255,255,0.14);
+        font-size: 0.58rem;
+        letter-spacing: 0.14rem;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.22);
+    }
+
+    details.proj-row { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    details.proj-row > summary {
+        display: grid;
+        grid-template-columns: 42px 1fr 170px 52px 18px;
+        gap: 0 2rem;
+        align-items: center;
+        padding: 1.1rem 1rem;
+        cursor: pointer;
+        list-style: none;
+        transition: background 0.18s;
+    }
+    details.proj-row > summary::-webkit-details-marker { display: none; }
+    details.proj-row > summary::marker { display: none; }
+    details.proj-row > summary:hover { background: rgba(255,255,255,0.025); }
+
+    .proj-num { font-size: 0.68rem; color: rgba(255,255,255,0.18); font-variant-numeric: tabular-nums; font-style: italic; }
+    .proj-name { font-size: 0.95rem; color: rgba(255,255,255,0.82); }
+    .proj-cat  { font-size: 0.7rem; color: rgba(255,255,255,0.32); text-align: right; }
+    .proj-year { font-size: 0.7rem; color: rgba(255,255,255,0.22); text-align: right; font-variant-numeric: tabular-nums; }
+    .proj-toggle { font-size: 0.85rem; color: rgba(180,220,255,0.4); text-align: right; transition: transform 0.2s; line-height: 1; display: block; }
+    details[open] > summary .proj-toggle { transform: rotate(45deg); }
+
+    .proj-body {
+        padding: 1.2rem 1rem 2rem calc(42px + 2rem);
+        border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .proj-body p { font-size: 0.875rem; color: rgba(255,255,255,0.52); line-height: 1.72; margin-bottom: 0.75rem; }
+    .proj-body p strong { color: rgba(255,255,255,0.85); }
+    .proj-body ul { padding-left: 1.1rem; margin-bottom: 0.75rem; }
+    .proj-body ul li { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 0.28rem; }
+    .proj-body ul li::marker { color: var(--accent); }
+
+    .proj-body-media { margin: 1rem 0; max-width: 580px; border: 1px solid rgba(255,255,255,0.07); }
+    .proj-body-media video, .proj-body-media img { width: 100%; display: block; }
+
+    .proj-body-footer { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.9rem; flex-wrap: wrap; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .proj-tag { font-size: 0.62rem; letter-spacing: 0.04rem; color: rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.09); padding: 0.12rem 0.45rem; }
+    .proj-gh-link {
+        font-size: 0.7rem; letter-spacing: 0.06rem; color: var(--accent);
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        border-bottom: 1px solid rgba(180,220,255,0.22); padding-bottom: 1px; white-space: nowrap; margin-left: auto;
+    }
+    .proj-private-note { font-size: 0.62rem; letter-spacing: 0.1rem; text-transform: uppercase; color: rgba(255,255,255,0.2); font-style: italic; margin-bottom: 0.7rem; }
+
+    .proj-gallery-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1rem 0; max-width: 580px; }
+    .proj-gallery-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin: 1rem 0; max-width: 580px; }
+    .proj-gallery-2 figure, .proj-gallery-3 figure { margin: 0; }
+    .proj-gallery-2 img, .proj-gallery-3 img { width: 100%; border: 1px solid rgba(255,255,255,0.07); display: block; }
+    .proj-gallery-2 figcaption, .proj-gallery-3 figcaption { font-size: 0.62rem; color: rgba(255,255,255,0.25); margin-top: 0.25rem; text-align: center; }
+
+    .proj-doi { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-bottom: 0.8rem; }
+    .proj-doi a { color: var(--accent); border-bottom: 1px dotted rgba(180,220,255,0.4); }
+
+    @media (max-width: 700px) {
+        .proj-col-header { display: none; }
+        details.proj-row > summary { grid-template-columns: 32px 1fr 18px; }
+        .proj-cat, .proj-year { display: none; }
+        .proj-body { padding-left: 1rem; }
+        .proj-gallery-2, .proj-gallery-3 { grid-template-columns: 1fr; }
+    }
+
     /* ─── SECTION DIVIDER ──────────────────────────────────────── */
     .section-divider { height:1px;background:linear-gradient(to right,rgba(180,220,255,0.12),rgba(255,255,255,0.04),transparent);margin:4rem 0; }
 
@@ -624,64 +701,6 @@
         .img-gallery-2 { grid-template-columns: 1fr; }
         .img-gallery-3 { grid-template-columns: 1fr; }
     }
-    /* ─── CARD EXPAND ─────────────────────────────────────────── */
-    .card-expand-bg {
-        position: fixed; inset: 0; z-index: 499;
-        background: rgba(0,0,0,0.82);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        opacity: 0; pointer-events: none;
-        transition: opacity 0.4s ease;
-    }
-    .card-expand-bg.active { opacity: 1; pointer-events: all; }
-    .card-expand {
-        position: fixed; z-index: 500;
-        background: rgba(10,16,28,0.98);
-        border: 1px solid rgba(180,220,255,0.22);
-        border-top: 2px solid rgba(180,220,255,0.55);
-        padding: 2rem 2.2rem 2.5rem;
-        box-shadow: 0 48px 120px rgba(0,0,0,0.75), 0 0 80px rgba(180,220,255,0.07);
-        display: none; overflow-x: hidden;
-    }
-    .card-expand-close {
-        position: absolute; top: 1rem; right: 1.2rem;
-        background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 0; cursor: pointer;
-        color: rgba(255,255,255,0.55); font-size: 0.9rem;
-        width: 2rem; height: 2rem;
-        display: flex; align-items: center; justify-content: center;
-        transition: background 0.2s, color 0.2s; z-index: 10;
-    }
-    .card-expand-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
-    .card-expand .project-media { margin: 1.2rem 0; cursor: default; }
-    .card-expand .project-media img,
-    .card-expand .project-media video {
-        width: 100%; max-height: 55vh; object-fit: contain; border-radius: 0;
-        transform: none !important; transition: none !important;
-    }
-    .card-expand .project-media:hover img,
-    .card-expand .project-media:hover video { transform: none !important; }
-    .card-expand .project-media-overlay { display: none; }
-    /* stack galleries vertically in expanded view */
-    .card-expand .img-gallery-2,
-    .card-expand .img-gallery-3 {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-    }
-    .card-expand .img-gallery-2 img,
-    .card-expand .img-gallery-3 img {
-        max-height: 60vh; width: 100%; object-fit: contain;
-    }
-    .card-expand-gh {
-        display: inline-flex; align-items: center; gap: 0.5rem;
-        margin-top: 1.4rem; padding: 0.6rem 1.3rem;
-        background: rgba(180,220,255,0.08); border: 1px solid rgba(180,220,255,0.22);
-        border-radius: 0; font-size: 0.75rem; letter-spacing: 0.07rem;
-        text-transform: uppercase; color: var(--accent);
-        text-decoration: none; transition: background 0.2s, border-color 0.2s;
-    }
-    .card-expand-gh:hover { background: rgba(180,220,255,0.16); border-color: var(--accent); }
-    .project-card { cursor: pointer; }
     </style>
 </head>
 <body>
@@ -843,171 +862,184 @@
             <h2 class="section-title reveal-el">Applied Data Science</h2>
             <p class="section-intro reveal-el">AI/ML engineering across medical devices, defense systems, and clinical decision support.</p>
 
-            <div class="projects-grid">
-            <div class="projects-col">
-
-                <!-- Raytheon -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">AI/ML Engineering Co-op</div>
-                    <h3>Raytheon | AI/ML Engineering Intern</h3>
-                    <p class="project-meta">CONFIDENTIAL / NDA PROTECTED</p>
-                    <p><strong>Focus: LLMs, C++/Rust, DARPA Cyber Grand Challenge</strong><br/>
-                    Integrating Large Language Models into Cyber Reasoning Systems to analyze and patch legacy Ada code. Translating critical systems into memory-safe C++ and Rust, managing a 900+ hour engineering effort to modernize defense software infrastructure.</p>
-                    <div class="project-stack">
-                        <span class="stack-tag">LLMs</span>
-                        <span class="stack-tag">C++</span>
-                        <span class="stack-tag">Rust</span>
-                        <span class="stack-tag">Static Analysis</span>
-                        <span class="stack-tag">DARPA CyberGC</span>
-                    </div>
+            <div class="proj-table">
+                <div class="proj-col-header">
+                    <span></span><span>Project</span>
+                    <span style="text-align:right">Category</span>
+                    <span style="text-align:right">Year</span>
+                    <span></span>
                 </div>
 
-                <!-- SymptaAI -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">Multi-Agent AI · Full-Stack</div>
-                    <h3>SymptaAI | Clinical AI Decision Support Platform</h3>
-                    <div class="project-media">
-                        <video autoplay loop muted playsinline>
-                            <source src="images/symptaai_demo.mp4" type="video/mp4" />
-                            <img src="images/synapptaie.gif" alt="SymptaAI Demo" />
-                        </video>
-                        <a href="https://github.com/soroushsaririan/SymptaAI" target="_blank" class="project-media-overlay">
-                            <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
-                        </a>
-                    </div>
-                    <p class="project-caption">Multi-Agent Clinical AI Pipeline — Live Agent Reasoning</p>
-                    <p><strong>The Challenge:</strong> Physicians must rapidly synthesize lab results, records, and symptoms — information overload that drives diagnostic errors.<br/>
-                    <strong>The Solution:</strong> 8-agent LangGraph pipeline covering intake, record summarization, symptom analysis, lab interpretation, drug interaction checking, differential diagnosis, and care plan generation. FastAPI backend with JWT auth and real-time SSE streaming.</p>
-                    <ul>
-                        <li>Parallel agent execution with state accumulation across the pipeline</li>
-                        <li>Drug interaction checking, lab interpretation with critical value flagging</li>
-                        <li>ICD-10 coded differentials + prioritized care plan in under 2 minutes</li>
-                    </ul>
-                    <div class="project-stack">
-                        <span class="stack-tag">LangGraph</span>
-                        <span class="stack-tag">FastAPI</span>
-                        <span class="stack-tag">Next.js</span>
-                        <span class="stack-tag">NVIDIA NIM</span>
-                        <span class="stack-tag">JWT</span>
-                        <span class="stack-tag">SSE</span>
-                        <span class="stack-tag">PostgreSQL</span>
-                    </div>
-                </div>
-
-                <!-- medxplAIn -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">Medical Imaging · Deep Learning</div>
-                    <h3>medxplAIn | 3D Liver Tumor Segmentation</h3>
-                    <div class="project-media">
-                        <img src="images/medxplain_structure.jpg" alt="U-Net Architecture" />
-                        <a href="https://github.com/soroushsaririan/medxplAin-DR" target="_blank" class="project-media-overlay">
-                            <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
-                        </a>
-                    </div>
-                    <p class="project-caption">U-Net Architecture &amp; Project Directory</p>
-                    <p><strong>The Challenge:</strong> Manual liver segmentation for radiation therapy planning is subjective and time-consuming.<br/>
-                    <strong>The Solution:</strong> End-to-end PyTorch pipeline using a 3D U-Net architecture to automate liver and tumor segmentation from 3D CT volumes. Reduces segmentation from hours to minutes while standardizing diagnostic outputs.</p>
-                    <div class="project-stack">
-                        <span class="stack-tag">PyTorch</span>
-                        <span class="stack-tag">3D U-Net</span>
-                        <span class="stack-tag">Medical Imaging</span>
-                        <span class="stack-tag">Python</span>
-                    </div>
-                </div>
-
-                <!-- Skin Allergen -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">Computer Vision · Clinical</div>
-                    <h3>Skin Allergen Computer Vision</h3>
-                    <p class="project-meta confidential-tag">PRIVATE PROJECT</p>
-                    <p><strong>Focus: OpenCV, Python, Ensemble ML</strong><br/>
-                    Automated diagnostic pipeline using OpenCV and Random Forest models to analyze skin prick tests. Processes 500+ clinical images with &gt;90% correlation to clinician scoring, reducing diagnosis time from 5 minutes to 45 seconds per patient.</p>
-                    <div class="project-stack">
-                        <span class="stack-tag">OpenCV</span>
-                        <span class="stack-tag">Random Forest</span>
-                        <span class="stack-tag">Python</span>
-                    </div>
-                </div>
-
-            </div><!-- /col 1 -->
-            <div class="projects-col">
-
-                <!-- VitalStream -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">MLOps · Healthcare · AWS</div>
-                    <h3>VitalStream | Serverless Real-Time Patient Telemetry Pipeline</h3>
-                    <div class="project-media">
-                        <video autoplay loop muted playsinline>
-                            <source src="images/vitalstream_demo.mp4" type="video/mp4" />
-                            <img src="images/vitalstream_demo.gif" alt="VitalStream Demo" />
-                        </video>
-                        <a href="https://github.com/soroushsaririan/VitalStream" target="_blank" class="project-media-overlay">
-                            <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
-                        </a>
-                    </div>
-                    <p class="project-caption">Live AWS Deployment — 7 VPC PrivateLink Endpoints, HIPAA-Aligned Architecture</p>
-                    <p><strong>The Challenge:</strong> High-frequency physiological data (ECG at 500 Hz, sEMG at 2000 Hz) must be processed in near real-time — with zero data loss, strict PHI isolation, and clinical-grade audit trails.<br/>
-                    <strong>The Solution:</strong> Fully serverless pipeline on AWS. IoT Core → Kinesis → Lambda (DSP + HRV) → SageMaker 1D-CNN + BiLSTM ensemble → DynamoDB with alert routing. Terraform-provisioned 3-AZ VPC, customer-managed KMS CMKs, S3 Object Lock for 7-year HIPAA retention.</p>
-                    <ul>
-                        <li>1D-CNN + BiLSTM with Focal Loss for arrhythmia detection (AFIB, VT, STEMI)</li>
-                        <li>Blue/green SageMaker deployment with automatic CloudWatch rollback</li>
-                        <li>34 passing tests — unit + integration (moto-emulated DDB, partial-batch failure)</li>
-                    </ul>
-                    <div class="project-stack">
-                        <span class="stack-tag">PyTorch</span>
-                        <span class="stack-tag">AWS Lambda</span>
-                        <span class="stack-tag">Kinesis</span>
-                        <span class="stack-tag">DynamoDB</span>
-                        <span class="stack-tag">SageMaker</span>
-                        <span class="stack-tag">Terraform</span>
-                        <span class="stack-tag">GitHub Actions</span>
-                    </div>
-                </div>
-
-                <!-- RetinAI -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">Computer Vision · Healthcare</div>
-                    <h3>RetinAI | Diabetic Retinopathy Screening</h3>
-                    <div class="project-media">
-                        <img src="images/retinai_demo.gif" alt="RetinAI Demo" />
-                        <a href="https://github.com/soroushsaririan/RetinAI" target="_blank" class="project-media-overlay">
-                            <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
-                        </a>
-                    </div>
-                    <p class="project-caption">Vision Language Model (VLM) Analysis Pipeline</p>
-                    <p><strong>The Challenge:</strong> Diabetic retinopathy is a leading cause of blindness, yet early detection remains inaccessible in underserved communities.<br/>
-                    <strong>The Solution:</strong> Accessible screening tool using Vision Language Models to analyze retinal images and automatically flag retinopathy symptoms with high precision. Designed to assist healthcare providers in resource-limited settings.</p>
-                    <div class="project-stack">
-                        <span class="stack-tag">VLMs</span>
-                        <span class="stack-tag">OpenCV</span>
-                        <span class="stack-tag">Python</span>
-                    </div>
-                </div>
-
-                <!-- Laser Bending -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">Predictive Modeling · ML</div>
-                    <h3>Laser Metal Bending | Predictive Modeling</h3>
-                    <div class="project-media">
-                        <img src="images/laser_interface.jpg" alt="Laser Interface" />
-                        <div class="project-media-overlay" style="cursor:default;">
-                            <span class="overlay-github-btn" style="opacity:0.5;cursor:default;">Private Project</span>
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">01</span>
+                        <span class="proj-name">Raytheon — AI/ML Engineering</span>
+                        <span class="proj-cat">AI/ML · Defense</span>
+                        <span class="proj-year">2025</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <p class="proj-private-note">Confidential / NDA Protected</p>
+                        <p><strong>Focus: LLMs, C++/Rust, DARPA Cyber Grand Challenge</strong><br/>
+                        Integrating Large Language Models into Cyber Reasoning Systems to analyze and patch legacy Ada code. Translating critical systems into memory-safe C++ and Rust, managing a 900+ hour engineering effort to modernize defense software infrastructure.</p>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">LLMs</span><span class="proj-tag">C++</span><span class="proj-tag">Rust</span><span class="proj-tag">Static Analysis</span><span class="proj-tag">DARPA AIxCC</span>
+                            </div>
                         </div>
                     </div>
-                    <p class="project-caption">Ensemble Regression Analysis</p>
-                    <p><strong>The Challenge:</strong> Achieving precise control of metal deformation requires accurate modeling of complex thermal-mechanical interactions.<br/>
-                    <strong>The Solution:</strong> Comparative framework using 16 algorithms — Ensemble Models (Voting, Stacking, Gradient Boosting), SVMs, and Neural Networks — to predict deformation angles and validate experimental data against simulations.</p>
-                    <div class="project-stack">
-                        <span class="stack-tag">XGBoost</span>
-                        <span class="stack-tag">CatBoost</span>
-                        <span class="stack-tag">Scikit-learn</span>
-                        <span class="stack-tag">RandomForest</span>
-                        <span class="stack-tag">SVM</span>
-                    </div>
-                </div>
+                </details>
 
-            </div><!-- /col 2 -->
-            </div><!-- /projects-grid -->
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">02</span>
+                        <span class="proj-name">SymptaAI — Clinical AI Decision Support</span>
+                        <span class="proj-cat">Multi-Agent AI</span>
+                        <span class="proj-year">2025</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <p><strong>The Challenge:</strong> Physicians must rapidly synthesize lab results, records, and symptoms — information overload that drives diagnostic errors.<br/>
+                        <strong>The Solution:</strong> 8-agent LangGraph pipeline covering intake, record summarization, symptom analysis, lab interpretation, drug interaction checking, differential diagnosis, and care plan generation. FastAPI backend with JWT auth and real-time SSE streaming.</p>
+                        <ul>
+                            <li>Parallel agent execution with state accumulation across the pipeline</li>
+                            <li>Drug interaction checking, lab interpretation with critical value flagging</li>
+                            <li>ICD-10 coded differentials + prioritized care plan in under 2 minutes</li>
+                        </ul>
+                        <div class="proj-body-media">
+                            <video autoplay loop muted playsinline>
+                                <source src="images/symptaai_demo.mp4" type="video/mp4" />
+                                <img src="images/synapptaie.gif" alt="SymptaAI Demo" />
+                            </video>
+                        </div>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">LangGraph</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js</span><span class="proj-tag">NVIDIA NIM</span><span class="proj-tag">JWT</span><span class="proj-tag">SSE</span><span class="proj-tag">PostgreSQL</span>
+                            </div>
+                            <a href="https://github.com/soroushsaririan/SymptaAI" target="_blank" class="proj-gh-link"><i class="fab fa-github"></i> View Repo</a>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">03</span>
+                        <span class="proj-name">VitalStream — Serverless Patient Telemetry</span>
+                        <span class="proj-cat">MLOps · AWS</span>
+                        <span class="proj-year">2025</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <p><strong>The Challenge:</strong> High-frequency physiological data (ECG at 500 Hz, sEMG at 2000 Hz) must be processed in near real-time with zero data loss, strict PHI isolation, and clinical-grade audit trails.<br/>
+                        <strong>The Solution:</strong> Fully serverless pipeline on AWS. IoT Core → Kinesis → Lambda (DSP + HRV) → SageMaker 1D-CNN + BiLSTM ensemble → DynamoDB with alert routing. Terraform-provisioned 3-AZ VPC, KMS CMKs, S3 Object Lock for 7-year HIPAA retention.</p>
+                        <ul>
+                            <li>1D-CNN + BiLSTM with Focal Loss for arrhythmia detection (AFIB, VT, STEMI)</li>
+                            <li>Blue/green SageMaker deployment with automatic CloudWatch rollback</li>
+                            <li>34 passing tests — unit + integration (moto-emulated DDB, partial-batch failure)</li>
+                        </ul>
+                        <div class="proj-body-media">
+                            <video autoplay loop muted playsinline>
+                                <source src="images/vitalstream_demo.mp4" type="video/mp4" />
+                                <img src="images/vitalstream_demo.gif" alt="VitalStream Demo" />
+                            </video>
+                        </div>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">PyTorch</span><span class="proj-tag">AWS Lambda</span><span class="proj-tag">Kinesis</span><span class="proj-tag">DynamoDB</span><span class="proj-tag">SageMaker</span><span class="proj-tag">Terraform</span><span class="proj-tag">GitHub Actions</span>
+                            </div>
+                            <a href="https://github.com/soroushsaririan/VitalStream" target="_blank" class="proj-gh-link"><i class="fab fa-github"></i> View Repo</a>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">04</span>
+                        <span class="proj-name">medxplAIn — 3D Liver Tumor Segmentation</span>
+                        <span class="proj-cat">Medical Imaging</span>
+                        <span class="proj-year">2024</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <p><strong>The Challenge:</strong> Manual liver segmentation for radiation therapy planning is subjective and time-consuming.<br/>
+                        <strong>The Solution:</strong> End-to-end PyTorch pipeline using a 3D U-Net architecture to automate liver and tumor segmentation from 3D CT volumes. Reduces segmentation from hours to minutes while standardizing diagnostic outputs.</p>
+                        <div class="proj-body-media">
+                            <img src="images/medxplain_structure.jpg" alt="U-Net Architecture" />
+                        </div>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">PyTorch</span><span class="proj-tag">3D U-Net</span><span class="proj-tag">Medical Imaging</span><span class="proj-tag">Python</span>
+                            </div>
+                            <a href="https://github.com/soroushsaririan/medxplAin-DR" target="_blank" class="proj-gh-link"><i class="fab fa-github"></i> View Repo</a>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">05</span>
+                        <span class="proj-name">RetinAI — Diabetic Retinopathy Screening</span>
+                        <span class="proj-cat">Computer Vision</span>
+                        <span class="proj-year">2024</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <p><strong>The Challenge:</strong> Diabetic retinopathy is a leading cause of blindness, yet early detection remains inaccessible in underserved communities.<br/>
+                        <strong>The Solution:</strong> Accessible screening tool using Vision Language Models to analyze retinal images and automatically flag retinopathy symptoms with high precision. Designed to assist healthcare providers in resource-limited settings.</p>
+                        <div class="proj-body-media">
+                            <img src="images/retinai_demo.gif" alt="RetinAI Demo" />
+                        </div>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">VLMs</span><span class="proj-tag">OpenCV</span><span class="proj-tag">Python</span>
+                            </div>
+                            <a href="https://github.com/soroushsaririan/RetinAI" target="_blank" class="proj-gh-link"><i class="fab fa-github"></i> View Repo</a>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">06</span>
+                        <span class="proj-name">Laser Metal Bending — Predictive Modeling</span>
+                        <span class="proj-cat">Ensemble ML</span>
+                        <span class="proj-year">2024</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <p class="proj-private-note">Private Project</p>
+                        <p><strong>The Challenge:</strong> Achieving precise control of metal deformation requires accurate modeling of complex thermal-mechanical interactions.<br/>
+                        <strong>The Solution:</strong> Comparative framework using 16 algorithms — Ensemble Models (Voting, Stacking, Gradient Boosting), SVMs, and Neural Networks — to predict deformation angles and validate experimental data against simulations.</p>
+                        <div class="proj-body-media">
+                            <img src="images/laser_interface.jpg" alt="Laser Interface" />
+                        </div>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">XGBoost</span><span class="proj-tag">CatBoost</span><span class="proj-tag">Scikit-learn</span><span class="proj-tag">RandomForest</span><span class="proj-tag">SVM</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">07</span>
+                        <span class="proj-name">Skin Allergen Computer Vision</span>
+                        <span class="proj-cat">Computer Vision · Clinical</span>
+                        <span class="proj-year">2024</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <p class="proj-private-note">Private Project</p>
+                        <p>Automated diagnostic pipeline using OpenCV and Random Forest models to analyze skin prick tests. Processes 500+ clinical images with &gt;90% correlation to clinician scoring, reducing diagnosis time from 5 minutes to 45 seconds per patient.</p>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">OpenCV</span><span class="proj-tag">Random Forest</span><span class="proj-tag">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
 
             <div class="section-divider reveal-el"></div>
 
@@ -1109,91 +1141,99 @@
             <h2 class="section-title reveal-el">R&amp;D Engineering</h2>
             <p class="section-intro reveal-el">From nanocomposites to medical devices — bridging physical hardware with data-driven analysis.</p>
 
-            <div class="projects-grid">
+            <div class="proj-table">
+                <div class="proj-col-header">
+                    <span>#</span><span>Project</span><span>Category</span><span>Year</span><span></span>
+                </div>
 
-                <!-- UF Orthopedics -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">Medical Device R&amp;D</div>
-                    <h3>Medical Device R&amp;D — UF Orthopedics</h3>
-                    <div class="img-gallery-2">
-                        <figure>
+                <!-- 01: UF Orthopedics -->
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">01</span>
+                        <span class="proj-name">Medical Device R&amp;D — UF Orthopedics</span>
+                        <span class="proj-cat">Medical Device R&amp;D</span>
+                        <span class="proj-year">2024</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <div class="proj-gallery-2 proj-body-media">
                             <img src="images/emg_sensor.jpg" alt="Shimmer3 Sensor" />
-                            <figcaption>Shimmer3 Sensor Deployment</figcaption>
-                        </figure>
-                        <figure>
                             <img src="images/emg_interface.gif" alt="Python Interface Demo" />
-                            <figcaption>Custom Python Data Interface</figcaption>
-                        </figure>
+                        </div>
+                        <p style="font-size:0.82rem;color:rgba(255,255,255,0.52);line-height:1.7;max-width:580px;">
+                            Working under Dr. Sharareh Sharififar and Dr. Andrew Dubin to quantify gait abnormalities in stroke patients. Built a data acquisition pipeline using Shimmer3 EMG sensors with Python scripts to clean and visualize raw electromyography signals, isolating muscle activation patterns during walking trials. Real-time feedback on muscle firing rates helps clinicians adjust physical therapy regimens.
+                        </p>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">Python</span>
+                                <span class="proj-tag">EMG</span>
+                                <span class="proj-tag">Signal Processing</span>
+                                <span class="proj-tag">Shimmer3</span>
+                            </div>
+                        </div>
                     </div>
-                    <p><strong>The Challenge:</strong> Quantify gait abnormalities in stroke patients to assist rehabilitation decisions.<br/>
-                    <strong>The Solution:</strong> Working under Dr. Sharareh Sharififar and Dr. Andrew Dubin to develop a data acquisition pipeline using Shimmer3 EMG sensors. Programmed Python scripts to clean and visualize raw electromyography signals, isolating muscle activation patterns during walking trials.<br/>
-                    <strong>Outcome:</strong> Real-time feedback on muscle firing rates, helping clinicians adjust physical therapy regimens.</p>
-                    <div class="project-stack">
-                        <span class="stack-tag">Python</span>
-                        <span class="stack-tag">EMG</span>
-                        <span class="stack-tag">Signal Processing</span>
-                        <span class="stack-tag">Shimmer3</span>
-                    </div>
-                </div>
+                </details>
 
-                <!-- Nanocomposite -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">Published Research</div>
-                    <h3>Nanocomposite Material Research</h3>
-                    <p style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-bottom:0.8rem;">
-                        <strong>Role:</strong> Primary Author &nbsp;|&nbsp;
-                        <a href="https://doi.org/10.1002/pc.29076" target="_blank" style="color:var(--accent);border-bottom:1px dotted rgba(180,220,255,0.4);">Polymer Composites (DOI: 10.1002/pc.29076)</a>
-                    </p>
-                    <div class="img-gallery-3">
-                        <figure>
+                <!-- 02: Nanocomposite -->
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">02</span>
+                        <span class="proj-name">Nanocomposite Material Research</span>
+                        <span class="proj-cat">Published Research</span>
+                        <span class="proj-year">2023</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <div class="proj-gallery-3 proj-body-media">
                             <img src="images/nano_setup.jpg" alt="Lab Setup" />
-                            <figcaption>Ultrasonic Homogenization</figcaption>
-                        </figure>
-                        <figure>
                             <img src="images/nano_sample.jpg" alt="Composite Sample" />
-                            <figcaption>Post-Compression Specimens</figcaption>
-                        </figure>
-                        <figure>
                             <img src="images/nano_plot.jpg" alt="Stress Strain Data" />
-                            <figcaption>Stress-Strain Results</figcaption>
-                        </figure>
+                        </div>
+                        <p style="font-size:0.82rem;color:rgba(255,255,255,0.52);line-height:1.7;max-width:580px;">
+                            Primary Author — investigated Carbon Nanotube reinforcement of epoxy composites (straight and helical CNTs). Developed novel ultrasonic homogenization protocol; utilized SEM/TEM microscopy for microstructural analysis. Achieved 15–20% improvement in compressive strength. Findings peer-reviewed and published in <em>Polymer Composites</em>.
+                        </p>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">Materials Science</span>
+                                <span class="proj-tag">CNT</span>
+                                <span class="proj-tag">SEM/TEM</span>
+                                <span class="proj-tag">Instron</span>
+                                <span class="proj-tag">Python</span>
+                            </div>
+                            <a href="https://doi.org/10.1002/pc.29076" target="_blank" class="proj-gh-link">
+                                DOI: 10.1002/pc.29076 ↗
+                            </a>
+                        </div>
                     </div>
-                    <p><strong>The Challenge:</strong> Improve compressive strength of epoxy composites without increasing weight. CNT epoxy composites had been mainly tested under tensile conditions.<br/>
-                    <strong>The Solution:</strong> Investigated Carbon Nanotube reinforcement for straight and helical CNTs. Developed novel ultrasonic homogenization protocol; utilized SEM/TEM microscopy for microstructural analysis.<br/>
-                    <strong>Outcome:</strong> 15–20% improvement in compressive strength. Findings peer-reviewed and published in <em>Polymer Composites</em>.</p>
-                    <div class="project-stack">
-                        <span class="stack-tag">Materials Science</span>
-                        <span class="stack-tag">CNT</span>
-                        <span class="stack-tag">SEM/TEM</span>
-                        <span class="stack-tag">Instron</span>
-                        <span class="stack-tag">Python</span>
-                    </div>
-                </div>
+                </details>
 
-                <!-- Solar Racing -->
-                <div class="project-card reveal-el">
-                    <div class="project-badge">Propulsion Lead · Competition</div>
-                    <h3>Stony Brook Solar Racing | Propulsion Lead</h3>
-                    <div class="img-gallery-2">
-                        <figure>
+                <!-- 03: Solar Racing -->
+                <details class="proj-row">
+                    <summary>
+                        <span class="proj-num">03</span>
+                        <span class="proj-name">Stony Brook Solar Racing — Propulsion Lead</span>
+                        <span class="proj-cat">Propulsion · Competition</span>
+                        <span class="proj-year">2023</span>
+                        <span class="proj-toggle">+</span>
+                    </summary>
+                    <div class="proj-body">
+                        <div class="proj-gallery-2 proj-body-media">
                             <img src="images/solar_boat.jpg" alt="Solar Boat" />
-                            <figcaption>Final Assembly &amp; Propulsion Testing</figcaption>
-                        </figure>
-                        <figure>
                             <img src="images/solar_cad.jpg" alt="Propulsion CAD" />
-                            <figcaption>Outboard System CAD (Fusion 360)</figcaption>
-                        </figure>
+                        </div>
+                        <p style="font-size:0.82rem;color:rgba(255,255,255,0.52);line-height:1.7;max-width:580px;">
+                            Led mechanical design for the 2024 Solar Splash Competition using Fusion 360 and SolidWorks. Personally machined custom drivetrain components — motor mounts and couplers — using manual mills and lathes to sub-millimeter tolerance. Successfully integrated the electric motor system, meeting all competition safety and performance benchmarks.
+                        </p>
+                        <div class="proj-body-footer">
+                            <div class="proj-tags">
+                                <span class="proj-tag">Fusion 360</span>
+                                <span class="proj-tag">SolidWorks</span>
+                                <span class="proj-tag">CNC Machining</span>
+                                <span class="proj-tag">Manual Mill/Lathe</span>
+                            </div>
+                        </div>
                     </div>
-                    <p><strong>The Challenge:</strong> Design a high-efficiency propulsion system for the 2024 Solar Splash Competition, balancing weight constraints with power output.<br/>
-                    <strong>The Solution:</strong> Led mechanical design using Fusion 360 and SolidWorks. Personally machined custom drivetrain components (motor mounts, couplers) using manual mills and lathes to ensure sub-millimeter tolerance.<br/>
-                    <strong>Outcome:</strong> Successfully integrated the electric motor system, meeting all competition safety and performance benchmarks.</p>
-                    <div class="project-stack">
-                        <span class="stack-tag">Fusion 360</span>
-                        <span class="stack-tag">SolidWorks</span>
-                        <span class="stack-tag">CNC Machining</span>
-                        <span class="stack-tag">Manual Mill/Lathe</span>
-                    </div>
-                </div>
+                </details>
 
             </div>
 
@@ -1838,129 +1878,13 @@
 
 
 
-<!-- Card Expand Overlay -->
-<div class="card-expand-bg" id="cardExpandBg"></div>
-<div class="card-expand" id="cardExpand" role="dialog" aria-modal="true">
-    <button class="card-expand-close" id="cardExpandClose" aria-label="Close">&#x2715;</button>
-    <div id="cardExpandContent"></div>
-</div>
-
 <script>
-(function () {
-    var bg       = document.getElementById('cardExpandBg');
-    var expand   = document.getElementById('cardExpand');
-    var content  = document.getElementById('cardExpandContent');
-    var closeBtn = document.getElementById('cardExpandClose');
-    var activeCard   = null;
-    var savedTransform = '';
-
-    function openCard(card) {
-        activeCard = card;
-        var rect = card.getBoundingClientRect();
-
-        /* ── final (expanded) position ── */
-        var W = Math.min(window.innerWidth * 0.88, 880);
-        var H = window.innerHeight * 0.88;
-        var L = (window.innerWidth  - W) / 2;
-        var T = window.innerHeight * 0.06;
-
-        /* centers */
-        var expandCX = L + W / 2;
-        var expandCY = T + H / 2;
-        var cardCX   = rect.left + rect.width  / 2;
-        var cardCY   = rect.top  + rect.height / 2;
-
-        /* transform that makes the big div look exactly like the card */
-        var dx = cardCX - expandCX;
-        var dy = cardCY - expandCY;
-        var sx = rect.width  / W;
-        var sy = rect.height / H;
-        savedTransform = 'translate('+dx+'px,'+dy+'px) scale('+sx+','+sy+')';
-
-        /* place the expand div at its final dimensions */
-        expand.style.top    = T  + 'px';
-        expand.style.left   = L  + 'px';
-        expand.style.width  = W  + 'px';
-        expand.style.height = H  + 'px';
-        expand.style.borderRadius   = '14px';
-        expand.style.overflowY      = 'hidden';
-        expand.style.transformOrigin = 'center center';
-
-        /* build content */
-        content.innerHTML = '';
-        var clone = card.cloneNode(true);
-
-        var origVid = card.querySelector('video');
-        if (origVid) origVid.pause();
-        var cloneVid = clone.querySelector('video');
-        if (cloneVid) {
-            cloneVid.removeAttribute('autoplay');
-            cloneVid.setAttribute('controls', '');
-            cloneVid.loop = false;
-            cloneVid.load();
-        }
-        content.appendChild(clone);
-
-        var ghLink = clone.querySelector('.project-media-overlay a');
-        if (ghLink) {
-            var ghBtn = document.createElement('a');
-            ghBtn.href = ghLink.href; ghBtn.target = '_blank';
-            ghBtn.rel  = 'noopener noreferrer';
-            ghBtn.className = 'card-expand-gh';
-            ghBtn.innerHTML = '<i class="fab fa-github"></i> View on GitHub';
-            content.appendChild(ghBtn);
-        }
-
-        /* start at card size/position, then animate to full */
-        expand.style.transition = 'none';
-        expand.style.transform  = savedTransform;
-        expand.style.display    = 'block';
-        bg.classList.add('active');
-        card.style.visibility   = 'hidden';
-        document.body.style.overflow = 'hidden';
-
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-                expand.style.transition = 'transform 0.48s cubic-bezier(0.22,1,0.36,1)';
-                expand.style.transform  = 'none';
-                setTimeout(function () { expand.style.overflowY = 'auto'; }, 480);
-            });
-        });
-    }
-
-    function closeCard() {
-        if (!activeCard) return;
-        var card = activeCard;
-        activeCard = null;
-        expand.style.overflowY  = 'hidden';
-        expand.style.transition = 'transform 0.48s cubic-bezier(0.22,1,0.36,1)';
-        expand.style.transform  = savedTransform;
-        bg.classList.remove('active');
-        document.body.style.overflow = '';
-
-        setTimeout(function () {
-            expand.style.display    = 'none';
-            expand.style.transform  = '';
-            expand.style.transition = '';
-            content.innerHTML = '';
-            card.style.visibility = '';
-            card.querySelectorAll('video').forEach(function (v) { v.play(); });
-        }, 480);
-    }
-
-    document.querySelectorAll('.project-card').forEach(function (card) {
-        card.addEventListener('click', function (e) {
-            if (e.target.closest('a')) return;
-            openCard(card);
-        });
+document.querySelectorAll('details.proj-row').forEach(function (d) {
+    d.addEventListener('toggle', function () {
+        if (d.open) d.querySelectorAll('video').forEach(function (v) { v.play(); });
+        else        d.querySelectorAll('video').forEach(function (v) { v.pause(); });
     });
-
-    closeBtn.addEventListener('click', closeCard);
-    bg.addEventListener('click', closeCard);
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && expand.style.display === 'block') closeCard();
-    });
-})();
+});
 </script>
 
 </body>
