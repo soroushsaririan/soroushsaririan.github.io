@@ -22,7 +22,6 @@
         color: rgba(255,255,255,0.82);
         line-height: 1.7;
         overflow-x: hidden;
-        cursor: none;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -133,23 +132,6 @@
         transform: translate(-50%,-50%);
     }
 
-    /* ─── PAGE LOADER ──────────────────────────────────────────── */
-    #page-loader {
-        position: fixed; inset: 0; background: #09080f;
-        z-index: 99999; display: flex; align-items: center; justify-content: center;
-        transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), visibility 0.65s;
-    }
-    #page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .loader-inner { text-align: center; }
-    .loader-initials {
-        font-family: 'Outfit', sans-serif; font-weight: 200;
-        font-size: 3rem; letter-spacing: 0.55rem; color: #b4dcff;
-        display: block; margin-bottom: 1.8rem; text-transform: uppercase;
-    }
-    .loader-initials span { color: rgba(180,220,255,0.3); font-weight: 100; }
-    .loader-bar-track { width:90px;height:1.5px;background:rgba(255,255,255,0.07);border-radius:0;overflow:hidden;margin:0 auto; }
-    .loader-bar-fill { height:100%;background:linear-gradient(90deg,#b4dcff,rgba(180,220,255,0.35));border-radius:0;animation:loaderFill 0.85s cubic-bezier(0.4,0,0.2,1) forwards; }
-    @keyframes loaderFill { from{transform:translateX(-100%)} to{transform:translateX(0)} }
 
     /* ─── SCROLL PROGRESS ──────────────────────────────────────── */
     #scroll-progress {
@@ -158,20 +140,6 @@
         z-index: 9997; border-radius: 0; transition: width 0.08s linear;
     }
 
-    /* ─── CURSOR ───────────────────────────────────────────────── */
-    .cursor-dot {
-        position: fixed; width: 5px; height: 5px; background: var(--accent);
-        border-radius: 50%; pointer-events: none; z-index: 10000;
-        transform: translate(-50%,-50%);
-    }
-    .cursor-ring {
-        position: fixed; width: 28px; height: 28px;
-        border: 1px solid rgba(180,220,255,0.4); border-radius: 50%;
-        pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
-        transition: width 0.22s, height 0.22s, border-color 0.22s, background 0.22s;
-    }
-    body.cursor-hover .cursor-ring { width:46px;height:46px;border-color:rgba(251,146,60,0.7);background:rgba(251,146,60,0.05); }
-    @media (hover:none) { .cursor-dot,.cursor-ring { display:none } body { cursor:auto } }
 
 
     /* ─── NAVBAR ───────────────────────────────────────────────── */
@@ -697,14 +665,6 @@
 </head>
 <body>
 
-
-<!-- ── PAGE LOADER ────────────────────────────────────────── -->
-<div id="page-loader">
-    <div class="loader-inner">
-        <span class="loader-initials">S<span>·</span>S</span>
-        <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
-    </div>
-</div>
 
 <!-- ── SCROLL PROGRESS ───────────────────────────────────── -->
 <div id="scroll-progress"></div>
@@ -1666,15 +1626,6 @@
 })();
 </script>
 
-<!-- Page Loader -->
-<script>
-(function () {
-    var loader = document.getElementById('page-loader');
-    if (!loader) return;
-    setTimeout(function () { loader.classList.add('hidden'); }, 1050);
-})();
-</script>
-
 <!-- Scroll Progress + Navbar + Back to Top -->
 <script>
 (function () {
@@ -1712,27 +1663,6 @@
         setTimeout(tick, delay);
     }
     setTimeout(tick, 1300);
-})();
-</script>
-
-<!-- Custom Cursor -->
-<script>
-(function () {
-    if (!window.matchMedia('(hover: hover)').matches) return;
-    var dot  = document.createElement('div'); dot.className  = 'cursor-dot';
-    var ring = document.createElement('div'); ring.className = 'cursor-ring';
-    document.body.appendChild(dot); document.body.appendChild(ring);
-    var mx=-200,my=-200,rx=-200,ry=-200;
-    document.addEventListener('mousemove', function(e){mx=e.clientX;my=e.clientY;});
-    var sel = 'a, button, .skill-category, .project-card, .nav-hamburger';
-    document.addEventListener('mouseover',function(e){if(e.target.closest(sel))document.body.classList.add('cursor-hover');});
-    document.addEventListener('mouseout', function(e){if(e.target.closest(sel))document.body.classList.remove('cursor-hover');});
-    (function loop(){
-        dot.style.left=mx+'px'; dot.style.top=my+'px';
-        rx+=(mx-rx)*0.14; ry+=(my-ry)*0.14;
-        ring.style.left=rx+'px'; ring.style.top=ry+'px';
-        requestAnimationFrame(loop);
-    })();
 })();
 </script>
 
