@@ -5,6 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/fontawesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/brands.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/solid.min.css" />
@@ -14,7 +17,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-        font-family: 'Times New Roman', Times, serif;
+        font-family: 'Fraunces', Georgia, serif;
         background: #09080f;
         color: rgba(255,255,255,0.82);
         line-height: 1.7;
@@ -128,20 +131,20 @@
     }
     .nav-container { width:100%;max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between; }
     .nav-logo {
-        font-family: 'Times New Roman', Times, serif; font-weight: 300;
+        font-family: 'Fraunces', Georgia, serif; font-weight: 300;
         font-size: 1.2rem; letter-spacing: 0.22rem; color: #fff;
     }
     .nav-logo .dot { color: var(--accent); }
     .nav-links { display:flex;align-items:center;gap:0.15rem; }
     .nav-links a {
-        font-family: 'Times New Roman', Times, serif; font-size: 0.7rem;
+        font-family: 'Fraunces', Georgia, serif; font-size: 0.7rem;
         letter-spacing: 0.14rem; text-transform: uppercase;
         color: rgba(255,255,255,0.48); padding: 0.4rem 0.85rem;
         border-radius: 0; transition: color 0.2s, background 0.2s;
     }
     .nav-links a:hover { color: var(--accent); background: var(--accent-dim); }
     .nav-cta {
-        font-family: 'Times New Roman', Times, serif; font-size: 0.7rem;
+        font-family: 'Fraunces', Georgia, serif; font-size: 0.7rem;
         letter-spacing: 0.12rem; text-transform: uppercase;
         padding: 0.44rem 1.1rem; border: 1px solid var(--border-a);
         border-radius: 0; color: var(--accent); background: var(--accent-dim);
@@ -163,7 +166,7 @@
     }
     .nav-mobile.open { display: block; }
     .nav-mobile a {
-        display: block; font-family: 'Times New Roman', Times, serif;
+        display: block; font-family: 'Fraunces', Georgia, serif;
         font-size: 0.82rem; letter-spacing: 0.14rem; text-transform: uppercase;
         color: rgba(255,255,255,0.55); padding: 0.75rem 0;
         border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.2s;
@@ -187,7 +190,7 @@
     .hero-left { display: flex; flex-direction: column; gap: 1.35rem; position: relative; z-index: 2; }
 
     .hero-title {
-        font-family: 'Times New Roman', Times, serif; font-weight: 200;
+        font-family: 'Fraunces', Georgia, serif; font-weight: 200;
         font-size: clamp(2.4rem, 4.2vw, 3.9rem);
         line-height: 1.12; letter-spacing: 0.01rem; color: #fff;
     }
@@ -207,7 +210,7 @@
     }
     .hero-actions { display:flex;flex-wrap:wrap;gap:0.8rem;align-items:center; }
     .btn-primary {
-        font-family: 'Times New Roman', Times, serif; font-size: 0.72rem;
+        font-family: 'Fraunces', Georgia, serif; font-size: 0.72rem;
         letter-spacing: 0.1rem; text-transform: uppercase;
         padding: 0.75rem 1.9rem; background: var(--accent);
         color: #060d1f; font-weight: 600; border-radius: 0;
@@ -217,7 +220,7 @@
     }
     .btn-primary:hover { background:#d4eeff;box-shadow:0 0 24px rgba(180,220,255,0.45);transform:translateY(-2px); }
     .btn-outline {
-        font-family: 'Times New Roman', Times, serif; font-size: 0.72rem;
+        font-family: 'Fraunces', Georgia, serif; font-size: 0.72rem;
         letter-spacing: 0.1rem; text-transform: uppercase;
         padding: 0.72rem 1.9rem; border: 1px solid var(--border-a);
         border-radius: 0; color: rgba(255,255,255,0.7);
@@ -251,12 +254,12 @@
     section { padding: 6rem 2.5rem; position: relative; }
     .section-container { width:100%;max-width:1280px;margin:0 auto; }
     .section-label {
-        font-family: 'Times New Roman', Times, serif; font-size: 0.62rem;
+        font-family: 'Fraunces', Georgia, serif; font-size: 0.62rem;
         letter-spacing: 0.22rem; text-transform: uppercase;
         color: var(--accent); margin-bottom: 0.7rem;
     }
     .section-title {
-        font-family: 'Times New Roman', Times, serif; font-weight: 200;
+        font-family: 'Fraunces', Georgia, serif; font-weight: 200;
         font-size: clamp(1.9rem, 3vw, 2.7rem);
         letter-spacing: 0.03rem; line-height: 1.2;
         margin-bottom: 0.6rem; color: #fff;
@@ -316,7 +319,7 @@
         color: var(--accent); margin-bottom: 0.9rem;
     }
     .project-card h3 {
-        font-family: 'Times New Roman', Times, serif; font-weight: 400;
+        font-family: 'Fraunces', Georgia, serif; font-weight: 400;
         font-size: 1.08rem; letter-spacing: 0.03rem;
         color: #fff; margin-bottom: 0.4rem; line-height: 1.3;
     }
@@ -348,7 +351,7 @@
     .project-media:hover .project-media-overlay { opacity: 1; }
     .overlay-github-btn {
         display: flex; align-items: center; gap: 0.55rem;
-        font-family: 'Times New Roman', Times, serif; font-size: 0.72rem;
+        font-family: 'Fraunces', Georgia, serif; font-size: 0.72rem;
         letter-spacing: 0.1rem; text-transform: uppercase;
         padding: 0.68rem 1.5rem;
         background: rgba(255,255,255,0.08);
@@ -425,7 +428,7 @@
         padding-top: 0.1rem;
     }
     .exp-company {
-        font-family: 'Times New Roman', Times, serif;
+        font-family: 'Fraunces', Georgia, serif;
         font-size: 0.78rem;
         font-weight: 600;
         letter-spacing: 0.06rem;
@@ -461,7 +464,7 @@
         margin-bottom: 0.6rem;
     }
     .exp-title {
-        font-family: 'Times New Roman', Times, serif;
+        font-family: 'Fraunces', Georgia, serif;
         font-size: 0.95rem;
         font-weight: 400;
         color: rgba(255,255,255,0.9);
@@ -509,7 +512,7 @@
     /* ─── ABOUT ────────────────────────────────────────────────── */
     .about-grid { display:grid;grid-template-columns:3fr 2fr;gap:4rem;align-items:start;margin-top:2.5rem; }
     .about-text h3 {
-        font-family: 'Times New Roman', Times, serif; font-weight: 300;
+        font-family: 'Fraunces', Georgia, serif; font-weight: 300;
         font-size: 1.05rem; color: rgba(255,255,255,0.85);
         margin: 2rem 0 0.6rem;
         border-left: 2px solid var(--accent); padding-left: 0.7rem;
@@ -552,7 +555,7 @@
         background: rgba(255,255,255,0.04);
         border: 1px solid rgba(255,255,255,0.1);
         border-radius: 0; padding: 0.75rem 1rem;
-        color: #fff; font-family: 'Times New Roman', Times, serif;
+        color: #fff; font-family: 'Fraunces', Georgia, serif;
         font-size: 0.88rem; outline: none;
         transition: border-color 0.2s, background 0.2s;
         resize: vertical;
@@ -564,7 +567,7 @@
     .form-group textarea { min-height: 120px; }
     .form-submit { display:flex;gap:0.8rem;align-items:center;flex-wrap:wrap; }
     .btn-reset {
-        font-family: 'Times New Roman', Times, serif; font-size: 0.7rem;
+        font-family: 'Fraunces', Georgia, serif; font-size: 0.7rem;
         letter-spacing: 0.1rem; text-transform: uppercase;
         padding: 0.72rem 1.4rem; border: 1px solid rgba(255,255,255,0.12);
         border-radius: 0; color: rgba(255,255,255,0.45);
