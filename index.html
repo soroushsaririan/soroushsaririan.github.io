@@ -173,17 +173,6 @@
     body.cursor-hover .cursor-ring { width:46px;height:46px;border-color:rgba(251,146,60,0.7);background:rgba(251,146,60,0.05); }
     @media (hover:none) { .cursor-dot,.cursor-ring { display:none } body { cursor:auto } }
 
-    /* ─── OPEN TO WORK ─────────────────────────────────────────── */
-    .open-to-work {
-        display: inline-flex; align-items: center; gap: 0.45rem;
-        padding: 0.24rem 0.8rem;
-        border: 1px solid rgba(34,197,94,0.3); border-radius: 20px;
-        font-size: 0.72rem; letter-spacing: 0.1rem; text-transform: uppercase;
-        color: rgba(134,239,172,0.88); background: rgba(34,197,94,0.07);
-        font-family: 'Outfit', sans-serif;
-    }
-    .otw-dot { width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:otwPulse 2.2s ease-in-out infinite; }
-    @keyframes otwPulse { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.6)} 50%{box-shadow:0 0 0 5px rgba(34,197,94,0)} }
 
     /* ─── NAVBAR ───────────────────────────────────────────────── */
     #navbar {
@@ -338,8 +327,7 @@
         60%  { opacity:1;transform:translateY(-4px) scale(1.005) }
         100% { opacity:1;transform:translateY(0) scale(1) }
     }
-    .hero-left .open-to-work  { animation:springUp 0.8s 0s   cubic-bezier(0.22,1,0.36,1) both }
-    .hero-left .hero-title    { animation:springUp 0.8s 0.1s  cubic-bezier(0.22,1,0.36,1) both }
+    .hero-left .hero-title    { animation:springUp 0.8s 0s   cubic-bezier(0.22,1,0.36,1) both }
     .hero-left .hero-subtitle { animation:springUp 0.8s 0.18s cubic-bezier(0.22,1,0.36,1) both }
     .hero-left .hero-typed    { animation:springUp 0.8s 0.24s cubic-bezier(0.22,1,0.36,1) both }
     .hero-left .hero-chips    { animation:springUp 0.8s 0.3s  cubic-bezier(0.22,1,0.36,1) both }
@@ -762,9 +750,6 @@
     <section id="hero">
         <div class="hero-container">
             <div class="hero-left">
-                <div class="open-to-work">
-                    <span class="otw-dot"></span>Open to Work
-                </div>
                 <h1 class="hero-title">
                     Soroush Saririan<span class="eit">EIT</span>
                 </h1>
@@ -978,7 +963,7 @@
                     <div class="project-media">
                         <video autoplay loop muted playsinline>
                             <source src="images/vitalstream_demo.mp4" type="video/mp4" />
-                            <img src="images/vitalstream_aws.png" alt="VitalStream AWS Infrastructure" />
+                            <img src="images/vitalstream_demo.gif" alt="VitalStream Demo" />
                         </video>
                         <a href="https://github.com/soroushsaririan/VitalStream" target="_blank" class="project-media-overlay">
                             <span class="overlay-github-btn"><i class="fab fa-github"></i> View Repo</span>
