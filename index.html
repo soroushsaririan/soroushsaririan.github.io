@@ -440,8 +440,9 @@
     .proj-name { font-size: 0.95rem; color: rgba(255,255,255,0.82); }
     .proj-cat  { font-size: 0.7rem; color: rgba(255,255,255,0.32); text-align: right; }
     .proj-year { font-size: 0.7rem; color: rgba(255,255,255,0.22); text-align: right; font-variant-numeric: tabular-nums; }
-    .proj-toggle { font-size: 0.85rem; color: rgba(180,220,255,0.4); text-align: right; transition: transform 0.2s; line-height: 1; display: block; }
-    details[open] > summary .proj-toggle { transform: rotate(45deg); }
+    .proj-toggle { font-size: 1.05rem; color: rgba(180,220,255,0.45); text-align: right; transition: transform 0.22s, color 0.18s, text-shadow 0.18s; line-height: 1; display: block; transform: rotate(90deg); }
+    details[open] > summary .proj-toggle { transform: rotate(270deg); }
+    details.proj-row > summary:hover .proj-toggle { color: rgba(180,220,255,1); text-shadow: 0 0 6px rgba(180,220,255,0.7), 0 0 18px rgba(180,220,255,0.35); }
 
     .proj-body {
         padding: 1.2rem 1rem 2rem calc(42px + 2rem);
@@ -876,7 +877,7 @@
                         <span class="proj-name">Raytheon — AI/ML Engineering</span>
                         <span class="proj-cat">AI/ML · Defense</span>
                         <span class="proj-year">2025</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <p class="proj-private-note">Confidential / NDA Protected</p>
@@ -896,7 +897,7 @@
                         <span class="proj-name">SymptaAI — Clinical AI Decision Support</span>
                         <span class="proj-cat">Multi-Agent AI</span>
                         <span class="proj-year">2025</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <p><strong>The Challenge:</strong> Physicians must rapidly synthesize lab results, records, and symptoms — information overload that drives diagnostic errors.<br/>
@@ -927,7 +928,7 @@
                         <span class="proj-name">VitalStream — Serverless Patient Telemetry</span>
                         <span class="proj-cat">MLOps · AWS</span>
                         <span class="proj-year">2025</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <p><strong>The Challenge:</strong> High-frequency physiological data (ECG at 500 Hz, sEMG at 2000 Hz) must be processed in near real-time with zero data loss, strict PHI isolation, and clinical-grade audit trails.<br/>
@@ -958,7 +959,7 @@
                         <span class="proj-name">medxplAIn — 3D Liver Tumor Segmentation</span>
                         <span class="proj-cat">Medical Imaging</span>
                         <span class="proj-year">2024</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <p><strong>The Challenge:</strong> Manual liver segmentation for radiation therapy planning is subjective and time-consuming.<br/>
@@ -981,7 +982,7 @@
                         <span class="proj-name">RetinAI — Diabetic Retinopathy Screening</span>
                         <span class="proj-cat">Computer Vision</span>
                         <span class="proj-year">2024</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <p><strong>The Challenge:</strong> Diabetic retinopathy is a leading cause of blindness, yet early detection remains inaccessible in underserved communities.<br/>
@@ -1004,7 +1005,7 @@
                         <span class="proj-name">Laser Metal Bending — Predictive Modeling</span>
                         <span class="proj-cat">Ensemble ML</span>
                         <span class="proj-year">2024</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <p class="proj-private-note">Private Project</p>
@@ -1027,7 +1028,7 @@
                         <span class="proj-name">Skin Allergen Computer Vision</span>
                         <span class="proj-cat">Computer Vision · Clinical</span>
                         <span class="proj-year">2024</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <p class="proj-private-note">Private Project</p>
@@ -1153,7 +1154,7 @@
                         <span class="proj-name">Medical Device R&amp;D — UF Orthopedics</span>
                         <span class="proj-cat">Medical Device R&amp;D</span>
                         <span class="proj-year">2024</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <div class="proj-gallery-2 proj-body-media">
@@ -1181,7 +1182,7 @@
                         <span class="proj-name">Nanocomposite Material Research</span>
                         <span class="proj-cat">Published Research</span>
                         <span class="proj-year">2023</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <div class="proj-gallery-3 proj-body-media">
@@ -1214,7 +1215,7 @@
                         <span class="proj-name">Stony Brook Solar Racing — Propulsion Lead</span>
                         <span class="proj-cat">Propulsion · Competition</span>
                         <span class="proj-year">2023</span>
-                        <span class="proj-toggle">+</span>
+                        <span class="proj-toggle">›</span>
                     </summary>
                     <div class="proj-body">
                         <div class="proj-gallery-2 proj-body-media">
