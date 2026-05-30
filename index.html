@@ -196,16 +196,21 @@
         font-weight: 400; letter-spacing: 0.15em;
         vertical-align: middle; margin-left: 0.3em;
     }
-    .hero-subtitle { font-size: 1rem; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; }
-    .hero-chips { display:flex;flex-wrap:wrap;gap:0.4rem; }
-    .hero-chip {
-        padding: 0.22rem 0.75rem;
-        border: 1px solid rgba(180,220,255,0.22); border-radius: 0;
-        font-size: 0.62rem; letter-spacing: 0.1rem; text-transform: uppercase;
-        color: rgba(180,220,255,0.78); background: rgba(180,220,255,0.05);
-        white-space: nowrap;
+    .hero-subtitle { font-size: 0.95rem; color: rgba(255,255,255,0.45); letter-spacing: 0.02em; }
+    .hero-rule { width: 2.5rem; height: 1px; background: rgba(180,220,255,0.28); margin: 1.1rem 0; }
+    .hero-bio {
+        font-size: 0.88rem; color: rgba(255,255,255,0.38);
+        line-height: 1.78; max-width: 460px;
     }
-    .hero-actions { display:flex;flex-wrap:wrap;gap:0.8rem;align-items:center; }
+    .hero-links { display:flex;align-items:center;gap:0.55rem;flex-wrap:wrap; }
+    .hero-links a {
+        font-size: 0.72rem; letter-spacing: 0.05rem;
+        color: rgba(255,255,255,0.38);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 1px; transition: color 0.18s, border-color 0.18s;
+    }
+    .hero-links a:hover { color: var(--accent); border-bottom-color: rgba(180,220,255,0.38); }
+    .hero-links-sep { color: rgba(255,255,255,0.15); font-size: 0.72rem; }
     .btn-primary {
         font-family: Georgia, 'Times New Roman', serif; font-size: 0.72rem;
         letter-spacing: 0.1rem; text-transform: uppercase;
@@ -216,25 +221,6 @@
         display: inline-block;
     }
     .btn-primary:hover { background:#d4eeff;box-shadow:0 0 24px rgba(180,220,255,0.45);transform:translateY(-2px); }
-    .btn-outline {
-        font-family: Georgia, 'Times New Roman', serif; font-size: 0.72rem;
-        letter-spacing: 0.1rem; text-transform: uppercase;
-        padding: 0.72rem 1.9rem; border: 1px solid var(--border-a);
-        border-radius: 0; color: rgba(255,255,255,0.7);
-        background: transparent; cursor: pointer;
-        transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
-        display: inline-block;
-    }
-    .btn-outline:hover { border-color:var(--accent);color:#fff;background:var(--accent-dim);transform:translateY(-2px); }
-
-    .hero-social { display:flex;gap:1.2rem;align-items:center; }
-    .hero-social a {
-        display: flex; align-items: center; gap: 0.4rem;
-        font-size: 0.66rem; letter-spacing: 0.12rem; text-transform: uppercase;
-        color: rgba(255,255,255,0.32); transition: color 0.2s;
-    }
-    .hero-social a:hover { color: var(--accent); }
-    .hero-social .fab, .hero-social .fas { font-size: 0.95rem; }
 
     /* Hero Right */
     .hero-right { display:flex;justify-content:center;align-items:center;position:relative;z-index:1; }
@@ -748,31 +734,24 @@
     <section id="hero">
         <div class="hero-container">
             <div class="hero-left">
-                <h1 class="hero-title">
-                    Soroush Saririan<span class="eit">EIT</span>
-                </h1>
+                <h1 class="hero-title">Soroush Saririan<span class="eit">EIT</span></h1>
                 <p class="hero-subtitle">Applied Data Scientist &amp; Mechanical Engineer</p>
-<div class="hero-chips">
-                    <span class="hero-chip">Multi-Agent AI</span>
-                    <span class="hero-chip">Computer Vision</span>
-                    <span class="hero-chip">MLOps &amp; AWS</span>
-                    <span class="hero-chip">Raytheon Co-op</span>
-                    <span class="hero-chip">UF M.S. 2026</span>
-                </div>
-                <div class="hero-actions">
-                    <a href="#datascience" class="btn-primary">View Projects</a>
-                    <a href="Resume.pdf" class="btn-outline" target="_blank">Download Resume</a>
-                </div>
-                <div class="hero-social">
-                    <a href="https://www.linkedin.com/in/soroush-saririan" target="_blank">
-                        <i class="fab fa-linkedin"></i> LinkedIn
-                    </a>
-                    <a href="https://github.com/soroushsaririan" target="_blank">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                    <a href="mailto:saririan.s.eng@gmail.com">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
+                <div class="hero-rule"></div>
+                <p class="hero-bio">
+                    M.S. candidate at the University of Florida (2026), building AI systems at Raytheon under DARPA's AIxCC program and conducting gait analysis research at UF Orthopedics. Work spans multi-agent AI, computer vision, and clinical decision support.
+                </p>
+                <div class="hero-links">
+                    <a href="#experience">Experience</a>
+                    <span class="hero-links-sep">·</span>
+                    <a href="#datascience">Projects</a>
+                    <span class="hero-links-sep">·</span>
+                    <a href="Resume.pdf" target="_blank">Resume</a>
+                    <span class="hero-links-sep">·</span>
+                    <a href="https://www.linkedin.com/in/soroush-saririan" target="_blank">LinkedIn</a>
+                    <span class="hero-links-sep">·</span>
+                    <a href="https://github.com/soroushsaririan" target="_blank">GitHub</a>
+                    <span class="hero-links-sep">·</span>
+                    <a href="mailto:saririan.s.eng@gmail.com">Email</a>
                 </div>
             </div>
             <div class="hero-right">
