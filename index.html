@@ -1,1588 +1,448 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>Soroush Saririan | Portfolio</title>
+    <title>Soroush Saririan | Data Scientist</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/brands.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/solid.min.css" />
+    <meta name="description" content="Soroush Saririan, data scientist working at the intersection of clinical biosignals, machine learning, and engineering. M.S. Applied Data Science, University of Florida." />
 
     <style>
-    /* ─── RESET ────────────────────────────────────────────────── */
+    /* Reset */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; }
     body {
-        font-family: Georgia, 'Times New Roman', serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         background: #09080f;
-        color: rgba(255,255,255,0.82);
-        line-height: 1.7;
+        color: rgba(255,255,255,0.85);
+        font-size: 1.0625rem;
+        line-height: 1.65;
         overflow-x: hidden;
     }
-
-    a { color: inherit; text-decoration: none; }
     img, video { max-width: 100%; height: auto; display: block; }
 
-    /* ─── VARIABLES ────────────────────────────────────────────── */
     :root {
-        --accent:      #b4dcff;
-        --accent-dim:  rgba(180,220,255,0.10);
-        --accent-glow: rgba(180,220,255,0.22);
-        --bg:          #09080f;
-        --bg-card:     rgba(12,19,33,0.85);
-        --border:      rgba(255,255,255,0.07);
-        --border-a:    rgba(180,220,255,0.18);
-        --muted:       rgba(255,255,255,0.42);
-        --nav-h:       64px;
+        --accent: #b4dcff;
+        --muted: rgba(255,255,255,0.55);
+        --faint: rgba(255,255,255,0.4);
+        --border: rgba(255,255,255,0.14);
+        --serif: Georgia, 'Times New Roman', serif;
     }
 
-    /* ─── FIXED LAYERS ─────────────────────────────────────────── */
+    /* Starfield canvas (preserved from previous site) */
     #particles-canvas {
         position: fixed; inset: 0;
         width: 100%; height: 100%;
         z-index: 2; pointer-events: none;
     }
-    .bg-blob {
-        position: fixed; border-radius: 50%;
-        pointer-events: none; z-index: 1;
-        filter: blur(72px);
-        mix-blend-mode: screen;
-        will-change: transform;
+
+    /* Links */
+    a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(180,220,255,0.35); text-underline-offset: 3px; }
+    a:hover { text-decoration-color: var(--accent); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .skip-link {
+        position: absolute; left: -9999px; top: 0;
+        background: #09080f; color: var(--accent);
+        padding: 0.6rem 1rem; z-index: 100;
     }
-    /* violet — upper-center-left */
-    .bg-blob-1 {
-        width: 760px; height: 760px; top: -5%; left: 15%;
-        background: radial-gradient(circle, rgba(139,92,246,0.36) 0%, rgba(109,40,217,0.14) 50%, transparent 70%);
-        animation: blobDrift1 34s ease-in-out infinite;
-    }
-    /* amber — lower-center-right */
-    .bg-blob-2 {
-        width: 700px; height: 700px; top: 45%; left: 45%;
-        background: radial-gradient(circle, rgba(251,146,60,0.34) 0%, rgba(234,88,12,0.14) 50%, transparent 70%);
-        animation: blobDrift2 40s ease-in-out infinite;
-    }
-    /* sky-blue — center */
-    .bg-blob-3 {
-        width: 640px; height: 640px; top: 20%; left: 35%;
-        background: radial-gradient(circle, rgba(180,220,255,0.22) 0%, rgba(14,165,233,0.08) 50%, transparent 70%);
-        animation: blobDrift3 38s ease-in-out infinite;
-    }
-    /* rose — upper-right */
-    .bg-blob-4 {
-        width: 580px; height: 580px; top: 5%; left: 58%;
-        background: radial-gradient(circle, rgba(251,113,133,0.22) 0%, rgba(244,63,94,0.08) 50%, transparent 70%);
-        animation: blobDrift4 44s ease-in-out infinite;
-    }
-    /* extra violet — lower-left, fills gaps */
-    .bg-blob-5 {
-        width: 580px; height: 580px; top: 60%; left: -8%;
-        background: radial-gradient(circle, rgba(139,92,246,0.22) 0%, transparent 70%);
-        animation: blobDrift5 48s ease-in-out infinite;
-    }
-    @keyframes blobDrift1 {
-        0%,100% { transform: translate(0,0) scale(1); }
-        20%     { transform: translate(10vw, 12vh) scale(1.08); }
-        40%     { transform: translate(-6vw, 20vh) scale(0.96); }
-        60%     { transform: translate(14vw,  6vh) scale(1.1); }
-        80%     { transform: translate(-4vw, 16vh) scale(1.04); }
-    }
-    @keyframes blobDrift2 {
-        0%,100% { transform: translate(0,0) scale(1); }
-        25%     { transform: translate(-14vw,-10vh) scale(1.1); }
-        50%     { transform: translate(-8vw, -18vh) scale(0.92); }
-        75%     { transform: translate(10vw, -6vh)  scale(1.06); }
-    }
-    @keyframes blobDrift3 {
-        0%,100% { transform: translate(0,0) scale(1); }
-        33%     { transform: translate(-12vw,-14vh) scale(1.1); }
-        66%     { transform: translate(10vw,  10vh) scale(0.93); }
-    }
-    @keyframes blobDrift4 {
-        0%,100% { transform: translate(0,0) scale(1); }
-        30%     { transform: translate(-10vw, 12vh) scale(1.07); }
-        60%     { transform: translate( 6vw, -8vh)  scale(0.95); }
-    }
-    @keyframes blobDrift5 {
-        0%,100% { transform: translate(0,0) scale(1); }
-        25%     { transform: translate(12vw,-8vh)  scale(1.09); }
-        50%     { transform: translate(18vw, 6vh)  scale(0.94); }
-        75%     { transform: translate( 6vw,-14vh) scale(1.05); }
+    .skip-link:focus { left: 0; }
+
+    /* Layout */
+    .page {
+        position: relative; z-index: 3;
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0 1.35rem 4rem;
     }
 
+    /* Header nav */
+    .site-header {
+        display: flex; flex-wrap: wrap; align-items: baseline;
+        justify-content: space-between; gap: 0.5rem 1.5rem;
+        padding: 1.6rem 0 0;
+    }
+    .site-header .name { font-family: var(--serif); font-size: 1.05rem; color: #fff; text-decoration: none; letter-spacing: 0.04em; }
+    .site-header nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; list-style: none; }
+    .site-header nav a { font-size: 0.85rem; color: var(--muted); text-decoration: none; }
+    .site-header nav a:hover { color: var(--accent); }
 
-
-
-    /* ─── NAVBAR ───────────────────────────────────────────────── */
-    #navbar {
-        position: fixed; top: 0; left: 0; right: 0;
-        height: var(--nav-h); z-index: 1000;
-        display: flex; align-items: center; padding: 0 2.5rem;
-        transition: background 0.35s, border-color 0.35s;
-        border-bottom: 1px solid transparent;
+    /* Hero */
+    .hero { padding: 4.5rem 0 3.5rem; display: flex; align-items: center; gap: 2.5rem; }
+    .hero-text { flex: 1; }
+    h1 {
+        font-family: var(--serif); font-weight: 400;
+        font-size: clamp(2rem, 5.5vw, 2.7rem);
+        line-height: 1.15; color: #fff;
+        margin-bottom: 1.1rem;
     }
-    #navbar.scrolled {
-        background: rgba(6,13,31,0.88);
-        backdrop-filter: blur(14px) saturate(1.4);
-        border-color: rgba(255,255,255,0.05);
-    }
-    .nav-container { width:100%;max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between; }
-    .nav-logo {
-        font-family: Georgia, 'Times New Roman', serif; font-weight: 300;
-        font-size: 1.2rem; letter-spacing: 0.22rem; color: #fff;
-    }
-    .nav-logo .dot { color: var(--accent); }
-    .nav-links { display:flex;align-items:center;gap:0.15rem; }
-    .nav-links a {
-        font-family: Georgia, 'Times New Roman', serif; font-size: 0.7rem;
-        letter-spacing: 0.14rem; text-transform: uppercase;
-        color: rgba(255,255,255,0.48); padding: 0.4rem 0.85rem;
-        border-radius: 0; transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); background: var(--accent-dim); }
-    .nav-cta {
-        font-family: Georgia, 'Times New Roman', serif; font-size: 0.7rem;
-        letter-spacing: 0.12rem; text-transform: uppercase;
-        padding: 0.44rem 1.1rem; border: 1px solid var(--border-a);
-        border-radius: 0; color: var(--accent); background: var(--accent-dim);
-        transition: background 0.2s, border-color 0.2s;
-    }
-    .nav-cta:hover { background: rgba(180,220,255,0.22); border-color: var(--accent); }
-    .nav-hamburger { display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px; }
-    .nav-hamburger span { display:block;width:22px;height:1.5px;background:rgba(255,255,255,0.7);transition:transform 0.3s,opacity 0.3s; }
-    .nav-hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
-    .nav-hamburger.open span:nth-child(2) { opacity:0; }
-    .nav-hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
-
-    .nav-mobile {
-        display: none; position: fixed;
-        top: var(--nav-h); left: 0; right: 0;
-        background: rgba(6,13,31,0.97); backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-        padding: 1.2rem 2rem 1.8rem; z-index: 998;
-    }
-    .nav-mobile.open { display: block; }
-    .nav-mobile a {
-        display: block; font-family: Georgia, 'Times New Roman', serif;
-        font-size: 0.82rem; letter-spacing: 0.14rem; text-transform: uppercase;
-        color: rgba(255,255,255,0.55); padding: 0.75rem 0;
-        border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.2s;
-    }
-    .nav-mobile a:hover { color: var(--accent); }
-
-    /* ─── WRAPPER ──────────────────────────────────────────────── */
-    #site-wrapper { position: relative; z-index: 3; padding-top: var(--nav-h); }
-
-    /* ─── HERO ─────────────────────────────────────────────────── */
-    #hero {
-        min-height: calc(100vh - var(--nav-h));
-        display: flex; align-items: center;
-        padding: 4rem 2.5rem;
-    }
-    .hero-container {
-        width: 100%; max-width: 1280px; margin: 0 auto;
-        display: grid; grid-template-columns: 1fr 1fr;
-        gap: 4rem; align-items: center;
-    }
-    .hero-left { display: flex; flex-direction: column; gap: 1.35rem; position: relative; z-index: 2; }
-
-    .hero-title {
-        font-family: Georgia, 'Times New Roman', serif; font-weight: 200;
-        font-size: clamp(2.4rem, 4.2vw, 3.9rem);
-        line-height: 1.12; letter-spacing: 0.01rem; color: #fff;
-    }
-    .hero-title .eit {
-        font-size: 0.55em; color: var(--accent);
-        font-weight: 400; letter-spacing: 0.15em;
-        vertical-align: middle; margin-left: 0.3em;
-    }
-    .hero-subtitle { font-size: 0.95rem; color: rgba(255,255,255,0.45); letter-spacing: 0.02em; }
-    .hero-rule { width: 2.5rem; height: 1px; background: rgba(180,220,255,0.28); margin: 1.1rem 0; }
-    .hero-bio {
-        font-size: 0.88rem; color: rgba(255,255,255,0.38);
-        line-height: 1.78; max-width: 460px;
-    }
-    .hero-links { display:flex;align-items:center;gap:0.55rem;flex-wrap:wrap; }
-    .hero-links a {
-        font-size: 0.72rem; letter-spacing: 0.05rem;
-        color: rgba(255,255,255,0.38);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        padding-bottom: 1px; transition: color 0.18s, border-color 0.18s;
-    }
-    .hero-links a:hover { color: var(--accent); border-bottom-color: rgba(180,220,255,0.38); }
-    .hero-links-sep { color: rgba(255,255,255,0.15); font-size: 0.72rem; }
-    .btn-primary {
-        font-family: Georgia, 'Times New Roman', serif; font-size: 0.72rem;
-        letter-spacing: 0.1rem; text-transform: uppercase;
-        padding: 0.75rem 1.9rem; background: var(--accent);
-        color: #060d1f; font-weight: 600; border-radius: 0;
-        border: none; cursor: pointer;
-        transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-        display: inline-block;
-    }
-    .btn-primary:hover { background:#d4eeff;box-shadow:0 0 24px rgba(180,220,255,0.45);transform:translateY(-2px); }
-
-    /* Hero Right */
-    .hero-right { display:flex;justify-content:center;align-items:center;position:relative;z-index:1; }
-    .hero-photo-wrap { position:relative;display:inline-block; }
-    .hero-photo-ring {
-        width: 290px; height: 290px; border-radius: 50%;
-        border: 1px solid rgba(180,220,255,0.25);
-        overflow: hidden; position: relative; z-index: 1;
-    }
-    .hero-photo-ring img { width:100%;height:100%;object-fit:cover;opacity:0.92; }
-
-
-    /* ─── SECTIONS ─────────────────────────────────────────────── */
-    section { padding: 6rem 2.5rem; position: relative; }
-    .section-container { width:100%;max-width:1280px;margin:0 auto; }
-    .section-label {
-        font-family: Georgia, 'Times New Roman', serif; font-size: 0.62rem;
-        letter-spacing: 0.22rem; text-transform: uppercase;
-        color: var(--accent); margin-bottom: 0.7rem;
-    }
-    .section-title {
-        font-family: Georgia, 'Times New Roman', serif; font-weight: 200;
-        font-size: clamp(1.9rem, 3vw, 2.7rem);
-        letter-spacing: 0.03rem; line-height: 1.2;
-        margin-bottom: 0.6rem; color: #fff;
-        display: inline-block; position: relative;
-    }
-    .section-title::after {
-        content: ''; position: absolute;
-        bottom: -0.4rem; left: 0;
-        width: 3rem; height: 2px;
-        background: linear-gradient(to right, var(--accent), transparent);
-    }
-    .section-intro { font-size:0.9rem;color:rgba(255,255,255,0.48);max-width:700px;margin-top:1.2rem; }
-
-    /* ─── TECH MARQUEE ─────────────────────────────────────────── */
-    .tech-marquee-section {
-        overflow: hidden;
-        border-top: 1px solid rgba(255,255,255,0.05);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-        padding: 1.2rem 0;
-    }
-    .marquee-track { display:flex;width:max-content;animation:marqueeScroll 42s linear infinite; }
-    .tech-marquee-section:hover .marquee-track { animation-play-state:paused; }
-    .marquee-inner { display:flex;align-items:center; }
-    @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-    .marquee-item { font-size:0.58rem;letter-spacing:0.13rem;text-transform:uppercase;color:rgba(255,255,255,0.24);padding:0 1rem;font-family:'Outfit',sans-serif;white-space:nowrap;cursor:default;transition:color 0.2s; }
-    .marquee-item:hover { color:var(--accent); }
-    .marquee-sep { color:rgba(180,220,255,0.2);font-size:0.35rem;padding:0 0.1rem; }
-
-    /* ─── PROJECT CARDS ────────────────────────────────────────── */
-    .projects-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.8rem;
-        margin-top: 3rem;
-    }
-    .projects-col {
-        display: flex;
-        flex-direction: column;
-        gap: 1.8rem;
-    }
-    .project-card {
-        background: var(--bg-card);
-        border: 1px solid rgba(180,220,255,0.15);
-        border-radius: 0; padding: 2rem;
-        transition: border-color 0.25s;
-        position: relative; overflow: hidden;
-    }
-    .project-card:hover {
-        border-color: rgba(180,220,255,0.45);
-    }
-
-    .project-badge {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.6rem; letter-spacing: 0.1rem; text-transform: uppercase;
-        padding: 0.18rem 0.65rem; border-radius: 0;
-        background: rgba(180,220,255,0.08); border: 1px solid rgba(180,220,255,0.18);
-        color: var(--accent); margin-bottom: 0.9rem;
-    }
-    .project-card h3 {
-        font-family: Georgia, 'Times New Roman', serif; font-weight: 400;
-        font-size: 1.08rem; letter-spacing: 0.03rem;
-        color: #fff; margin-bottom: 0.4rem; line-height: 1.3;
-    }
-    .project-meta { font-size:0.7rem;color:var(--muted);font-style:italic;margin-bottom:0.9rem; }
-
-    .project-card p { font-size:0.875rem;color:rgba(255,255,255,0.62);line-height:1.72;margin-bottom:0.75rem; }
-    .project-card strong { color:rgba(255,255,255,0.9); }
-
-    .project-card ul { padding-left:1.1rem;margin-bottom:0.75rem; }
-    .project-card ul li { font-size:0.83rem;color:rgba(255,255,255,0.56);line-height:1.65;margin-bottom:0.28rem; }
-    .project-card ul li::marker { color:var(--accent); }
-
-    .project-media {
-        position: relative; margin: 1rem 0;
-        border-radius: 0; overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.07);
-    }
-    .project-media img, .project-media video {
-        width: 100%; display: block;
-    }
-    .project-media-overlay {
-        position: absolute; inset: 0;
-        background: rgba(5,4,12,0.72);
-        backdrop-filter: blur(3px);
-        display: flex; align-items: center; justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    .project-media:hover .project-media-overlay { opacity: 1; }
-    .overlay-github-btn {
-        display: flex; align-items: center; gap: 0.55rem;
-        font-family: Georgia, 'Times New Roman', serif; font-size: 0.72rem;
-        letter-spacing: 0.1rem; text-transform: uppercase;
-        padding: 0.68rem 1.5rem;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.22);
-        border-radius: 0; color: #fff;
-        transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
-    }
-    .overlay-github-btn:hover {
-        background: var(--accent); border-color: var(--accent);
-        color: #09080f; transform: scale(1.04);
-    }
-    .overlay-github-btn i { font-size: 1rem; }
-    .project-caption { font-size:0.68rem;color:rgba(255,255,255,0.3);text-align:center;margin-top:0.4rem; }
-
-    .project-stack { display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem; }
-    .stack-tag {
-        font-size:0.64rem;letter-spacing:0.05rem;color:rgba(255,255,255,0.46);
-        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
-        border-radius:0;padding:0.15rem 0.5rem;
-        transition:color 0.2s,border-color 0.2s;
-    }
-    .stack-tag:hover { color:var(--accent);border-color:rgba(180,220,255,0.25); }
-
-    .project-link {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.72rem; letter-spacing: 0.07rem;
-        color: var(--accent); margin-top: 0.8rem;
-        border-bottom: 1px solid rgba(180,220,255,0.25);
-        padding-bottom: 1px; transition: border-color 0.2s, opacity 0.2s;
-    }
-    .project-link:hover { border-color:var(--accent);opacity:0.8; }
-
-    .confidential-tag {
-        font-size:0.65rem;letter-spacing:0.1rem;text-transform:uppercase;
-        color:rgba(255,255,255,0.22);font-style:italic;
-    }
-
-    /* ─── IMAGE GALLERIES ──────────────────────────────────────── */
-    .img-gallery-2 { display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin:0.9rem 0; }
-    .img-gallery-3 { display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.9rem;margin:0.9rem 0; }
-    .img-gallery-2 figure,.img-gallery-3 figure { margin:0; }
-    .img-gallery-2 img,.img-gallery-3 img { width:100%;border-radius:6px;border:1px solid rgba(255,255,255,0.07); }
-    .img-gallery-2 figcaption,.img-gallery-3 figcaption { font-size:0.66rem;text-align:center;color:rgba(255,255,255,0.28);margin-top:0.3rem; }
-
-    /* ─── SKILL GRID ───────────────────────────────────────────── */
-    .skill-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:0.9rem;margin-top:2.5rem; }
-    .skill-category {
-        border: 1px solid rgba(255,255,255,0.08); border-radius: 0;
-        padding: 1rem 1.15rem; background: rgba(255,255,255,0.02);
-        transition: border-color 0.25s, background 0.25s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
-        will-change: transform;
-    }
-    .skill-category:hover { border-color:rgba(180,220,255,0.22);background:rgba(180,220,255,0.03); }
-    .skill-category h4 { font-size:0.63rem;letter-spacing:0.15rem;text-transform:uppercase;color:rgba(255,255,255,0.38);margin:0 0 0.6rem;font-family:'Outfit',sans-serif; }
-    .skill-tags { display:flex;flex-wrap:wrap;gap:0.35rem; }
-    .skill-tag { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:0;padding:0.18rem 0.5rem;font-size:0.76rem;color:#ccc;white-space:nowrap; }
-
-    /* ─── INDEXED PROJECT LIST ─────────────────────────────────── */
-    .proj-table { margin-top: 2.5rem; }
-
-    .proj-col-header {
-        display: grid;
-        grid-template-columns: 42px 1fr 170px 52px 18px;
-        gap: 0 2rem;
-        padding: 0 1rem 0.7rem;
-        border-bottom: 1px solid rgba(255,255,255,0.14);
-        font-size: 0.58rem;
-        letter-spacing: 0.14rem;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.22);
-    }
-
-    details.proj-row { border-bottom: 1px solid rgba(255,255,255,0.06); }
-    details.proj-row > summary {
-        display: grid;
-        grid-template-columns: 42px 1fr 170px 52px 18px;
-        gap: 0 2rem;
-        align-items: center;
-        padding: 1.1rem 1rem;
-        cursor: pointer;
-        list-style: none;
-        transition: background 0.18s;
-    }
-    details.proj-row > summary::-webkit-details-marker { display: none; }
-    details.proj-row > summary::marker { display: none; }
-    details.proj-row > summary:hover { background: rgba(255,255,255,0.025); }
-
-    .proj-num { font-size: 0.68rem; color: rgba(255,255,255,0.18); font-variant-numeric: tabular-nums; font-style: italic; }
-    .proj-name { font-size: 0.95rem; color: rgba(255,255,255,0.82); }
-    .proj-cat  { font-size: 0.7rem; color: rgba(255,255,255,0.32); text-align: right; }
-    .proj-year { font-size: 0.7rem; color: rgba(255,255,255,0.22); text-align: right; font-variant-numeric: tabular-nums; }
-    .proj-toggle { font-size: 1.05rem; color: rgba(180,220,255,0.45); text-align: right; transition: transform 0.22s, color 0.18s, text-shadow 0.18s; line-height: 1; display: block; transform: rotate(90deg); }
-    details[open] > summary .proj-toggle { transform: rotate(270deg); }
-    details.proj-row > summary:hover .proj-toggle { color: rgba(180,220,255,1); text-shadow: 0 0 6px rgba(180,220,255,0.7), 0 0 18px rgba(180,220,255,0.35); }
-
-    .proj-body {
-        padding: 1.2rem 1rem 2rem calc(42px + 2rem);
-        border-top: 1px solid rgba(255,255,255,0.04);
-    }
-    .proj-body p { font-size: 0.875rem; color: rgba(255,255,255,0.52); line-height: 1.72; margin-bottom: 0.75rem; }
-    .proj-body p strong { color: rgba(255,255,255,0.85); }
-    .proj-body ul { padding-left: 1.1rem; margin-bottom: 0.75rem; }
-    .proj-body ul li { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 0.28rem; }
-    .proj-body ul li::marker { color: var(--accent); }
-
-    .proj-body-media { margin: 1rem 0; max-width: 580px; border: 1px solid rgba(255,255,255,0.07); }
-    .proj-body-media video, .proj-body-media img { width: 100%; display: block; }
-
-    .proj-body-footer { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.9rem; flex-wrap: wrap; }
-    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-    .proj-tag { font-size: 0.62rem; letter-spacing: 0.04rem; color: rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.09); padding: 0.12rem 0.45rem; }
-    .proj-gh-link {
-        font-size: 0.7rem; letter-spacing: 0.06rem; color: var(--accent);
-        display: inline-flex; align-items: center; gap: 0.35rem;
-        border-bottom: 1px solid rgba(180,220,255,0.22); padding-bottom: 1px; white-space: nowrap; margin-left: auto;
-    }
-    .proj-private-note { font-size: 0.62rem; letter-spacing: 0.1rem; text-transform: uppercase; color: rgba(255,255,255,0.2); font-style: italic; margin-bottom: 0.7rem; }
-
-    .proj-gallery-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1rem 0; max-width: 580px; }
-    .proj-gallery-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin: 1rem 0; max-width: 580px; }
-    .proj-gallery-2 figure, .proj-gallery-3 figure { margin: 0; }
-    .proj-gallery-2 img, .proj-gallery-3 img { width: 100%; border: 1px solid rgba(255,255,255,0.07); display: block; }
-    .proj-gallery-2 figcaption, .proj-gallery-3 figcaption { font-size: 0.62rem; color: rgba(255,255,255,0.25); margin-top: 0.25rem; text-align: center; }
-
-    .proj-doi { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-bottom: 0.8rem; }
-    .proj-doi a { color: var(--accent); border-bottom: 1px dotted rgba(180,220,255,0.4); }
-
-    @media (max-width: 700px) {
-        .proj-col-header { display: none; }
-        details.proj-row > summary { grid-template-columns: 32px 1fr 18px; }
-        .proj-cat, .proj-year { display: none; }
-        .proj-body { padding-left: 1rem; }
-        .proj-gallery-2, .proj-gallery-3 { grid-template-columns: 1fr; }
-    }
-
-    /* ─── SECTION DIVIDER ──────────────────────────────────────── */
-    .section-divider { height:1px;background:linear-gradient(to right,rgba(180,220,255,0.12),rgba(255,255,255,0.04),transparent);margin:4rem 0; }
-
-    /* ─── EXPERIENCE ───────────────────────────────────────────── */
-    .exp-list { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
-
-    .exp-employer {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        gap: 0 3rem;
-        padding: 2rem 0;
-        border-top: 1px solid rgba(255,255,255,0.07);
-    }
-    .exp-employer:last-child { border-bottom: 1px solid rgba(255,255,255,0.07); }
-
-    .exp-left {
-        padding-top: 0.1rem;
-    }
-    .exp-company {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.06rem;
-        color: #fff;
-        text-transform: uppercase;
-        margin-bottom: 0.3rem;
-    }
-    .exp-period {
-        font-size: 0.7rem;
-        color: rgba(255,255,255,0.35);
-        letter-spacing: 0.03rem;
-        line-height: 1.5;
-    }
-    .exp-current {
-        display: inline-block;
-        font-size: 0.58rem;
-        letter-spacing: 0.08rem;
-        text-transform: uppercase;
-        color: var(--accent);
-        border: 1px solid rgba(180,220,255,0.3);
-        padding: 0.1rem 0.5rem;
-        margin-top: 0.5rem;
-    }
-
-    .exp-roles { display: flex; flex-direction: column; gap: 1.6rem; }
-
-    .exp-role { }
-    .exp-role-header {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 0.6rem;
-    }
-    .exp-title {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: 0.95rem;
-        font-weight: 400;
-        color: rgba(255,255,255,0.9);
-        letter-spacing: 0.02rem;
-    }
-    .exp-role-period {
-        font-size: 0.68rem;
-        color: rgba(255,255,255,0.3);
-        white-space: nowrap;
+    .hero-text p { max-width: 34rem; color: rgba(255,255,255,0.78); }
+    .hero-links { margin-top: 1.5rem; font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; list-style: none; }
+    .hero img {
+        width: 138px; height: 138px; object-fit: cover;
+        border: 1px solid var(--border); border-radius: 50%;
         flex-shrink: 0;
     }
-    .exp-desc {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 0.8rem;
+
+    /* Sections */
+    section { border-top: 1px solid var(--border); padding: 2.8rem 0 1.2rem; }
+    h2 {
+        font-family: var(--serif); font-weight: 400;
+        font-size: 1.55rem; color: #fff;
+        margin-bottom: 1.8rem;
     }
-    .exp-desc li {
-        font-size: 0.82rem;
-        color: rgba(255,255,255,0.52);
-        line-height: 1.68;
-        padding-left: 1rem;
-        position: relative;
-        margin-bottom: 0.3rem;
+    h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; color: #fff; line-height: 1.35; }
+
+    .entry { margin-bottom: 2.4rem; }
+    .entry-meta { font-size: 0.85rem; color: var(--muted); margin: 0.15rem 0 0.6rem; }
+    .entry ul { list-style: none; }
+    .entry ul li {
+        position: relative; padding-left: 1.05rem;
+        font-size: 0.95rem; color: rgba(255,255,255,0.72);
+        margin-bottom: 0.4rem;
     }
-    .exp-desc li::before {
-        content: '–';
-        position: absolute;
-        left: 0;
-        color: rgba(180,220,255,0.4);
-    }
-    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-    .exp-tag {
-        font-size: 0.62rem;
-        letter-spacing: 0.04rem;
-        color: rgba(255,255,255,0.38);
-        border: 1px solid rgba(255,255,255,0.08);
-        padding: 0.12rem 0.45rem;
+    .entry ul li::before { content: '\2013'; position: absolute; left: 0; color: var(--faint); }
+    .entry p { font-size: 0.95rem; color: rgba(255,255,255,0.72); margin-bottom: 0.5rem; }
+    .entry-note { font-size: 0.82rem; color: var(--faint); font-style: italic; }
+    .entry-links { font-size: 0.9rem; margin-top: 0.5rem; }
+
+    .entry figure { margin: 1rem 0 0.4rem; }
+    .entry figure img, .entry figure video { border: 1px solid var(--border); width: 100%; }
+    .entry figcaption { font-size: 0.78rem; color: var(--faint); margin-top: 0.4rem; }
+    .figure-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+
+    .subhead {
+        font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--muted); margin: 2.6rem 0 1.4rem;
     }
 
-    @media (max-width: 760px) {
-        .exp-employer { grid-template-columns: 1fr; gap: 1rem; }
-        .exp-role-header { flex-direction: column; gap: 0.2rem; }
-    }
+    /* Definition-style lists (education, skills, certifications) */
+    .fact-list { list-style: none; }
+    .fact-list li { margin-bottom: 1rem; font-size: 0.95rem; color: rgba(255,255,255,0.72); }
+    .fact-list li strong { display: block; color: #fff; font-weight: 600; font-size: 1rem; }
+    .fact-list li .entry-meta { margin: 0.1rem 0 0.2rem; }
 
-    /* ─── ABOUT ────────────────────────────────────────────────── */
-    .about-grid { display:grid;grid-template-columns:3fr 2fr;gap:4rem;align-items:start;margin-top:2.5rem; }
-    .about-text h3 {
-        font-family: Georgia, 'Times New Roman', serif; font-weight: 300;
-        font-size: 1.05rem; color: rgba(255,255,255,0.85);
-        margin: 2rem 0 0.6rem;
-        border-left: 2px solid var(--accent); padding-left: 0.7rem;
-        margin-left: -0.7rem;
+    dl.skills dt {
+        font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--muted); margin-top: 1.2rem;
     }
-    .about-text h3:first-child { margin-top: 0; }
-    .about-text p { font-size:0.9rem;color:rgba(255,255,255,0.6);line-height:1.78;margin-bottom:0.9rem; }
-    .about-text ul { padding-left:1.2rem;margin-bottom:1rem; }
-    .about-text ul li { font-size:0.87rem;color:rgba(255,255,255,0.58);line-height:1.7;margin-bottom:0.3rem; }
-    .about-text ul li::marker { color:var(--accent); }
-    .about-photo-img {
-        width: 100%; border-radius: 0;
-        border: 1px solid rgba(180,220,255,0.14);
-        box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 32px rgba(180,220,255,0.07);
-    }
+    dl.skills dt:first-child { margin-top: 0; }
+    dl.skills dd { font-size: 0.95rem; color: rgba(255,255,255,0.78); margin-top: 0.15rem; }
 
-    /* ─── RESUME ───────────────────────────────────────────────── */
-    #resume { text-align: center; }
-    .resume-desc { font-size:0.9rem;color:rgba(255,255,255,0.46);max-width:480px;margin:1.4rem auto 2.4rem;line-height:1.7; }
-    .resume-actions { display:flex;flex-wrap:wrap;gap:1rem;justify-content:center; }
-
-    /* ─── CONTACT ──────────────────────────────────────────────── */
-    .contact-grid { display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;margin-top:2.5rem;align-items:start; }
-    .contact-info h3 { font-family:'Outfit',sans-serif;font-weight:300;font-size:1.05rem;color:rgba(255,255,255,0.85);margin-bottom:0.9rem; }
-    .contact-info p { font-size:0.88rem;color:rgba(255,255,255,0.48);line-height:1.72;margin-bottom:1.5rem; }
-    .contact-links { display:flex;flex-direction:column;gap:0.75rem; }
-    .contact-link-item {
-        display: flex; align-items: center; gap: 0.65rem;
-        font-size: 0.83rem; color: rgba(255,255,255,0.5);
-        transition: color 0.2s;
-    }
-    .contact-link-item:hover { color:var(--accent); }
-    .contact-link-item i { width:1.1rem;color:var(--accent);font-size:0.95rem; }
-
-    .contact-form { display:flex;flex-direction:column;gap:1.1rem; }
-    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
-    .form-group { display:flex;flex-direction:column;gap:0.4rem; }
-    .form-group label { font-size:0.67rem;letter-spacing:0.12rem;text-transform:uppercase;color:rgba(255,255,255,0.38);font-family:'Outfit',sans-serif; }
+    /* Contact form */
+    .contact-intro { font-size: 0.95rem; color: rgba(255,255,255,0.72); max-width: 34rem; margin-bottom: 0.8rem; }
+    .contact-links { list-style: none; margin-bottom: 2rem; font-size: 0.95rem; overflow-wrap: anywhere; }
+    .contact-links li { margin-bottom: 0.35rem; }
+    form { display: flex; flex-direction: column; gap: 1rem; max-width: 34rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+    .form-group label { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
     .form-group input, .form-group textarea {
         background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 0; padding: 0.75rem 1rem;
-        color: #fff; font-family: Georgia, 'Times New Roman', serif;
-        font-size: 0.88rem; outline: none;
-        transition: border-color 0.2s, background 0.2s;
+        border: 1px solid var(--border);
+        padding: 0.65rem 0.85rem;
+        color: #fff; font: inherit; font-size: 0.95rem;
         resize: vertical;
     }
-    .form-group input:focus, .form-group textarea:focus {
-        border-color: rgba(180,220,255,0.4);
-        background: rgba(180,220,255,0.03);
-    }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); outline: none; }
     .form-group textarea { min-height: 120px; }
-    .form-submit { display:flex;gap:0.8rem;align-items:center;flex-wrap:wrap; }
-    .btn-reset {
-        font-family: Georgia, 'Times New Roman', serif; font-size: 0.7rem;
-        letter-spacing: 0.1rem; text-transform: uppercase;
-        padding: 0.72rem 1.4rem; border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 0; color: rgba(255,255,255,0.45);
-        background: transparent; cursor: pointer;
-        transition: border-color 0.2s, color 0.2s;
+    button[type="submit"] {
+        align-self: flex-start;
+        font: inherit; font-size: 0.9rem;
+        padding: 0.6rem 1.6rem;
+        background: transparent; color: var(--accent);
+        border: 1px solid var(--accent); cursor: pointer;
     }
-    .btn-reset:hover { border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7); }
+    button[type="submit"]:hover { background: rgba(180,220,255,0.12); }
 
-    /* ─── FOOTER ───────────────────────────────────────────────── */
-    footer {
-        padding: 2rem 2.5rem;
-        border-top: 1px solid rgba(255,255,255,0.05);
-        text-align: center;
-    }
-    footer p { font-size:0.45rem;opacity:0.25;letter-spacing:0.05rem;color:#fff; }
-    footer a { border-bottom: none; }
+    footer { border-top: 1px solid var(--border); padding: 1.6rem 0; font-size: 0.8rem; color: var(--faint); }
 
-    /* ─── BACK TO TOP ──────────────────────────────────────────── */
-    #back-to-top {
-        position: fixed; bottom: 1.6rem; right: 1.6rem;
-        width: 38px; height: 38px;
-        background: rgba(10,18,32,0.78); border: 1px solid rgba(180,220,255,0.28);
-        border-radius: 50%; color: var(--accent); cursor: pointer;
-        z-index: 1000; opacity: 0; transform: translateY(10px);
-        transition: opacity 0.3s, transform 0.3s, background 0.2s;
-        pointer-events: none; display: flex; align-items: center; justify-content: center;
-        backdrop-filter: blur(6px);
-    }
-    #back-to-top.visible { opacity:1;transform:translateY(0);pointer-events:all; }
-    #back-to-top:hover { background:rgba(180,220,255,0.15);border-color:var(--accent); }
-
-
-    /* ─── RESPONSIVE ───────────────────────────────────────────── */
-    @media (max-width: 1100px) {
-        .hero-container { gap: 2.5rem; }
-        .hero-photo-ring { width: 240px; height: 240px; }
-        .projects-grid { grid-template-columns: 1fr; }
-        .skill-grid { grid-template-columns: 1fr 1fr; }
-        .about-grid { grid-template-columns: 1fr; }
-        .about-photo { display: none; }
-        .contact-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 768px) {
-        #navbar { padding: 0 1.5rem; }
-        .nav-links, .nav-cta { display: none; }
-        .nav-hamburger { display: flex; }
-        section { padding: 4rem 1.5rem; }
-        #hero { padding: 2.5rem 1.5rem; }
-        .hero-container { grid-template-columns: 1fr; gap: 2rem; }
-        .hero-right { display: none; }
-        .projects-grid { grid-template-columns: 1fr; }
+    @media (max-width: 640px) {
+        .hero { flex-direction: column-reverse; align-items: flex-start; gap: 1.6rem; padding-top: 3rem; }
         .form-row { grid-template-columns: 1fr; }
-        .img-gallery-3 { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 480px) {
-        .skill-grid { grid-template-columns: 1fr; }
-        .img-gallery-2 { grid-template-columns: 1fr; }
-        .img-gallery-3 { grid-template-columns: 1fr; }
+        .figure-pair { grid-template-columns: 1fr; }
     }
     </style>
 </head>
 <body>
 
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
 
-<!-- ── FIXED BG LAYERS ───────────────────────────────────── -->
-<div class="bg-blob bg-blob-1"></div>
-<div class="bg-blob bg-blob-2"></div>
-<div class="bg-blob bg-blob-3"></div>
-<div class="bg-blob bg-blob-4"></div>
-<div class="bg-blob bg-blob-5"></div>
-<canvas id="particles-canvas"></canvas>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ── NAVBAR ─────────────────────────────────────────────── -->
-<nav id="navbar">
-    <div class="nav-container">
-        <a href="#hero" class="nav-logo">S<span class="dot">·</span>S</a>
-        <div class="nav-links">
-            <a href="#experience">Experience</a>
-            <a href="#datascience">Data Science</a>
-            <a href="#engineering">Engineering</a>
-            <a href="#about">About</a>
-            <a href="#resume">Resume</a>
+<div class="page">
+
+    <header class="site-header">
+        <a class="name" href="#top">Soroush Saririan</a>
+        <nav aria-label="Site sections">
+            <ul>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+
+        <div class="hero" id="top">
+            <div class="hero-text">
+                <h1>Soroush Saririan, EIT</h1>
+                <p>Data scientist working at the intersection of clinical biosignals, machine learning, and engineering. M.S. Applied Data Science, University of Florida. Published lead author in <em>Polymer Composites</em>.</p>
+                <ul class="hero-links">
+                    <li><a href="https://github.com/soroushsaririan">GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/soroush-saririan">LinkedIn</a></li>
+                    <li><a href="mailto:saririan.s.eng@gmail.com">Email</a></li>
+                    <li><a href="Resume.pdf">Download Resume</a></li>
+                </ul>
+            </div>
+            <img src="images/headshot-web.jpg" alt="Portrait of Soroush Saririan" width="138" height="138" />
         </div>
-        <a href="#contact" class="nav-cta">Contact</a>
-        <div class="nav-hamburger" id="nav-hamburger">
-            <span></span><span></span><span></span>
-        </div>
-    </div>
-</nav>
-<div class="nav-mobile" id="nav-mobile">
-    <a href="#experience">Experience</a>
-    <a href="#datascience">Data Science</a>
-    <a href="#engineering">Engineering</a>
-    <a href="#about">About</a>
-    <a href="#resume">Resume</a>
-    <a href="#contact">Contact</a>
-</div>
 
-<!-- ── SITE CONTENT ──────────────────────────────────────── -->
-<div id="site-wrapper">
+        <section id="experience">
+            <h2>Experience</h2>
 
-    <!-- HERO -->
-    <section id="hero">
-        <div class="hero-container">
-            <div class="hero-left">
-                <h1 class="hero-title">Soroush Saririan<span class="eit">EIT</span></h1>
-                <p class="hero-subtitle">Applied Data Scientist &amp; Mechanical Engineer</p>
-                <div class="hero-rule"></div>
-                <p class="hero-bio">
-                    M.S., University of Florida. Multi-agent AI, computer vision, MLOps, and medical data systems.
-                </p>
-                <div class="hero-links">
-                    <a href="#experience">Experience</a>
-                    <span class="hero-links-sep">·</span>
-                    <a href="#datascience">Projects</a>
-                    <span class="hero-links-sep">·</span>
-                    <a href="Resume.pdf" target="_blank">Resume</a>
-                    <span class="hero-links-sep">·</span>
-                    <a href="https://www.linkedin.com/in/soroush-saririan" target="_blank">LinkedIn</a>
-                    <span class="hero-links-sep">·</span>
-                    <a href="https://github.com/soroushsaririan" target="_blank">GitHub</a>
-                    <span class="hero-links-sep">·</span>
-                    <a href="mailto:saririan.s.eng@gmail.com">Email</a>
-                </div>
-            </div>
-            <div class="hero-right">
-                <div class="hero-photo-wrap">
-                    <div class="hero-photo-ring">
-                        <img src="images/headshot.jpg" alt="Soroush Saririan" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TECH MARQUEE -->
-    <div class="tech-marquee-section" aria-hidden="true">
-        <div class="marquee-track">
-            <div class="marquee-inner">
-                <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">PyTorch</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">TensorFlow</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">LangGraph</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">LangChain</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">LlamaIndex</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Hugging Face</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">RAG</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">OpenCV</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">XGBoost</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">CatBoost</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Scikit-learn</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Pandas</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">NumPy</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">FastAPI</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">PostgreSQL</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">ChromaDB</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">FAISS</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">AWS Lambda</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">AWS SageMaker</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">AWS Kinesis</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Docker</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Kubernetes</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Terraform</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">NVIDIA NIM</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Streamlit</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Tableau</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Rust</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">C++</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">SQL</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">R</span><span class="marquee-sep">·</span>
-            </div>
-            <div class="marquee-inner" aria-hidden="true">
-                <span class="marquee-item">Python</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">PyTorch</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">TensorFlow</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">LangGraph</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">LangChain</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">LlamaIndex</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Hugging Face</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">RAG</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">OpenCV</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">XGBoost</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">CatBoost</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Scikit-learn</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Pandas</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">NumPy</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">FastAPI</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">PostgreSQL</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">ChromaDB</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">FAISS</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">AWS Lambda</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">AWS SageMaker</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">AWS Kinesis</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Docker</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Kubernetes</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Terraform</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">NVIDIA NIM</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Streamlit</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Tableau</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">Rust</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">C++</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">SQL</span><span class="marquee-sep">·</span>
-                <span class="marquee-item">R</span><span class="marquee-sep">·</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══ EXPERIENCE ══════════════════════════════════════════ -->
-    <section id="experience">
-        <div class="section-container">
-            <h2 class="section-title">Experience</h2>
-            <div class="exp-list">
-
-                <!-- University of Florida -->
-                <div class="exp-employer">
-                    <div class="exp-left">
-                        <div class="exp-company">University of Florida</div>
-                        <div class="exp-period">Sep 2025 – Present</div>
-                        <span class="exp-current">Current</span>
-                    </div>
-                    <div class="exp-roles">
-
-                        <div class="exp-role">
-                            <div class="exp-role-header">
-                                <span class="exp-title">Graduate Research Assistant — Gait Lab</span>
-                                <span class="exp-role-period">Sep 2025 – Present · Gainesville, FL</span>
-                            </div>
-                            <ul class="exp-desc">
-                                <li>Led 3D gait data collection in stroke patients using motion capture, gait mat pressure sensors, and force plates to quantify spatiotemporal parameters, joint kinematics, and load distribution.</li>
-                                <li>Integrated multi-modal sensor data to build comprehensive movement profiles, supporting clinical evaluation of balance, gait symmetry, and compensatory patterns in post-stroke rehabilitation.</li>
-                                <li>Collaborated with orthopaedic surgeons, neurologists, and physical therapists to translate gait findings into actionable rehabilitation recommendations.</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">Gait Analysis</span>
-                                <span class="exp-tag">Motion Capture</span>
-                                <span class="exp-tag">MATLAB</span>
-                            </div>
-                        </div>
-
-                        <div class="exp-role">
-                            <div class="exp-role-header">
-                                <span class="exp-title">Clinical Research Assistant</span>
-                                <span class="exp-role-period">Sep 2025 – Present</span>
-                            </div>
-                            <ul class="exp-desc">
-                                <li>Coordinated and executed human subjects research protocols, managing IRB compliance documentation and participant screening for stroke rehabilitation studies.</li>
-                                <li>Administered study procedures end-to-end — informed consent, baseline vitals, and standardized experimental protocols.</li>
-                                <li>Maintained data integrity and protocol fidelity across a multidisciplinary clinical research team.</li>
-                            </ul>
-                        </div>
-
-                        <div class="exp-role">
-                            <div class="exp-role-header">
-                                <span class="exp-title">Graduate Research Assistant — EMG & Signal Processing</span>
-                                <span class="exp-role-period">Sep 2025 – Present</span>
-                            </div>
-                            <ul class="exp-desc">
-                                <li>Developed and validated data acquisition pipelines for the Shimmer3 EMG system, implementing signal processing techniques to filter noise and extract physiological features.</li>
-                                <li>Analyzed muscle activation patterns and co-contraction timing in stroke survivors using surface EMG, identifying neuromuscular abnormalities relevant to gait rehabilitation.</li>
-                                <li>Processed and interpreted EMG datasets using Python, MATLAB, and ConsensysPro to support ongoing clinical research.</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">MATLAB</span>
-                                <span class="exp-tag">sEMG</span>
-                                <span class="exp-tag">Signal Processing</span>
-                                <span class="exp-tag">ConsensysPro</span>
-                            </div>
-                        </div>
-
-                        <div class="exp-role">
-                            <div class="exp-role-header">
-                                <span class="exp-title">Graduate Researcher — Laser Metal Bending</span>
-                                <span class="exp-role-period">Feb 2025 – May 2026</span>
-                            </div>
-                            <ul class="exp-desc">
-                                <li>Collected and processed experimental data for a laser metal bending research project, applying mechanical engineering principles and statistical analysis to support accurate modeling outcomes.</li>
-                                <li>Contributed to research methodology design, ensuring data quality and reproducibility across experimental trials.</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">Laser</span>
-                                <span class="exp-tag">EDA</span>
-                                <span class="exp-tag">Statistical Analysis</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Raytheon -->
-                <div class="exp-employer">
-                    <div class="exp-left">
-                        <div class="exp-company">Raytheon</div>
-                        <div class="exp-period">Sep 2025 – May 2026</div>
-                        <span class="exp-current">Current</span>
-                    </div>
-                    <div class="exp-roles">
-
-                        <div class="exp-role">
-                            <div class="exp-role-header">
-                                <span class="exp-title">AI/ML Engineering Project Intern</span>
-                                <span class="exp-role-period">Sep 2025 – May 2026 · Gainesville, FL</span>
-                            </div>
-                            <ul class="exp-desc">
-                                <li>Selected for a competitive project-based internship focused on software security, leveraging Cyber Reasoning System (CRS) technology from DARPA's AI Cyber Grand Challenge (AIxCC).</li>
-                                <li>Implemented and integrated multiple CRS platforms to detect source code vulnerabilities and generate targeted remediation recommendations.</li>
-                                <li>Built AI-assisted tooling to translate legacy Ada code into memory-safe languages (C++ and Rust), reducing long-term security risk in mission-critical systems.</li>
-                                <li>Designed a Linux-based CRS environment with planned LLM integration to optimize token usage and operational cost.</li>
-                                <li>Managing a project valued at 912 hours of internal engineering time; delivering technical reports on system configuration, CRS selection, and deployment effectiveness.</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">Rust</span>
-                                <span class="exp-tag">C++</span>
-                                <span class="exp-tag">LLMs</span>
-                                <span class="exp-tag">DARPA AIxCC</span>
-                                <span class="exp-tag">CRS</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Stony Brook -->
-                <div class="exp-employer">
-                    <div class="exp-left">
-                        <div class="exp-company">Stony Brook University</div>
-                        <div class="exp-period">Feb 2022 – May 2024</div>
-                    </div>
-                    <div class="exp-roles">
-
-                        <div class="exp-role">
-                            <div class="exp-role-header">
-                                <span class="exp-title">Undergraduate Research Fellow</span>
-                                <span class="exp-role-period">Feb 2023 – May 2024 · 1 yr 4 mos</span>
-                            </div>
-                            <ul class="exp-desc">
-                                <li>Manufactured and tested 100+ nanocomposite samples, achieving a 15–20% improvement in compressive strength through optimized carbon nanotube (CNT) reinforcement strategies.</li>
-                                <li>Processed samples via ultrasonic homogenization and characterized microstructure using SEM and TEM imaging.</li>
-                                <li>Published peer-reviewed research as lead author in the SPE Inspiring Plastics Journal; awarded the Richard S. Lee Research Excellence Award.</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">CNT Nanocomposites</span>
-                                <span class="exp-tag">SEM / TEM</span>
-                                <span class="exp-tag">SPE Journal</span>
-                                <span class="exp-tag">Published Research</span>
-                            </div>
-                        </div>
-
-                        <div class="exp-role">
-                            <div class="exp-role-header">
-                                <span class="exp-title">Undergraduate Teaching Assistant</span>
-                                <span class="exp-role-period">Feb 2022 – May 2022 · Part-time</span>
-                            </div>
-                            <ul class="exp-desc">
-                                <li>Supported student learning in Classical Physics I and II through weekly office hours, clarifying concepts and working through problem sets one-on-one and in small groups.</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ DATA SCIENCE ═══════════════════════════════════════ -->
-    <section id="datascience" style="background:rgba(180,220,255,0.012);">
-        <div class="section-container">
-            <h2 class="section-title reveal-el">Applied Data Science</h2>
-            <p class="section-intro reveal-el">AI/ML engineering across medical devices, defense systems, and clinical decision support.</p>
-
-            <div class="proj-table">
-                <div class="proj-col-header">
-                    <span></span><span>Project</span>
-                    <span style="text-align:right">Category</span>
-                    <span style="text-align:right">Year</span>
-                    <span></span>
-                </div>
-
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">01</span>
-                        <span class="proj-name">Raytheon — AI/ML Engineering</span>
-                        <span class="proj-cat">AI/ML · Defense</span>
-                        <span class="proj-year">2025</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <p class="proj-private-note">Confidential / NDA Protected</p>
-                        <p><strong>Focus: LLMs, C++/Rust, DARPA Cyber Grand Challenge</strong><br/>
-                        Integrating Large Language Models into Cyber Reasoning Systems to analyze and patch legacy Ada code. Translating critical systems into memory-safe C++ and Rust, managing a 900+ hour engineering effort to modernize defense software infrastructure.</p>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">LLMs</span><span class="proj-tag">C++</span><span class="proj-tag">Rust</span><span class="proj-tag">Static Analysis</span><span class="proj-tag">DARPA AIxCC</span>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">02</span>
-                        <span class="proj-name">SymptaAI — Clinical AI Decision Support</span>
-                        <span class="proj-cat">Multi-Agent AI</span>
-                        <span class="proj-year">2025</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <p><strong>The Challenge:</strong> Physicians must rapidly synthesize lab results, records, and symptoms — information overload that drives diagnostic errors.<br/>
-                        <strong>The Solution:</strong> 8-agent LangGraph pipeline covering intake, record summarization, symptom analysis, lab interpretation, drug interaction checking, differential diagnosis, and care plan generation. FastAPI backend with JWT auth and real-time SSE streaming.</p>
-                        <ul>
-                            <li>Parallel agent execution with state accumulation across the pipeline</li>
-                            <li>Drug interaction checking, lab interpretation with critical value flagging</li>
-                            <li>ICD-10 coded differentials + prioritized care plan in under 2 minutes</li>
-                        </ul>
-                        <div class="proj-body-media">
-                            <video autoplay loop muted playsinline>
-                                <source src="images/symptaai_demo.mp4" type="video/mp4" />
-                                <img src="images/synapptaie.gif" alt="SymptaAI Demo" />
-                            </video>
-                        </div>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">LangGraph</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js</span><span class="proj-tag">NVIDIA NIM</span><span class="proj-tag">JWT</span><span class="proj-tag">SSE</span><span class="proj-tag">PostgreSQL</span>
-                            </div>
-                            <a href="https://github.com/soroushsaririan/SymptaAI" target="_blank" class="proj-gh-link"><i class="fab fa-github"></i> View Repo</a>
-                        </div>
-                    </div>
-                </details>
-
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">03</span>
-                        <span class="proj-name">VitalStream — Serverless Patient Telemetry</span>
-                        <span class="proj-cat">MLOps · AWS</span>
-                        <span class="proj-year">2025</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <p><strong>The Challenge:</strong> High-frequency physiological data (ECG at 500 Hz, sEMG at 2000 Hz) must be processed in near real-time with zero data loss, strict PHI isolation, and clinical-grade audit trails.<br/>
-                        <strong>The Solution:</strong> Fully serverless pipeline on AWS. IoT Core → Kinesis → Lambda (DSP + HRV) → SageMaker 1D-CNN + BiLSTM ensemble → DynamoDB with alert routing. Terraform-provisioned 3-AZ VPC, KMS CMKs, S3 Object Lock for 7-year HIPAA retention.</p>
-                        <ul>
-                            <li>1D-CNN + BiLSTM with Focal Loss for arrhythmia detection (AFIB, VT, STEMI)</li>
-                            <li>Blue/green SageMaker deployment with automatic CloudWatch rollback</li>
-                            <li>34 passing tests — unit + integration (moto-emulated DDB, partial-batch failure)</li>
-                        </ul>
-                        <div class="proj-body-media">
-                            <video autoplay loop muted playsinline>
-                                <source src="images/vitalstream_demo.mp4" type="video/mp4" />
-                                <img src="images/vitalstream_demo.gif" alt="VitalStream Demo" />
-                            </video>
-                        </div>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">PyTorch</span><span class="proj-tag">AWS Lambda</span><span class="proj-tag">Kinesis</span><span class="proj-tag">DynamoDB</span><span class="proj-tag">SageMaker</span><span class="proj-tag">Terraform</span><span class="proj-tag">GitHub Actions</span>
-                            </div>
-                            <a href="https://github.com/soroushsaririan/VitalStream" target="_blank" class="proj-gh-link"><i class="fab fa-github"></i> View Repo</a>
-                        </div>
-                    </div>
-                </details>
-
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">04</span>
-                        <span class="proj-name">medxplAIn — 3D Liver Tumor Segmentation</span>
-                        <span class="proj-cat">Medical Imaging</span>
-                        <span class="proj-year">2024</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <p><strong>The Challenge:</strong> Manual liver segmentation for radiation therapy planning is subjective and time-consuming.<br/>
-                        <strong>The Solution:</strong> End-to-end PyTorch pipeline using a 3D U-Net architecture to automate liver and tumor segmentation from 3D CT volumes. Reduces segmentation from hours to minutes while standardizing diagnostic outputs.</p>
-                        <div class="proj-body-media">
-                            <img src="images/medxplain_structure.jpg" alt="U-Net Architecture" />
-                        </div>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">PyTorch</span><span class="proj-tag">3D U-Net</span><span class="proj-tag">Medical Imaging</span><span class="proj-tag">Python</span>
-                            </div>
-                            <a href="https://github.com/soroushsaririan/medxplAin-DR" target="_blank" class="proj-gh-link"><i class="fab fa-github"></i> View Repo</a>
-                        </div>
-                    </div>
-                </details>
-
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">05</span>
-                        <span class="proj-name">RetinAI — Diabetic Retinopathy Screening</span>
-                        <span class="proj-cat">Computer Vision</span>
-                        <span class="proj-year">2024</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <p><strong>The Challenge:</strong> Diabetic retinopathy is a leading cause of blindness, yet early detection remains inaccessible in underserved communities.<br/>
-                        <strong>The Solution:</strong> Accessible screening tool using Vision Language Models to analyze retinal images and automatically flag retinopathy symptoms with high precision. Designed to assist healthcare providers in resource-limited settings.</p>
-                        <div class="proj-body-media">
-                            <img src="images/retinai_demo.gif" alt="RetinAI Demo" />
-                        </div>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">VLMs</span><span class="proj-tag">OpenCV</span><span class="proj-tag">Python</span>
-                            </div>
-                            <a href="https://github.com/soroushsaririan/RetinAI" target="_blank" class="proj-gh-link"><i class="fab fa-github"></i> View Repo</a>
-                        </div>
-                    </div>
-                </details>
-
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">06</span>
-                        <span class="proj-name">Laser Metal Bending — Predictive Modeling</span>
-                        <span class="proj-cat">Ensemble ML</span>
-                        <span class="proj-year">2024</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <p class="proj-private-note">Private Project</p>
-                        <p><strong>The Challenge:</strong> Achieving precise control of metal deformation requires accurate modeling of complex thermal-mechanical interactions.<br/>
-                        <strong>The Solution:</strong> Comparative framework using 16 algorithms — Ensemble Models (Voting, Stacking, Gradient Boosting), SVMs, and Neural Networks — to predict deformation angles and validate experimental data against simulations.</p>
-                        <div class="proj-body-media">
-                            <img src="images/laser_interface.jpg" alt="Laser Interface" />
-                        </div>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">XGBoost</span><span class="proj-tag">CatBoost</span><span class="proj-tag">Scikit-learn</span><span class="proj-tag">RandomForest</span><span class="proj-tag">SVM</span>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">07</span>
-                        <span class="proj-name">Skin Allergen Computer Vision</span>
-                        <span class="proj-cat">Computer Vision · Clinical</span>
-                        <span class="proj-year">2024</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <p class="proj-private-note">Private Project</p>
-                        <p>Automated diagnostic pipeline using OpenCV and Random Forest models to analyze skin prick tests. Processes 500+ clinical images with &gt;90% correlation to clinician scoring, reducing diagnosis time from 5 minutes to 45 seconds per patient.</p>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">OpenCV</span><span class="proj-tag">Random Forest</span><span class="proj-tag">Python</span>
-                            </div>
-                        </div>
-                    </div>
-                </details>
+            <div class="entry">
+                <h3>AI/ML Engineering Project Intern</h3>
+                <p class="entry-meta">Raytheon &middot; Largo, FL &middot; Sep 2025 to May 2026</p>
+                <ul>
+                    <li>Built an LLM-assisted static analysis pipeline on DARPA AI Cyber Grand Challenge technology to translate legacy Ada codebases into memory-safe C++ and Rust, on a project scoped at 912 internal engineering hours.</li>
+                    <li>Integrated multiple Cyber Reasoning Systems with LLM-driven source analysis to detect vulnerabilities and generate patches, delivering automated security reports to review boards.</li>
+                    <li>Designed evaluation harnesses benchmarking patch correctness across Ada-to-Rust translation, achieving 80% recall and driving iterative LLM prompt refinement.</li>
+                </ul>
+                <p class="entry-note">Additional project metrics are under NDA.</p>
             </div>
 
-            <div class="section-divider reveal-el"></div>
-
-            <!-- DS Skills -->
-            <h3 style="font-family:'Outfit',sans-serif;font-weight:300;font-size:1.3rem;color:rgba(255,255,255,0.85);margin-bottom:0;" class="reveal-el">Technical Skills</h3>
-            <div class="skill-grid">
-                <div class="skill-category reveal-el">
-                    <h4>Languages</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">R</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">Rust</span>
-                        <span class="skill-tag">MATLAB</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>ML &amp; AI</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">Scikit-learn</span>
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">Pandas</span>
-                        <span class="skill-tag">NumPy</span>
-                        <span class="skill-tag">SciPy</span>
-                        <span class="skill-tag">LangGraph</span>
-                        <span class="skill-tag">LangChain</span>
-                        <span class="skill-tag">LlamaIndex</span>
-                        <span class="skill-tag">Hugging Face</span>
-                        <span class="skill-tag">LLMs / VLMs</span>
-                        <span class="skill-tag">RAG</span>
-                        <span class="skill-tag">XGBoost</span>
-                        <span class="skill-tag">CatBoost</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Data &amp; Visualization</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Matplotlib</span>
-                        <span class="skill-tag">Seaborn</span>
-                        <span class="skill-tag">Streamlit</span>
-                        <span class="skill-tag">Tableau</span>
-                        <span class="skill-tag">Power BI</span>
-                        <span class="skill-tag">Excel</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Cloud &amp; MLOps</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">AWS IoT Core</span>
-                        <span class="skill-tag">AWS Lambda</span>
-                        <span class="skill-tag">AWS Kinesis</span>
-                        <span class="skill-tag">AWS SageMaker</span>
-                        <span class="skill-tag">AWS DynamoDB</span>
-                        <span class="skill-tag">AWS S3</span>
-                        <span class="skill-tag">AWS KMS</span>
-                        <span class="skill-tag">AWS CloudWatch</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Kubernetes</span>
-                        <span class="skill-tag">Terraform</span>
-                        <span class="skill-tag">GitHub Actions</span>
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">NVIDIA NIM</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Databases &amp; Search</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">ChromaDB</span>
-                        <span class="skill-tag">FAISS</span>
-                        <span class="skill-tag">FastAPI</span>
-                        <span class="skill-tag">SQLAlchemy</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Domain Expertise</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Multi-Agent AI</span>
-                        <span class="skill-tag">Computer Vision</span>
-                        <span class="skill-tag">Clinical Decision Support</span>
-                        <span class="skill-tag">Time-Series Analysis</span>
-                        <span class="skill-tag">sEMG Signal Processing</span>
-                        <span class="skill-tag">Static Code Analysis</span>
-                        <span class="skill-tag">Statistical Modeling</span>
-                        <span class="skill-tag">Design of Experiments</span>
-                        <span class="skill-tag">A/B Testing</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ ENGINEERING ════════════════════════════════════════ -->
-    <section id="engineering">
-        <div class="section-container">
-            <h2 class="section-title reveal-el">R&amp;D Engineering</h2>
-            <p class="section-intro reveal-el">From nanocomposites to medical devices — bridging physical hardware with data-driven analysis.</p>
-
-            <div class="proj-table">
-                <div class="proj-col-header">
-                    <span>#</span><span>Project</span><span>Category</span><span>Year</span><span></span>
-                </div>
-
-                <!-- 01: UF Orthopedics -->
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">01</span>
-                        <span class="proj-name">Medical Device R&amp;D — UF Orthopedics</span>
-                        <span class="proj-cat">Medical Device R&amp;D</span>
-                        <span class="proj-year">2024</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <div class="proj-gallery-2 proj-body-media">
-                            <img src="images/emg_sensor.jpg" alt="Shimmer3 Sensor" />
-                            <img src="images/emg_interface.gif" alt="Python Interface Demo" />
-                        </div>
-                        <p style="font-size:0.82rem;color:rgba(255,255,255,0.52);line-height:1.7;max-width:580px;">
-                            Working under Dr. Sharareh Sharififar and Dr. Andrew Dubin to quantify gait abnormalities in stroke patients. Built a data acquisition pipeline using Shimmer3 EMG sensors with Python scripts to clean and visualize raw electromyography signals, isolating muscle activation patterns during walking trials. Real-time feedback on muscle firing rates helps clinicians adjust physical therapy regimens.
-                        </p>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">Python</span>
-                                <span class="proj-tag">EMG</span>
-                                <span class="proj-tag">Signal Processing</span>
-                                <span class="proj-tag">Shimmer3</span>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- 02: Nanocomposite -->
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">02</span>
-                        <span class="proj-name">Nanocomposite Material Research</span>
-                        <span class="proj-cat">Published Research</span>
-                        <span class="proj-year">2023</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <div class="proj-gallery-3 proj-body-media">
-                            <img src="images/nano_setup.jpg" alt="Lab Setup" />
-                            <img src="images/nano_sample.jpg" alt="Composite Sample" />
-                            <img src="images/nano_plot.jpg" alt="Stress Strain Data" />
-                        </div>
-                        <p style="font-size:0.82rem;color:rgba(255,255,255,0.52);line-height:1.7;max-width:580px;">
-                            Primary Author — investigated Carbon Nanotube reinforcement of epoxy composites (straight and helical CNTs). Developed novel ultrasonic homogenization protocol; utilized SEM/TEM microscopy for microstructural analysis. Achieved 15–20% improvement in compressive strength. Findings peer-reviewed and published in <em>Polymer Composites</em>.
-                        </p>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">Materials Science</span>
-                                <span class="proj-tag">CNT</span>
-                                <span class="proj-tag">SEM/TEM</span>
-                                <span class="proj-tag">Instron</span>
-                                <span class="proj-tag">Python</span>
-                            </div>
-                            <a href="https://doi.org/10.1002/pc.29076" target="_blank" class="proj-gh-link">
-                                DOI: 10.1002/pc.29076 ↗
-                            </a>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- 03: Solar Racing -->
-                <details class="proj-row">
-                    <summary>
-                        <span class="proj-num">03</span>
-                        <span class="proj-name">Stony Brook Solar Racing — Propulsion Lead</span>
-                        <span class="proj-cat">Propulsion · Competition</span>
-                        <span class="proj-year">2023</span>
-                        <span class="proj-toggle">›</span>
-                    </summary>
-                    <div class="proj-body">
-                        <div class="proj-gallery-2 proj-body-media">
-                            <img src="images/solar_boat.jpg" alt="Solar Boat" />
-                            <img src="images/solar_cad.jpg" alt="Propulsion CAD" />
-                        </div>
-                        <p style="font-size:0.82rem;color:rgba(255,255,255,0.52);line-height:1.7;max-width:580px;">
-                            Led mechanical design for the 2024 Solar Splash Competition using Fusion 360 and SolidWorks. Personally machined custom drivetrain components — motor mounts and couplers — using manual mills and lathes to sub-millimeter tolerance. Successfully integrated the electric motor system, meeting all competition safety and performance benchmarks.
-                        </p>
-                        <div class="proj-body-footer">
-                            <div class="proj-tags">
-                                <span class="proj-tag">Fusion 360</span>
-                                <span class="proj-tag">SolidWorks</span>
-                                <span class="proj-tag">CNC Machining</span>
-                                <span class="proj-tag">Manual Mill/Lathe</span>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
+            <div class="entry">
+                <h3>Graduate Research Assistant, Gait Analysis</h3>
+                <p class="entry-meta">University of Florida &middot; Sep 2025 to Present</p>
+                <ul>
+                    <li>Led 3D gait data collection in stroke patients using motion capture, gait mat pressure sensors, and force plates to quantify spatiotemporal parameters, joint kinematics, and load distribution.</li>
+                    <li>Integrated multi-modal sensor data into movement profiles supporting clinical evaluation of balance, gait symmetry, and compensatory patterns in post-stroke rehabilitation.</li>
+                    <li>Collaborated with orthopaedic surgeons, neurologists, and physical therapists to translate findings into rehabilitation recommendations.</li>
+                    <li>First author of a manuscript on continuous reconstruction of swing-phase gait for locomotor instability assessment, currently in revision.</li>
+                </ul>
             </div>
 
-            <div class="section-divider reveal-el"></div>
-
-            <h3 style="font-family:'Outfit',sans-serif;font-weight:300;font-size:1.3rem;color:rgba(255,255,255,0.85);margin-bottom:0;" class="reveal-el">Engineering Skills</h3>
-            <div class="skill-grid" style="grid-template-columns:repeat(3,1fr);">
-                <div class="skill-category reveal-el">
-                    <h4>CAD &amp; Simulation</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">SolidWorks</span>
-                        <span class="skill-tag">Fusion 360</span>
-                        <span class="skill-tag">AutoCAD</span>
-                        <span class="skill-tag">FEA</span>
-                        <span class="skill-tag">GD&amp;T</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Manufacturing</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">CNC Machining</span>
-                        <span class="skill-tag">Manual Mill / Lathe</span>
-                        <span class="skill-tag">3D Printing</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Lab &amp; Research</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">SEM / TEM Microscopy</span>
-                        <span class="skill-tag">Instron Testing</span>
-                        <span class="skill-tag">Circuit Analysis</span>
-                        <span class="skill-tag">EMG / Signal Processing</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ ABOUT ═══════════════════════════════════════════════ -->
-    <section id="about">
-        <div class="section-container">
-            <h2 class="section-title reveal-el">About Me</h2>
-
-            <div class="about-grid">
-                <div class="about-text">
-                    <h3 class="reveal-el">The Intersection of Hardware &amp; Intelligence</h3>
-                    <p class="reveal-el">I am a Mechanical Engineer and Applied Data Scientist driven by a single goal: bridging the gap between physical hardware and intelligent software to improve human health. Currently a Researcher at the University of Florida and AI/ML Engineer for Raytheon, navigating the complex intersection of cybersecurity, generative AI, and legacy systems.</p>
-
-                    <h3 class="reveal-el">My Journey</h3>
-                    <p class="reveal-el">My passion lies in medical technology. Witnessing the impact of mobility challenges on loved ones inspired me to explore how engineering can restore function and dignity. This led me to work on gait analysis for stroke patients at UF Orthopedics and to investigate advanced nanocomposites for lighter, stronger prosthetics.</p>
-                    <p class="reveal-el">I believe the next generation of medical devices won't just be mechanical — they will be intelligent. By combining my background in rigorous hardware R&amp;D (Solar Racing, Materials Science) with advanced Data Science (LLMs, Computer Vision), I aim to build systems that are not only robust but capable of adapting to the human body.</p>
-
-                    <h3 class="reveal-el">Education</h3>
-                    <ul class="reveal-el">
-                        <li><strong>University of Florida:</strong> M.S. in Applied Data Science</li>
-                        <li><strong>Stony Brook University:</strong> B.E. Mechanical Engineering</li>
-                        <li><strong>Certifications:</strong> Engineer in Training (EIT)</li>
-                    </ul>
-                </div>
-                <div class="about-photo reveal-el">
-                    <img src="images/headshot.jpg" alt="Soroush Saririan" class="about-photo-img" />
-                </div>
+            <div class="entry">
+                <h3>Clinical Research Assistant</h3>
+                <p class="entry-meta">University of Florida &middot; Sep 2025 to Present</p>
+                <ul>
+                    <li>Worked directly with study volunteers, obtaining informed consent, collecting baseline vitals, and running participants through standardized experimental protocols end to end.</li>
+                    <li>Coordinated human subjects protocols, managing IRB compliance documentation and participant screening for stroke rehabilitation studies.</li>
+                    <li>Maintained data integrity and protocol fidelity across a multidisciplinary clinical research team.</li>
+                </ul>
             </div>
 
-            <div class="section-divider reveal-el"></div>
-
-            <!-- Full skills grid in About -->
-            <div class="skill-grid">
-                <div class="skill-category reveal-el">
-                    <h4>Languages</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span><span class="skill-tag">R</span>
-                        <span class="skill-tag">SQL</span><span class="skill-tag">C++</span>
-                        <span class="skill-tag">Rust</span><span class="skill-tag">MATLAB</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>ML &amp; AI</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">Scikit-learn</span><span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">LangGraph</span><span class="skill-tag">LangChain</span>
-                        <span class="skill-tag">LlamaIndex</span><span class="skill-tag">Hugging Face</span>
-                        <span class="skill-tag">LLMs / VLMs</span><span class="skill-tag">RAG</span>
-                        <span class="skill-tag">XGBoost</span><span class="skill-tag">CatBoost</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Cloud &amp; DevOps</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">AWS IoT Core</span><span class="skill-tag">AWS Lambda</span>
-                        <span class="skill-tag">AWS Kinesis</span><span class="skill-tag">AWS SageMaker</span>
-                        <span class="skill-tag">AWS DynamoDB</span><span class="skill-tag">AWS S3</span>
-                        <span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span>
-                        <span class="skill-tag">Terraform</span><span class="skill-tag">GitHub Actions</span>
-                        <span class="skill-tag">NVIDIA NIM</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Data &amp; Visualization</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span>
-                        <span class="skill-tag">Streamlit</span><span class="skill-tag">Tableau</span>
-                        <span class="skill-tag">Power BI</span><span class="skill-tag">FastAPI</span>
-                        <span class="skill-tag">PostgreSQL</span><span class="skill-tag">ChromaDB</span>
-                        <span class="skill-tag">FAISS</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Engineering &amp; CAD</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">SolidWorks</span><span class="skill-tag">Fusion 360</span>
-                        <span class="skill-tag">AutoCAD</span><span class="skill-tag">FEA</span>
-                        <span class="skill-tag">GD&amp;T</span>
-                    </div>
-                </div>
-                <div class="skill-category reveal-el">
-                    <h4>Manufacturing &amp; Research</h4>
-                    <div class="skill-tags">
-                        <span class="skill-tag">CNC Machining</span><span class="skill-tag">Mill / Lathe</span>
-                        <span class="skill-tag">3D Printing</span><span class="skill-tag">SEM / TEM</span>
-                        <span class="skill-tag">Instron Testing</span><span class="skill-tag">EMG / Signal Processing</span>
-                    </div>
-                </div>
+            <div class="entry">
+                <h3>Graduate Research Assistant, sEMG Signal Processing</h3>
+                <p class="entry-meta">University of Florida &middot; Sep 2025 to Present</p>
+                <ul>
+                    <li>Developed and validated acquisition pipelines for the Shimmer3 sEMG system, implementing bandpass filtering, RMS windowing, and onset detection to extract physiological features from raw time-series signals.</li>
+                    <li>Analyzed muscle activation patterns and co-contraction timing in stroke survivors, identifying neuromuscular abnormalities relevant to gait rehabilitation.</li>
+                    <li>Processed EMG datasets in Python, MATLAB, and ConsensysPro, validating windowing parameters against clinical benchmarks.</li>
+                </ul>
             </div>
-        </div>
-    </section>
 
-    <!-- ═══ RESUME ══════════════════════════════════════════════ -->
-    <section id="resume" style="background:rgba(180,220,255,0.012);">
-        <div class="section-container">
-            <h2 class="section-title reveal-el">Resume</h2>
-            <div class="resume-actions reveal-el">
-                <a href="Resume.pdf" class="btn-primary" target="_blank">
-                    <i class="fas fa-download" style="margin-right:0.5rem;"></i>Download Resume
-                </a>
+            <div class="entry">
+                <h3>Graduate Researcher, Laser Metal Bending</h3>
+                <p class="entry-meta">University of Florida &middot; Feb 2025 to May 2026</p>
+                <ul>
+                    <li>Developed a comparative ML framework spanning 16 algorithms, including stacking and voting ensembles, gradient boosting, and neural networks, to predict metal deformation angles, reaching an R<sup>2</sup> of 0.84 on high-variability laser-on-metal data.</li>
+                    <li>Collected and processed experimental thermal-mechanical data, validating physical experiments against simulation outputs.</li>
+                </ul>
             </div>
-        </div>
-    </section>
 
-    <!-- ═══ CONTACT ══════════════════════════════════════════════ -->
-    <section id="contact">
-        <div class="section-container">
-            <h2 class="section-title reveal-el">Contact</h2>
+            <div class="entry">
+                <h3>Undergraduate Researcher</h3>
+                <p class="entry-meta">Stony Brook University &middot; Feb 2023 to May 2024</p>
+                <ul>
+                    <li>Designed compressive testing protocols across 100+ CNT-reinforced epoxy nanocomposite samples, applying regression analysis to isolate a 15 to 20% strength gain from optimized reinforcement geometry.</li>
+                    <li>Published as lead author in <em>Polymer Composites</em> (<a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a>); awarded the Richard S. Lee Research Excellence Award.</li>
+                </ul>
+            </div>
+        </section>
 
-            <div class="contact-grid">
-                <div>
-                    <div class="contact-info reveal-el">
-                        <h3>Let's Connect</h3>
-                        <p>Interested in my work or have an opportunity to discuss? Send me a message or reach out directly via LinkedIn.</p>
-                    </div>
-                    <div class="contact-links reveal-el">
-                        <a href="mailto:saririan.s.eng@gmail.com" class="contact-link-item">
-                            <i class="fas fa-envelope"></i>
-                            saririan.s.eng@gmail.com
-                        </a>
-                        <a href="https://www.linkedin.com/in/soroush-saririan" target="_blank" class="contact-link-item">
-                            <i class="fab fa-linkedin"></i>
-                            linkedin.com/in/soroush-saririan
-                        </a>
-                        <a href="https://github.com/soroushsaririan" target="_blank" class="contact-link-item">
-                            <i class="fab fa-github"></i>
-                            github.com/soroushsaririan
-                        </a>
-                    </div>
-                </div>
+        <section id="projects">
+            <h2>Projects</h2>
 
-                <form class="contact-form reveal-el" method="post" action="https://formspree.io/f/xlglnogn">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" id="name" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" required />
-                        </div>
+            <div class="entry">
+                <h3>VitalStream, Serverless Patient Telemetry Pipeline</h3>
+                <p class="entry-meta">PyTorch &middot; AWS &middot; Terraform</p>
+                <ul>
+                    <li>Serverless AWS pipeline (IoT Core, Kinesis, Lambda, SageMaker, DynamoDB) processing 500 Hz ECG and 2000 Hz sEMG streams through a 1D-CNN and BiLSTM ensemble for arrhythmia detection.</li>
+                    <li>Infrastructure as code with Terraform across 3 availability zones, HIPAA-aligned retention controls, 34 passing tests, blue/green deployment with automated rollback.</li>
+                </ul>
+                <figure>
+                    <video controls muted loop playsinline preload="metadata">
+                        <source src="images/vitalstream_demo.mp4" type="video/mp4" />
+                        Your browser does not support embedded video.
+                    </video>
+                    <figcaption>VitalStream dashboard demo</figcaption>
+                </figure>
+                <p class="entry-links"><a href="https://github.com/soroushsaririan/VitalStream">View on GitHub</a></p>
+            </div>
+
+            <div class="entry">
+                <h3>SymptaAI, Multi-Agent Clinical Decision Support</h3>
+                <p class="entry-meta">LangGraph &middot; FastAPI &middot; PostgreSQL</p>
+                <p>An 8-agent LangGraph pipeline covering record summarization, lab interpretation, drug interaction checking, and differential diagnosis. Generates ICD-10 coded outputs and care plans in under 2 minutes, with records persisted in PostgreSQL behind a FastAPI service layer.</p>
+                <figure>
+                    <video controls muted loop playsinline preload="none">
+                        <source src="images/symptaai_demo.mp4" type="video/mp4" />
+                        Your browser does not support embedded video.
+                    </video>
+                    <figcaption>SymptaAI pipeline demo</figcaption>
+                </figure>
+                <p class="entry-links"><a href="https://github.com/soroushsaririan/SymptaAI">View on GitHub</a></p>
+            </div>
+
+            <div class="entry">
+                <h3>Automated Skin Allergen Imaging Pipeline</h3>
+                <p class="entry-meta">OpenCV &middot; Scikit-learn</p>
+                <p>Ensemble classifier (Random Forest, SVM, CNN) trained on 500+ clinical photographs to automate skin prick test wheal measurement: 95% detection accuracy, over 90% clinician-score correlation, per-patient scoring time cut from 5 minutes to 45 seconds.</p>
+            </div>
+
+            <div class="entry">
+                <h3>medxplAIn, 3D Liver Tumor Segmentation</h3>
+                <p class="entry-meta">PyTorch &middot; 3D U-Net</p>
+                <p>End-to-end PyTorch pipeline using a 3D U-Net to automate liver and tumor segmentation from 3D CT volumes for radiation therapy planning, reducing manual segmentation from hours to minutes.</p>
+                <p class="entry-links"><a href="https://github.com/soroushsaririan/medxplAin-DR">View on GitHub</a></p>
+            </div>
+
+            <div class="entry">
+                <h3>RetinAI, Diabetic Retinopathy Screening</h3>
+                <p class="entry-meta">Vision Language Models &middot; OpenCV</p>
+                <p>Screening tool that uses vision language models to analyze retinal images and flag diabetic retinopathy symptoms, designed to assist healthcare providers in resource-limited settings.</p>
+                <p class="entry-links"><a href="https://github.com/soroushsaririan/RetinAI">View on GitHub</a></p>
+            </div>
+
+            <p class="subhead">Engineering and Research</p>
+
+            <div class="entry">
+                <h3>Shimmer3 sEMG Acquisition Pipeline, UF Orthopaedics</h3>
+                <p class="entry-meta">Python &middot; Signal Processing</p>
+                <p>Data acquisition and visualization pipeline for Shimmer3 sEMG sensors used in stroke gait studies. Python tooling cleans raw electromyography signals and isolates muscle activation patterns during walking trials, giving clinicians feedback on muscle firing rates to adjust therapy regimens.</p>
+                <figure>
+                    <img src="images/emg_sensor.jpg" alt="Shimmer3 sEMG sensor unit" loading="lazy" />
+                </figure>
+            </div>
+
+            <div class="entry">
+                <h3>CNT Nanocomposite Research</h3>
+                <p class="entry-meta">Materials Science &middot; Published in Polymer Composites</p>
+                <p>Compressive testing across 100+ CNT-reinforced epoxy nanocomposite samples, with ultrasonic homogenization processing and SEM/TEM microstructural characterization. Regression analysis isolated a 15 to 20% strength gain from optimized reinforcement geometry. Awarded the Richard S. Lee Research Excellence Award.</p>
+                <figure class="figure-pair">
+                    <img src="images/nano_setup-web.jpg" alt="Ultrasonic homogenization and lab equipment used to process nanocomposite samples" loading="lazy" />
+                    <img src="images/nano_sample-web.jpg" alt="CNT-reinforced epoxy composite samples prepared for compression testing" loading="lazy" />
+                </figure>
+                <p class="entry-links"><a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a></p>
+            </div>
+
+            <div class="entry">
+                <h3>Stony Brook Solar Racing, Propulsion Lead</h3>
+                <p class="entry-meta">Fusion 360 &middot; SolidWorks &middot; Machining</p>
+                <p>Led propulsion mechanical design for the 2024 Solar Splash competition. Machined custom drivetrain components, including motor mounts and couplers, on manual mills and lathes to sub-millimeter tolerance. The integrated electric motor system met all competition safety and performance benchmarks.</p>
+                <figure class="figure-pair">
+                    <img src="images/solar_boat-web.jpg" alt="Stony Brook Solar Racing boat on the water" loading="lazy" />
+                    <img src="images/solar_cad.jpg" alt="CAD model of the propulsion drivetrain" loading="lazy" />
+                </figure>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <ul class="fact-list">
+                <li>
+                    <strong>M.S. Applied Data Science, University of Florida</strong>
+                    <p class="entry-meta">Aug 2024 to May 2026 &middot; GPA 3.97</p>
+                </li>
+                <li>
+                    <strong>B.E. Mechanical Engineering, Stony Brook University</strong>
+                    <p class="entry-meta">Feb 2021 to May 2024 &middot; GPA 3.70 &middot; Magna Cum Laude</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="publications">
+            <h2>Publications</h2>
+            <ul class="fact-list">
+                <li>
+                    <strong>CNT-reinforced epoxy nanocomposites</strong>
+                    <p class="entry-meta">Saririan, S., et al. Lead author. <em>Polymer Composites</em>. <a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a></p>
+                </li>
+                <li>
+                    <strong>Continuous reconstruction of swing-phase gait for locomotor instability assessment</strong>
+                    <p class="entry-meta">First author. Manuscript in revision.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="certifications">
+            <h2>Certifications</h2>
+            <ul class="fact-list">
+                <li><strong>Engineer in Training (EIT)</strong></li>
+                <li>
+                    <strong>Cisco Python Essentials 1 and 2</strong>
+                    <p class="entry-meta">2025</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <dl class="skills">
+                <dt>Languages</dt>
+                <dd>Python, SQL, R, C++, Rust, MATLAB</dd>
+                <dt>ML and AI</dt>
+                <dd>PyTorch, TensorFlow, Scikit-learn, XGBoost, OpenCV, LangGraph, LangChain, Hugging Face, LLMs, RAG</dd>
+                <dt>Cloud and MLOps</dt>
+                <dd>AWS (Lambda, SageMaker, Kinesis, DynamoDB, S3), Docker, Kubernetes, Terraform, FastAPI, PostgreSQL, Linux</dd>
+                <dt>Analytics</dt>
+                <dd>Statistical Modeling, Design of Experiments, A/B Testing, Time-Series Analysis, Tableau, Power BI</dd>
+            </dl>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p class="contact-intro">Open to Data Scientist, new-grad ML, and clinical data analysis roles. Reach me by email or LinkedIn, or use the form below.</p>
+            <ul class="contact-links">
+                <li><a href="mailto:saririan.s.eng@gmail.com">saririan.s.eng@gmail.com</a></li>
+                <li><a href="https://www.linkedin.com/in/soroush-saririan">linkedin.com/in/soroush-saririan</a></li>
+                <li><a href="https://github.com/soroushsaririan">github.com/soroushsaririan</a></li>
+                <li><a href="Resume.pdf">Download Resume (PDF)</a></li>
+            </ul>
+            <form method="post" action="https://formspree.io/f/xlglnogn">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" required />
                     </div>
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea name="message" id="message" rows="5" required></textarea>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" required />
                     </div>
-                    <div class="form-submit">
-                        <button type="submit" class="btn-primary">Send Message</button>
-                        <button type="reset" class="btn-reset">Clear</button>
-                    </div>
-                    <input type="hidden" name="_next" value="https://soroushsaririan.github.io" />
-                </form>
-            </div>
-        </div>
-    </section>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+                <input type="hidden" name="_next" value="https://soroushsaririan.github.io" />
+            </form>
+        </section>
 
-    <!-- FOOTER -->
+    </main>
+
     <footer>
-        <p>&copy; 2025 Soroush Saririan</p>
+        <p>&copy; 2026 Soroush Saririan</p>
     </footer>
 
-</div><!-- /site-wrapper -->
+</div>
 
-<!-- BACK TO TOP -->
-<button id="back-to-top" aria-label="Scroll to top">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
-</button>
-
-<!-- ═══ SCRIPTS ════════════════════════════════════════════════ -->
-
-<!-- Particles + Stars -->
+<!-- Starfield (preserved exactly from previous site) -->
 <script>
 (function () {
     var canvas = document.getElementById('particles-canvas');
@@ -1813,58 +673,6 @@
     }
     draw();
 })();
-</script>
-
-<!-- Scroll Progress + Navbar + Back to Top -->
-<script>
-(function () {
-    var bar   = document.getElementById('scroll-progress');
-    var nav   = document.getElementById('navbar');
-    var btt   = document.getElementById('back-to-top');
-
-    window.addEventListener('scroll', function () {
-        var st = window.scrollY || document.documentElement.scrollTop;
-        var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        if (bar) bar.style.width = (sh > 0 ? (st / sh) * 100 : 0) + '%';
-        if (nav) nav.classList.toggle('scrolled', st > 30);
-        if (btt) btt.classList.toggle('visible', st > 400);
-    }, { passive: true });
-
-    if (btt) btt.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-})();
-</script>
-
-
-<!-- Navbar Mobile Toggle -->
-<script>
-(function () {
-    var ham   = document.getElementById('nav-hamburger');
-    var menu  = document.getElementById('nav-mobile');
-    if (!ham || !menu) return;
-    ham.addEventListener('click', function () {
-        ham.classList.toggle('open');
-        menu.classList.toggle('open');
-    });
-    menu.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            ham.classList.remove('open');
-            menu.classList.remove('open');
-        });
-    });
-})();
-</script>
-
-
-
-<script>
-document.querySelectorAll('details.proj-row').forEach(function (d) {
-    d.addEventListener('toggle', function () {
-        if (d.open) d.querySelectorAll('video').forEach(function (v) { v.play(); });
-        else        d.querySelectorAll('video').forEach(function (v) { v.pause(); });
-    });
-});
 </script>
 
 </body>
