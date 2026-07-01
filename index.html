@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Soroush Saririan, data scientist working at the intersection of clinical biosignals, machine learning, and engineering. M.S. Applied Data Science, University of Florida." />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&display=swap" rel="stylesheet" />
+
     <style>
     /* Reset */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         background: #09080f;
-        color: rgba(255,255,255,0.85);
+        color: rgba(255,255,255,0.86);
         font-size: 1.0625rem;
         line-height: 1.65;
         overflow-x: hidden;
@@ -22,11 +26,14 @@
 
     :root {
         --accent: #b4dcff;
+        --gold: #e8d9a8;
         --muted: rgba(255,255,255,0.55);
-        --faint: rgba(255,255,255,0.4);
-        --border: rgba(255,255,255,0.14);
-        --serif: Georgia, 'Times New Roman', serif;
+        --faint: rgba(255,255,255,0.38);
+        --line: rgba(255,255,255,0.13);
+        --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
     }
+
+    ::selection { background: var(--accent); color: #09080f; }
 
     /* Starfield canvas (preserved from previous site) */
     #particles-canvas {
@@ -36,7 +43,7 @@
     }
 
     /* Links */
-    a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(180,220,255,0.35); text-underline-offset: 3px; }
+    a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(180,220,255,0.35); text-underline-offset: 3px; transition: text-decoration-color 0.15s; }
     a:hover { text-decoration-color: var(--accent); }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
@@ -47,98 +54,220 @@
     }
     .skip-link:focus { left: 0; }
 
+    /* Small-caps label utility */
+    .lbl {
+        font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+        color: var(--muted);
+    }
+
     /* Layout */
     .page {
         position: relative; z-index: 3;
-        max-width: 42rem;
+        max-width: 44rem;
         margin: 0 auto;
         padding: 0 1.35rem 4rem;
     }
 
     /* Header nav */
     .site-header {
+        position: sticky; top: 0; z-index: 10;
+        background: #09080f;
+        border-bottom: 1px solid var(--line);
         display: flex; flex-wrap: wrap; align-items: baseline;
-        justify-content: space-between; gap: 0.5rem 1.5rem;
-        padding: 1.6rem 0 0;
+        justify-content: space-between; gap: 0.4rem 1.5rem;
+        padding: 1.05rem 0 0.95rem;
     }
-    .site-header .name { font-family: var(--serif); font-size: 1.05rem; color: #fff; text-decoration: none; letter-spacing: 0.04em; }
-    .site-header nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; list-style: none; }
-    .site-header nav a { font-size: 0.85rem; color: var(--muted); text-decoration: none; }
+    .site-header .name {
+        font-family: var(--serif); font-style: italic; font-weight: 400;
+        font-size: 1.05rem; color: #fff; text-decoration: none; letter-spacing: 0.02em;
+    }
+    .site-header nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.15rem; list-style: none; }
+    .site-header nav a {
+        font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+        color: var(--muted); text-decoration: none; transition: color 0.15s;
+    }
     .site-header nav a:hover { color: var(--accent); }
 
     /* Hero */
-    .hero { padding: 4.5rem 0 3.5rem; display: flex; align-items: center; gap: 2.5rem; }
+    .hero { padding: 5rem 0 3.2rem; display: flex; align-items: flex-start; gap: 3rem; }
     .hero-text { flex: 1; }
-    h1 {
-        font-family: var(--serif); font-weight: 400;
-        font-size: clamp(2rem, 5.5vw, 2.7rem);
-        line-height: 1.15; color: #fff;
-        margin-bottom: 1.1rem;
+    .hero-kicker {
+        font-family: var(--serif); font-style: italic;
+        font-size: 0.95rem; color: var(--gold);
+        margin-bottom: 1.2rem;
     }
-    .hero-text p { max-width: 34rem; color: rgba(255,255,255,0.78); }
-    .hero-links { margin-top: 1.5rem; font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; list-style: none; }
-    .hero img {
-        width: 138px; height: 138px; object-fit: cover;
-        border: 1px solid var(--border); border-radius: 50%;
-        flex-shrink: 0;
+    h1 {
+        font-family: var(--serif); font-weight: 420;
+        font-size: clamp(2.7rem, 7vw, 4.1rem);
+        line-height: 1.04; letter-spacing: -0.015em; color: #fff;
+        margin-bottom: 1.4rem;
+    }
+    h1 .eit {
+        font-size: 0.4em; font-weight: 400; font-style: italic;
+        letter-spacing: 0.14em; color: var(--accent);
+        vertical-align: 0.5em; margin-left: 0.2em;
+    }
+    .hero-text > p {
+        font-family: var(--serif); font-weight: 340;
+        font-size: 1.24rem; line-height: 1.55;
+        max-width: 32rem; color: rgba(255,255,255,0.8);
+    }
+    .hero-links { margin-top: 1.9rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem; list-style: none; }
+    .hero-links a {
+        font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase;
+        text-decoration: none; border-bottom: 1px solid rgba(180,220,255,0.35);
+        padding-bottom: 2px; transition: border-color 0.15s;
+    }
+    .hero-links a:hover { border-color: var(--accent); }
+
+    .hero-fig { flex-shrink: 0; margin-top: 0.9rem; }
+    .hero-fig img {
+        width: 158px; height: 158px; object-fit: cover;
+        border: 1px solid var(--line); padding: 0.35rem;
+    }
+    .hero-fig figcaption {
+        font-family: var(--serif); font-style: italic;
+        font-size: 0.78rem; color: var(--gold);
+        text-align: center; margin-top: 0.55rem;
+    }
+
+    /* Hero entrance */
+    .hero > * { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+    .hero-fig { animation-delay: 0.15s; }
+    @keyframes rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: none; }
+    }
+
+    /* ECG divider */
+    .ecg { display: block; width: 100%; height: 38px; overflow: visible; }
+    .ecg path {
+        fill: none; stroke: var(--accent); stroke-width: 1.3;
+        stroke-linecap: round; stroke-linejoin: round; opacity: 0.55;
+        stroke-dasharray: 1; stroke-dashoffset: 0;
+        animation: trace 1.8s 0.35s cubic-bezier(0.4, 0, 0.3, 1) both;
+    }
+    @keyframes trace { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .hero > * { animation: none; }
+        .ecg path { animation: none; stroke-dashoffset: 0; }
     }
 
     /* Sections */
-    section { border-top: 1px solid var(--border); padding: 2.8rem 0 1.2rem; }
-    h2 {
-        font-family: var(--serif); font-weight: 400;
-        font-size: 1.55rem; color: #fff;
-        margin-bottom: 1.8rem;
+    section { border-top: 1px solid var(--line); padding: 3.1rem 0 1.4rem; position: relative; }
+    .sec-num {
+        display: block;
+        font-family: var(--serif); font-style: italic; font-weight: 300;
+        font-size: 0.95rem; letter-spacing: 0.1em;
+        color: var(--gold);
+        margin-bottom: 0.55rem;
     }
-    h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; color: #fff; line-height: 1.35; }
+    h2 {
+        font-family: var(--serif); font-weight: 420;
+        font-size: 1.75rem; letter-spacing: -0.01em; color: #fff;
+        margin-bottom: 2rem;
+    }
+    @media (min-width: 1120px) {
+        .sec-num {
+            position: absolute; left: -6.4rem; top: 2.7rem;
+            font-size: 3.6rem; line-height: 1; letter-spacing: 0;
+            color: rgba(232,217,168,0.32);
+            margin: 0;
+        }
+    }
+    h3 { font-family: var(--serif); font-weight: 460; font-size: 1.28rem; color: #fff; line-height: 1.3; }
 
-    .entry { margin-bottom: 2.4rem; }
-    .entry-meta { font-size: 0.85rem; color: var(--muted); margin: 0.15rem 0 0.6rem; }
-    .entry ul { list-style: none; }
-    .entry ul li {
+    /* Experience: date rail */
+    .exp {
+        display: grid; grid-template-columns: 8.5rem 1fr;
+        gap: 0 2rem; margin-bottom: 2.6rem;
+    }
+    .exp-when {
+        font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--faint); line-height: 1.7; padding-top: 0.45rem;
+        border-top: 1px solid rgba(232,217,168,0.35);
+    }
+    .exp-org { font-size: 0.82rem; color: var(--muted); margin: 0.3rem 0 0.7rem; }
+    .exp-body ul { list-style: none; }
+    .exp-body ul li {
         position: relative; padding-left: 1.05rem;
         font-size: 0.95rem; color: rgba(255,255,255,0.72);
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.45rem;
     }
-    .entry ul li::before { content: '\2013'; position: absolute; left: 0; color: var(--faint); }
-    .entry p { font-size: 0.95rem; color: rgba(255,255,255,0.72); margin-bottom: 0.5rem; }
-    .entry-note { font-size: 0.82rem; color: var(--faint); font-style: italic; }
-    .entry-links { font-size: 0.9rem; margin-top: 0.5rem; }
+    .exp-body ul li::before { content: '\2013'; position: absolute; left: 0; color: rgba(180,220,255,0.45); }
+    .entry-note { font-size: 0.82rem; color: var(--faint); font-style: italic; margin-top: 0.5rem; }
 
-    .entry figure { margin: 1rem 0 0.4rem; }
-    .entry figure img, .entry figure video { border: 1px solid var(--border); width: 100%; }
-    .entry figcaption { font-size: 0.78rem; color: var(--faint); margin-top: 0.4rem; }
+    @media (max-width: 700px) {
+        .exp { grid-template-columns: 1fr; gap: 0; }
+        .exp-when { border-top: none; padding: 0 0 0.15rem; }
+    }
+
+    /* Projects */
+    .proj { margin-bottom: 3rem; }
+    .proj-head { display: flex; align-items: baseline; gap: 0.9rem; }
+    .proj-num {
+        font-family: var(--serif); font-style: italic; font-weight: 300;
+        font-size: 1.05rem; color: var(--gold); flex-shrink: 0;
+    }
+    .proj-meta {
+        font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+        color: var(--muted); margin: 0.4rem 0 0.75rem;
+    }
+    .proj p { font-size: 0.95rem; color: rgba(255,255,255,0.72); margin-bottom: 0.5rem; }
+    .proj ul { list-style: none; }
+    .proj ul li {
+        position: relative; padding-left: 1.05rem;
+        font-size: 0.95rem; color: rgba(255,255,255,0.72);
+        margin-bottom: 0.45rem;
+    }
+    .proj ul li::before { content: '\2013'; position: absolute; left: 0; color: rgba(180,220,255,0.45); }
+    .entry-links { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.7rem; }
+    .entry-links a { text-decoration: none; border-bottom: 1px solid rgba(180,220,255,0.35); padding-bottom: 2px; }
+    .entry-links a:hover { border-color: var(--accent); }
+
+    .proj figure { margin: 1.1rem 0 0.5rem; }
+    .proj figure img, .proj figure video { border: 1px solid var(--line); width: 100%; }
+    .proj figcaption {
+        font-family: var(--serif); font-style: italic;
+        font-size: 0.8rem; color: var(--gold); margin-top: 0.5rem;
+    }
     .figure-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
 
     .subhead {
-        font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
-        color: var(--muted); margin: 2.6rem 0 1.4rem;
+        font-family: var(--serif); font-style: italic;
+        font-size: 1.05rem; color: var(--gold);
+        margin: 3rem 0 1.8rem;
+        display: flex; align-items: center; gap: 1rem;
     }
+    .subhead::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 
-    /* Definition-style lists (education, skills, certifications) */
+    /* Fact lists (education, publications, certifications) */
     .fact-list { list-style: none; }
-    .fact-list li { margin-bottom: 1rem; font-size: 0.95rem; color: rgba(255,255,255,0.72); }
-    .fact-list li strong { display: block; color: #fff; font-weight: 600; font-size: 1rem; }
-    .fact-list li .entry-meta { margin: 0.1rem 0 0.2rem; }
+    .fact-list li { margin-bottom: 1.3rem; }
+    .fact-list li strong { display: block; font-family: var(--serif); font-weight: 460; font-size: 1.12rem; color: #fff; }
+    .fact-meta { font-size: 0.88rem; color: var(--muted); margin-top: 0.15rem; }
 
+    /* Skills */
     dl.skills dt {
-        font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
-        color: var(--muted); margin-top: 1.2rem;
+        font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+        color: var(--gold); margin-top: 1.4rem;
     }
     dl.skills dt:first-child { margin-top: 0; }
-    dl.skills dd { font-size: 0.95rem; color: rgba(255,255,255,0.78); margin-top: 0.15rem; }
+    dl.skills dd { font-size: 0.96rem; color: rgba(255,255,255,0.78); margin-top: 0.2rem; }
 
-    /* Contact form */
-    .contact-intro { font-size: 0.95rem; color: rgba(255,255,255,0.72); max-width: 34rem; margin-bottom: 0.8rem; }
-    .contact-links { list-style: none; margin-bottom: 2rem; font-size: 0.95rem; overflow-wrap: anywhere; }
-    .contact-links li { margin-bottom: 0.35rem; }
+    /* Contact */
+    .contact-intro { font-family: var(--serif); font-weight: 340; font-size: 1.12rem; color: rgba(255,255,255,0.78); max-width: 32rem; margin-bottom: 1.1rem; }
+    .contact-links { list-style: none; margin-bottom: 2.2rem; font-size: 0.95rem; overflow-wrap: anywhere; }
+    .contact-links li { margin-bottom: 0.4rem; }
     form { display: flex; flex-direction: column; gap: 1rem; max-width: 34rem; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
-    .form-group label { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .form-group label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
     .form-group input, .form-group textarea {
         background: rgba(255,255,255,0.04);
-        border: 1px solid var(--border);
+        border: 1px solid var(--line);
         padding: 0.65rem 0.85rem;
         color: #fff; font: inherit; font-size: 0.95rem;
         resize: vertical;
@@ -147,17 +276,24 @@
     .form-group textarea { min-height: 120px; }
     button[type="submit"] {
         align-self: flex-start;
-        font: inherit; font-size: 0.9rem;
-        padding: 0.6rem 1.6rem;
+        font: inherit; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase;
+        padding: 0.7rem 1.7rem;
         background: transparent; color: var(--accent);
         border: 1px solid var(--accent); cursor: pointer;
+        transition: background 0.15s;
     }
     button[type="submit"]:hover { background: rgba(180,220,255,0.12); }
 
-    footer { border-top: 1px solid var(--border); padding: 1.6rem 0; font-size: 0.8rem; color: var(--faint); }
+    footer {
+        border-top: 1px solid var(--line); padding: 1.7rem 0;
+        display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 1.5rem;
+    }
+    footer p { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
+    footer .coords { font-family: var(--serif); font-style: italic; text-transform: none; letter-spacing: 0.06em; }
 
     @media (max-width: 640px) {
-        .hero { flex-direction: column-reverse; align-items: flex-start; gap: 1.6rem; padding-top: 3rem; }
+        .hero { flex-direction: column-reverse; gap: 2rem; padding-top: 3.2rem; }
+        .hero-fig { margin-top: 0; }
         .form-row { grid-template-columns: 1fr; }
         .figure-pair { grid-template-columns: 1fr; }
     }
@@ -189,88 +325,119 @@
 
         <div class="hero" id="top">
             <div class="hero-text">
-                <h1>Soroush Saririan, EIT</h1>
+                <p class="hero-kicker" aria-hidden="true">Field notes from clinical data</p>
+                <h1>Soroush Saririan<span class="eit">EIT</span></h1>
                 <p>Data scientist working at the intersection of clinical biosignals, machine learning, and engineering. M.S. Applied Data Science, University of Florida. Published lead author in <em>Polymer Composites</em>.</p>
                 <ul class="hero-links">
                     <li><a href="https://github.com/soroushsaririan">GitHub</a></li>
                     <li><a href="https://www.linkedin.com/in/soroush-saririan">LinkedIn</a></li>
                     <li><a href="mailto:saririan.s.eng@gmail.com">Email</a></li>
-                    <li><a href="Resume.pdf">Download Resume</a></li>
+                    <li><a href="Resume.pdf">Resume</a></li>
                 </ul>
             </div>
-            <img src="images/headshot-web.jpg" alt="Portrait of Soroush Saririan" width="138" height="138" />
+            <figure class="hero-fig">
+                <img src="images/headshot-web.jpg" alt="Portrait of Soroush Saririan" width="158" height="158" />
+                <figcaption>Fig. 01, the author</figcaption>
+            </figure>
         </div>
 
+        <svg class="ecg" viewBox="0 0 720 38" preserveAspectRatio="none" aria-hidden="true">
+            <path pathLength="1" d="M0 21 H272 q7 -8 14 0 h34 l4 5 6 -24 6 30 4 -11 h30 q9 -10 18 0 H720" />
+        </svg>
+
         <section id="experience">
+            <span class="sec-num" aria-hidden="true">01</span>
             <h2>Experience</h2>
 
-            <div class="entry">
-                <h3>AI/ML Engineering Project Intern</h3>
-                <p class="entry-meta">Raytheon &middot; Largo, FL &middot; Sep 2025 to May 2026</p>
-                <ul>
-                    <li>Built an LLM-assisted static analysis pipeline on DARPA AI Cyber Grand Challenge technology to translate legacy Ada codebases into memory-safe C++ and Rust, on a project scoped at 912 internal engineering hours.</li>
-                    <li>Integrated multiple Cyber Reasoning Systems with LLM-driven source analysis to detect vulnerabilities and generate patches, delivering automated security reports to review boards.</li>
-                    <li>Designed evaluation harnesses benchmarking patch correctness across Ada-to-Rust translation, achieving 80% recall and driving iterative LLM prompt refinement.</li>
-                </ul>
-                <p class="entry-note">Additional project metrics are under NDA.</p>
+            <div class="exp">
+                <div class="exp-when">Sep 2025 to<br/>May 2026</div>
+                <div class="exp-body">
+                    <h3>AI/ML Engineering Project Intern</h3>
+                    <p class="exp-org">Raytheon &middot; Largo, FL</p>
+                    <ul>
+                        <li>Built an LLM-assisted static analysis pipeline on DARPA AI Cyber Grand Challenge technology to translate legacy Ada codebases into memory-safe C++ and Rust, on a project scoped at 912 internal engineering hours.</li>
+                        <li>Integrated multiple Cyber Reasoning Systems with LLM-driven source analysis to detect vulnerabilities and generate patches, delivering automated security reports to review boards.</li>
+                        <li>Designed evaluation harnesses benchmarking patch correctness across Ada-to-Rust translation, achieving 80% recall and driving iterative LLM prompt refinement.</li>
+                    </ul>
+                    <p class="entry-note">Additional project metrics are under NDA.</p>
+                </div>
             </div>
 
-            <div class="entry">
-                <h3>Graduate Research Assistant, Gait Analysis</h3>
-                <p class="entry-meta">University of Florida &middot; Sep 2025 to Present</p>
-                <ul>
-                    <li>Led 3D gait data collection in stroke patients using motion capture, gait mat pressure sensors, and force plates to quantify spatiotemporal parameters, joint kinematics, and load distribution.</li>
-                    <li>Integrated multi-modal sensor data into movement profiles supporting clinical evaluation of balance, gait symmetry, and compensatory patterns in post-stroke rehabilitation.</li>
-                    <li>Collaborated with orthopaedic surgeons, neurologists, and physical therapists to translate findings into rehabilitation recommendations.</li>
-                    <li>First author of a manuscript on continuous reconstruction of swing-phase gait for locomotor instability assessment, currently in revision.</li>
-                </ul>
+            <div class="exp">
+                <div class="exp-when">Sep 2025 to<br/>Present</div>
+                <div class="exp-body">
+                    <h3>Graduate Research Assistant, Gait Analysis</h3>
+                    <p class="exp-org">University of Florida</p>
+                    <ul>
+                        <li>Led 3D gait data collection in stroke patients using motion capture, gait mat pressure sensors, and force plates to quantify spatiotemporal parameters, joint kinematics, and load distribution.</li>
+                        <li>Integrated multi-modal sensor data into movement profiles supporting clinical evaluation of balance, gait symmetry, and compensatory patterns in post-stroke rehabilitation.</li>
+                        <li>Collaborated with orthopaedic surgeons, neurologists, and physical therapists to translate findings into rehabilitation recommendations.</li>
+                        <li>First author of a manuscript on continuous reconstruction of swing-phase gait for locomotor instability assessment, currently in revision.</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="entry">
-                <h3>Clinical Research Assistant</h3>
-                <p class="entry-meta">University of Florida &middot; Sep 2025 to Present</p>
-                <ul>
-                    <li>Worked directly with study volunteers, obtaining informed consent, collecting baseline vitals, and running participants through standardized experimental protocols end to end.</li>
-                    <li>Coordinated human subjects protocols, managing IRB compliance documentation and participant screening for stroke rehabilitation studies.</li>
-                    <li>Maintained data integrity and protocol fidelity across a multidisciplinary clinical research team.</li>
-                </ul>
+            <div class="exp">
+                <div class="exp-when">Sep 2025 to<br/>Present</div>
+                <div class="exp-body">
+                    <h3>Clinical Research Assistant</h3>
+                    <p class="exp-org">University of Florida</p>
+                    <ul>
+                        <li>Worked directly with study volunteers, obtaining informed consent, collecting baseline vitals, and running participants through standardized experimental protocols end to end.</li>
+                        <li>Coordinated human subjects protocols, managing IRB compliance documentation and participant screening for stroke rehabilitation studies.</li>
+                        <li>Maintained data integrity and protocol fidelity across a multidisciplinary clinical research team.</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="entry">
-                <h3>Graduate Research Assistant, sEMG Signal Processing</h3>
-                <p class="entry-meta">University of Florida &middot; Sep 2025 to Present</p>
-                <ul>
-                    <li>Developed and validated acquisition pipelines for the Shimmer3 sEMG system, implementing bandpass filtering, RMS windowing, and onset detection to extract physiological features from raw time-series signals.</li>
-                    <li>Analyzed muscle activation patterns and co-contraction timing in stroke survivors, identifying neuromuscular abnormalities relevant to gait rehabilitation.</li>
-                    <li>Processed EMG datasets in Python, MATLAB, and ConsensysPro, validating windowing parameters against clinical benchmarks.</li>
-                </ul>
+            <div class="exp">
+                <div class="exp-when">Sep 2025 to<br/>Present</div>
+                <div class="exp-body">
+                    <h3>Graduate Research Assistant, sEMG Signal Processing</h3>
+                    <p class="exp-org">University of Florida</p>
+                    <ul>
+                        <li>Developed and validated acquisition pipelines for the Shimmer3 sEMG system, implementing bandpass filtering, RMS windowing, and onset detection to extract physiological features from raw time-series signals.</li>
+                        <li>Analyzed muscle activation patterns and co-contraction timing in stroke survivors, identifying neuromuscular abnormalities relevant to gait rehabilitation.</li>
+                        <li>Processed EMG datasets in Python, MATLAB, and ConsensysPro, validating windowing parameters against clinical benchmarks.</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="entry">
-                <h3>Graduate Researcher, Laser Metal Bending</h3>
-                <p class="entry-meta">University of Florida &middot; Feb 2025 to May 2026</p>
-                <ul>
-                    <li>Developed a comparative ML framework spanning 16 algorithms, including stacking and voting ensembles, gradient boosting, and neural networks, to predict metal deformation angles, reaching an R<sup>2</sup> of 0.84 on high-variability laser-on-metal data.</li>
-                    <li>Collected and processed experimental thermal-mechanical data, validating physical experiments against simulation outputs.</li>
-                </ul>
+            <div class="exp">
+                <div class="exp-when">Feb 2025 to<br/>May 2026</div>
+                <div class="exp-body">
+                    <h3>Graduate Researcher, Laser Metal Bending</h3>
+                    <p class="exp-org">University of Florida</p>
+                    <ul>
+                        <li>Developed a comparative ML framework spanning 16 algorithms, including stacking and voting ensembles, gradient boosting, and neural networks, to predict metal deformation angles, reaching an R<sup>2</sup> of 0.84 on high-variability laser-on-metal data.</li>
+                        <li>Collected and processed experimental thermal-mechanical data, validating physical experiments against simulation outputs.</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="entry">
-                <h3>Undergraduate Researcher</h3>
-                <p class="entry-meta">Stony Brook University &middot; Feb 2023 to May 2024</p>
-                <ul>
-                    <li>Designed compressive testing protocols across 100+ CNT-reinforced epoxy nanocomposite samples, applying regression analysis to isolate a 15 to 20% strength gain from optimized reinforcement geometry.</li>
-                    <li>Published as lead author in <em>Polymer Composites</em> (<a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a>); awarded the Richard S. Lee Research Excellence Award.</li>
-                </ul>
+            <div class="exp">
+                <div class="exp-when">Feb 2023 to<br/>May 2024</div>
+                <div class="exp-body">
+                    <h3>Undergraduate Researcher</h3>
+                    <p class="exp-org">Stony Brook University</p>
+                    <ul>
+                        <li>Designed compressive testing protocols across 100+ CNT-reinforced epoxy nanocomposite samples, applying regression analysis to isolate a 15 to 20% strength gain from optimized reinforcement geometry.</li>
+                        <li>Published as lead author in <em>Polymer Composites</em> (<a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a>); awarded the Richard S. Lee Research Excellence Award.</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
         <section id="projects">
+            <span class="sec-num" aria-hidden="true">02</span>
             <h2>Projects</h2>
 
-            <div class="entry">
-                <h3>VitalStream, Serverless Patient Telemetry Pipeline</h3>
-                <p class="entry-meta">PyTorch &middot; AWS &middot; Terraform</p>
+            <div class="proj">
+                <div class="proj-head">
+                    <span class="proj-num" aria-hidden="true">No. 1</span>
+                    <h3>VitalStream, Serverless Patient Telemetry Pipeline</h3>
+                </div>
+                <p class="proj-meta">PyTorch &middot; AWS &middot; Terraform</p>
                 <ul>
                     <li>Serverless AWS pipeline (IoT Core, Kinesis, Lambda, SageMaker, DynamoDB) processing 500 Hz ECG and 2000 Hz sEMG streams through a 1D-CNN and BiLSTM ensemble for arrhythmia detection.</li>
                     <li>Infrastructure as code with Terraform across 3 availability zones, HIPAA-aligned retention controls, 34 passing tests, blue/green deployment with automated rollback.</li>
@@ -280,59 +447,78 @@
                         <source src="images/vitalstream_demo.mp4" type="video/mp4" />
                         Your browser does not support embedded video.
                     </video>
-                    <figcaption>VitalStream dashboard demo</figcaption>
+                    <figcaption>Fig. 02, VitalStream dashboard demo</figcaption>
                 </figure>
                 <p class="entry-links"><a href="https://github.com/soroushsaririan/VitalStream">View on GitHub</a></p>
             </div>
 
-            <div class="entry">
-                <h3>SymptaAI, Multi-Agent Clinical Decision Support</h3>
-                <p class="entry-meta">LangGraph &middot; FastAPI &middot; PostgreSQL</p>
+            <div class="proj">
+                <div class="proj-head">
+                    <span class="proj-num" aria-hidden="true">No. 2</span>
+                    <h3>SymptaAI, Multi-Agent Clinical Decision Support</h3>
+                </div>
+                <p class="proj-meta">LangGraph &middot; FastAPI &middot; PostgreSQL</p>
                 <p>An 8-agent LangGraph pipeline covering record summarization, lab interpretation, drug interaction checking, and differential diagnosis. Generates ICD-10 coded outputs and care plans in under 2 minutes, with records persisted in PostgreSQL behind a FastAPI service layer.</p>
                 <figure>
                     <video controls muted loop playsinline preload="none">
                         <source src="images/symptaai_demo.mp4" type="video/mp4" />
                         Your browser does not support embedded video.
                     </video>
-                    <figcaption>SymptaAI pipeline demo</figcaption>
+                    <figcaption>Fig. 03, SymptaAI pipeline demo</figcaption>
                 </figure>
                 <p class="entry-links"><a href="https://github.com/soroushsaririan/SymptaAI">View on GitHub</a></p>
             </div>
 
-            <div class="entry">
-                <h3>Automated Skin Allergen Imaging Pipeline</h3>
-                <p class="entry-meta">OpenCV &middot; Scikit-learn</p>
+            <div class="proj">
+                <div class="proj-head">
+                    <span class="proj-num" aria-hidden="true">No. 3</span>
+                    <h3>Automated Skin Allergen Imaging Pipeline</h3>
+                </div>
+                <p class="proj-meta">OpenCV &middot; Scikit-learn</p>
                 <p>Ensemble classifier (Random Forest, SVM, CNN) trained on 500+ clinical photographs to automate skin prick test wheal measurement: 95% detection accuracy, over 90% clinician-score correlation, per-patient scoring time cut from 5 minutes to 45 seconds.</p>
             </div>
 
-            <div class="entry">
-                <h3>medxplAIn, 3D Liver Tumor Segmentation</h3>
-                <p class="entry-meta">PyTorch &middot; 3D U-Net</p>
+            <div class="proj">
+                <div class="proj-head">
+                    <span class="proj-num" aria-hidden="true">No. 4</span>
+                    <h3>medxplAIn, 3D Liver Tumor Segmentation</h3>
+                </div>
+                <p class="proj-meta">PyTorch &middot; 3D U-Net</p>
                 <p>End-to-end PyTorch pipeline using a 3D U-Net to automate liver and tumor segmentation from 3D CT volumes for radiation therapy planning, reducing manual segmentation from hours to minutes.</p>
                 <p class="entry-links"><a href="https://github.com/soroushsaririan/medxplAin-DR">View on GitHub</a></p>
             </div>
 
-            <div class="entry">
-                <h3>RetinAI, Diabetic Retinopathy Screening</h3>
-                <p class="entry-meta">Vision Language Models &middot; OpenCV</p>
+            <div class="proj">
+                <div class="proj-head">
+                    <span class="proj-num" aria-hidden="true">No. 5</span>
+                    <h3>RetinAI, Diabetic Retinopathy Screening</h3>
+                </div>
+                <p class="proj-meta">Vision Language Models &middot; OpenCV</p>
                 <p>Screening tool that uses vision language models to analyze retinal images and flag diabetic retinopathy symptoms, designed to assist healthcare providers in resource-limited settings.</p>
                 <p class="entry-links"><a href="https://github.com/soroushsaririan/RetinAI">View on GitHub</a></p>
             </div>
 
-            <p class="subhead">Engineering and Research</p>
+            <p class="subhead">Engineering and research</p>
 
-            <div class="entry">
-                <h3>Shimmer3 sEMG Acquisition Pipeline, UF Orthopaedics</h3>
-                <p class="entry-meta">Python &middot; Signal Processing</p>
+            <div class="proj">
+                <div class="proj-head">
+                    <span class="proj-num" aria-hidden="true">No. 6</span>
+                    <h3>Shimmer3 sEMG Acquisition Pipeline, UF Orthopaedics</h3>
+                </div>
+                <p class="proj-meta">Python &middot; Signal Processing</p>
                 <p>Data acquisition and visualization pipeline for Shimmer3 sEMG sensors used in stroke gait studies. Python tooling cleans raw electromyography signals and isolates muscle activation patterns during walking trials, giving clinicians feedback on muscle firing rates to adjust therapy regimens.</p>
                 <figure>
-                    <img src="images/emg_sensor.jpg" alt="Shimmer3 sEMG sensor unit" loading="lazy" />
+                    <img src="images/emg_sensor.jpg" alt="Shimmer3 sEMG sensor unit strapped to a leg during a walking trial" loading="lazy" />
+                    <figcaption>Fig. 04, Shimmer3 sEMG sensor during a walking trial</figcaption>
                 </figure>
             </div>
 
-            <div class="entry">
-                <h3>CNT Nanocomposite Research</h3>
-                <p class="entry-meta">Materials Science &middot; Published in Polymer Composites</p>
+            <div class="proj">
+                <div class="proj-head">
+                    <span class="proj-num" aria-hidden="true">No. 7</span>
+                    <h3>CNT Nanocomposite Research</h3>
+                </div>
+                <p class="proj-meta">Materials Science &middot; Published in Polymer Composites</p>
                 <p>Compressive testing across 100+ CNT-reinforced epoxy nanocomposite samples, with ultrasonic homogenization processing and SEM/TEM microstructural characterization. Regression analysis isolated a 15 to 20% strength gain from optimized reinforcement geometry. Awarded the Richard S. Lee Research Excellence Award.</p>
                 <figure class="figure-pair">
                     <img src="images/nano_setup-web.jpg" alt="Ultrasonic homogenization and lab equipment used to process nanocomposite samples" loading="lazy" />
@@ -341,57 +527,64 @@
                 <p class="entry-links"><a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a></p>
             </div>
 
-            <div class="entry">
-                <h3>Stony Brook Solar Racing, Propulsion Lead</h3>
-                <p class="entry-meta">Fusion 360 &middot; SolidWorks &middot; Machining</p>
+            <div class="proj">
+                <div class="proj-head">
+                    <span class="proj-num" aria-hidden="true">No. 8</span>
+                    <h3>Stony Brook Solar Racing, Propulsion Lead</h3>
+                </div>
+                <p class="proj-meta">Fusion 360 &middot; SolidWorks &middot; Machining</p>
                 <p>Led propulsion mechanical design for the 2024 Solar Splash competition. Machined custom drivetrain components, including motor mounts and couplers, on manual mills and lathes to sub-millimeter tolerance. The integrated electric motor system met all competition safety and performance benchmarks.</p>
                 <figure class="figure-pair">
-                    <img src="images/solar_boat-web.jpg" alt="Stony Brook Solar Racing boat on the water" loading="lazy" />
+                    <img src="images/solar_boat-web.jpg" alt="Stony Brook Solar Racing boat on a trailer" loading="lazy" />
                     <img src="images/solar_cad.jpg" alt="CAD model of the propulsion drivetrain" loading="lazy" />
                 </figure>
             </div>
         </section>
 
         <section id="education">
+            <span class="sec-num" aria-hidden="true">03</span>
             <h2>Education</h2>
             <ul class="fact-list">
                 <li>
                     <strong>M.S. Applied Data Science, University of Florida</strong>
-                    <p class="entry-meta">Aug 2024 to May 2026 &middot; GPA 3.97</p>
+                    <p class="fact-meta">Aug 2024 to May 2026 &middot; GPA 3.97</p>
                 </li>
                 <li>
                     <strong>B.E. Mechanical Engineering, Stony Brook University</strong>
-                    <p class="entry-meta">Feb 2021 to May 2024 &middot; GPA 3.70 &middot; Magna Cum Laude</p>
+                    <p class="fact-meta">Feb 2021 to May 2024 &middot; GPA 3.70 &middot; Magna Cum Laude</p>
                 </li>
             </ul>
         </section>
 
         <section id="publications">
+            <span class="sec-num" aria-hidden="true">04</span>
             <h2>Publications</h2>
             <ul class="fact-list">
                 <li>
                     <strong>CNT-reinforced epoxy nanocomposites</strong>
-                    <p class="entry-meta">Saririan, S., et al. Lead author. <em>Polymer Composites</em>. <a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a></p>
+                    <p class="fact-meta">Saririan, S., et al. Lead author. <em>Polymer Composites</em>. <a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a></p>
                 </li>
                 <li>
                     <strong>Continuous reconstruction of swing-phase gait for locomotor instability assessment</strong>
-                    <p class="entry-meta">First author. Manuscript in revision.</p>
+                    <p class="fact-meta">First author. Manuscript in revision.</p>
                 </li>
             </ul>
         </section>
 
         <section id="certifications">
+            <span class="sec-num" aria-hidden="true">05</span>
             <h2>Certifications</h2>
             <ul class="fact-list">
                 <li><strong>Engineer in Training (EIT)</strong></li>
                 <li>
                     <strong>Cisco Python Essentials 1 and 2</strong>
-                    <p class="entry-meta">2025</p>
+                    <p class="fact-meta">2025</p>
                 </li>
             </ul>
         </section>
 
         <section id="skills">
+            <span class="sec-num" aria-hidden="true">06</span>
             <h2>Skills</h2>
             <dl class="skills">
                 <dt>Languages</dt>
@@ -406,6 +599,7 @@
         </section>
 
         <section id="contact">
+            <span class="sec-num" aria-hidden="true">07</span>
             <h2>Contact</h2>
             <p class="contact-intro">Open to Data Scientist, new-grad ML, and clinical data analysis roles. Reach me by email or LinkedIn, or use the form below.</p>
             <ul class="contact-links">
@@ -438,6 +632,7 @@
 
     <footer>
         <p>&copy; 2026 Soroush Saririan</p>
+        <p class="coords" aria-hidden="true">29.65&deg; N &middot; 82.32&deg; W</p>
     </footer>
 
 </div>
