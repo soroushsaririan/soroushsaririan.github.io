@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 830 430" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#333"/>
+    </marker>
+  </defs>
+  <style>
+    .box { fill: #fff; stroke: #333; stroke-width: 1; }
+    .t   { font-size: 12px; font-weight: bold; fill: #111; }
+    .s   { font-size: 10px; fill: #666; }
+    .ln  { stroke: #333; stroke-width: 1; fill: none; }
+  </style>
+
+  <rect x="0" y="0" width="830" height="430" fill="#ffffff"/>
+
+  <text x="40" y="45" font-size="15" font-weight="bold" fill="#111">SymptaAI — architecture</text>
+
+  <!-- main flow -->
+  <g text-anchor="middle">
+    <rect class="box" x="40" y="100" width="140" height="60"/>
+    <text class="t" x="110" y="126">Next.js frontend</text>
+    <text class="s" x="110" y="142">clinician workspace</text>
+
+    <rect class="box" x="230" y="100" width="140" height="60"/>
+    <text class="t" x="300" y="126">FastAPI</text>
+    <text class="s" x="300" y="142">JWT auth · REST + SSE</text>
+
+    <rect class="box" x="420" y="100" width="180" height="60"/>
+    <text class="t" x="510" y="126">LangGraph workflow</text>
+    <text class="s" x="510" y="142">8 agents, sequential</text>
+
+    <rect class="box" x="650" y="100" width="140" height="60"/>
+    <text class="t" x="720" y="126">LLM</text>
+    <text class="s" x="720" y="142">OpenAI API</text>
+  </g>
+
+  <line class="ln" x1="180" y1="130" x2="224" y2="130" marker-end="url(#arr)"/>
+  <line class="ln" x1="370" y1="130" x2="414" y2="130" marker-end="url(#arr)"/>
+  <line class="ln" x1="600" y1="130" x2="644" y2="130" marker-end="url(#arr)"/>
+
+  <!-- support row -->
+  <g text-anchor="middle">
+    <rect class="box" x="40" y="220" width="140" height="60"/>
+    <text class="t" x="110" y="246">Celery + Redis</text>
+    <text class="s" x="110" y="262">async runs</text>
+
+    <rect class="box" x="230" y="220" width="140" height="60"/>
+    <text class="t" x="300" y="246">PostgreSQL</text>
+    <text class="s" x="300" y="262">patients · reports</text>
+
+    <rect class="box" x="420" y="220" width="180" height="130"/>
+    <text class="s" x="510" y="240">1. patient intake</text>
+    <text class="s" x="510" y="254">2. record summarizer</text>
+    <text class="s" x="510" y="268">3. symptom analysis</text>
+    <text class="s" x="510" y="282">4. lab interpretation</text>
+    <text class="s" x="510" y="296">5. drug interactions</text>
+    <text class="s" x="510" y="310">6. differential diagnosis (ICD-10)</text>
+    <text class="s" x="510" y="324">7. care plan</text>
+    <text class="s" x="510" y="338">8. clinical report</text>
+
+    <rect class="box" x="650" y="220" width="140" height="60"/>
+    <text class="t" x="720" y="246">ChromaDB</text>
+    <text class="s" x="720" y="262">RAG over records</text>
+  </g>
+
+  <line class="ln" x1="300" y1="160" x2="300" y2="214" marker-end="url(#arr)"/>
+  <polyline class="ln" points="250,160 250,190 110,190 110,214" marker-end="url(#arr)"/>
+  <line class="ln" x1="510" y1="160" x2="510" y2="214" marker-end="url(#arr)"/>
+  <line class="ln" x1="600" y1="250" x2="644" y2="250" marker-end="url(#arr)"/>
+</svg>
