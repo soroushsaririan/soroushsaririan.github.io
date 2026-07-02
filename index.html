@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&display=swap" rel="stylesheet" />
+    <script>document.documentElement.className += ' js';</script>
 
     <style>
     /* Reset */
@@ -54,16 +55,10 @@
     }
     .skip-link:focus { left: 0; }
 
-    /* Small-caps label utility */
-    .lbl {
-        font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-        color: var(--muted);
-    }
-
     /* Layout */
     .page {
         position: relative; z-index: 3;
-        max-width: 44rem;
+        max-width: 46rem;
         margin: 0 auto;
         padding: 0 1.35rem 4rem;
     }
@@ -125,11 +120,6 @@
         width: 158px; height: 158px; object-fit: cover;
         border: 1px solid var(--line); padding: 0.35rem;
     }
-    .hero-fig figcaption {
-        font-family: var(--serif); font-style: italic;
-        font-size: 0.78rem; color: var(--gold);
-        text-align: center; margin-top: 0.55rem;
-    }
 
     /* Hero entrance */
     .hero > * { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
@@ -149,10 +139,18 @@
     }
     @keyframes trace { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 
+    /* Scroll reveal: gentle, once, disabled under reduced motion */
+    .js .rv {
+        opacity: 0; transform: translateY(14px);
+        transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+    .js .rv.in { opacity: 1; transform: none; }
+
     @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
         .hero > * { animation: none; }
         .ecg path { animation: none; stroke-dashoffset: 0; }
+        .js .rv { opacity: 1; transform: none; transition: none; }
     }
 
     /* Sections */
@@ -167,9 +165,9 @@
     h2 {
         font-family: var(--serif); font-weight: 420;
         font-size: 1.75rem; letter-spacing: -0.01em; color: #fff;
-        margin-bottom: 2rem;
+        margin-bottom: 2.2rem;
     }
-    @media (min-width: 1120px) {
+    @media (min-width: 1160px) {
         .sec-num {
             position: absolute; left: -6.4rem; top: 2.7rem;
             font-size: 3.6rem; line-height: 1; letter-spacing: 0;
@@ -177,59 +175,50 @@
             margin: 0;
         }
     }
-    h3 { font-family: var(--serif); font-weight: 460; font-size: 1.28rem; color: #fff; line-height: 1.3; }
+    h3 { font-family: var(--serif); font-weight: 460; font-size: 1.28rem; color: #fff; line-height: 1.3; margin-bottom: 0.6rem; }
 
-    /* Experience: date rail */
-    .exp {
-        display: grid; grid-template-columns: 8.5rem 1fr;
-        gap: 0 2rem; margin-bottom: 2.6rem;
+    /* Rail entries: shared editorial grid for experience and projects */
+    .exp, .proj {
+        display: grid; grid-template-columns: 9.5rem 1fr;
+        gap: 0 2.4rem; margin-bottom: 2.9rem;
     }
-    .exp-when {
-        font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
-        color: var(--faint); line-height: 1.7; padding-top: 0.45rem;
-        border-top: 1px solid rgba(232,217,168,0.35);
+    .rail { padding-top: 0.4rem; border-top: 1px solid rgba(232,217,168,0.35); }
+    .rail .org {
+        font-family: var(--serif); font-weight: 460;
+        font-size: 0.98rem; color: #fff; line-height: 1.35;
+        margin-bottom: 0.4rem;
     }
-    .exp-org { font-size: 0.82rem; color: var(--muted); margin: 0.3rem 0 0.7rem; }
-    .exp-body ul { list-style: none; }
-    .exp-body ul li {
-        position: relative; padding-left: 1.05rem;
-        font-size: 0.95rem; color: rgba(255,255,255,0.72);
-        margin-bottom: 0.45rem;
+    .rail .when, .rail .loc, .rail .meta {
+        font-size: 0.68rem; letter-spacing: 0.13em; text-transform: uppercase;
+        color: var(--faint); line-height: 1.8;
     }
-    .exp-body ul li::before { content: '\2013'; position: absolute; left: 0; color: rgba(180,220,255,0.45); }
-    .entry-note { font-size: 0.82rem; color: var(--faint); font-style: italic; margin-top: 0.5rem; }
-
-    @media (max-width: 700px) {
-        .exp { grid-template-columns: 1fr; gap: 0; }
-        .exp-when { border-top: none; padding: 0 0 0.15rem; }
-    }
-
-    /* Projects */
-    .proj { margin-bottom: 3rem; }
-    .proj-head { display: flex; align-items: baseline; gap: 0.9rem; }
-    .proj-num {
+    .rail .meta { color: var(--muted); }
+    .rail .num {
         font-family: var(--serif); font-style: italic; font-weight: 300;
-        font-size: 1.05rem; color: var(--gold); flex-shrink: 0;
+        font-size: 1.45rem; color: var(--gold); line-height: 1;
+        margin-bottom: 0.55rem;
     }
-    .proj-meta {
-        font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
-        color: var(--muted); margin: 0.4rem 0 0.75rem;
-    }
-    .proj p { font-size: 0.95rem; color: rgba(255,255,255,0.72); margin-bottom: 0.5rem; }
-    .proj ul { list-style: none; }
-    .proj ul li {
+
+    .body-col ul { list-style: none; }
+    .body-col ul li {
         position: relative; padding-left: 1.05rem;
         font-size: 0.95rem; color: rgba(255,255,255,0.72);
         margin-bottom: 0.45rem;
     }
-    .proj ul li::before { content: '\2013'; position: absolute; left: 0; color: rgba(180,220,255,0.45); }
+    .body-col ul li::before { content: '\2013'; position: absolute; left: 0; color: rgba(180,220,255,0.45); }
+    .body-col > p { font-size: 0.95rem; color: rgba(255,255,255,0.72); margin-bottom: 0.5rem; }
+    .entry-note { font-size: 0.82rem; color: var(--faint); font-style: italic; margin-top: 0.5rem; }
     .entry-links { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.7rem; }
     .entry-links a { text-decoration: none; border-bottom: 1px solid rgba(180,220,255,0.35); padding-bottom: 2px; }
     .entry-links a:hover { border-color: var(--accent); }
 
-    .proj figure { margin: 1.1rem 0 0.5rem; }
-    .proj figure img, .proj figure video { border: 1px solid var(--line); width: 100%; }
-    .proj figcaption {
+    .body-col figure { margin: 1.1rem 0 0.5rem; }
+    .body-col figure img, .body-col figure video {
+        border: 1px solid var(--line); width: 100%;
+        transition: border-color 0.3s;
+    }
+    .body-col figure:hover img, .body-col figure:hover video { border-color: rgba(180,220,255,0.45); }
+    .body-col figcaption {
         font-family: var(--serif); font-style: italic;
         font-size: 0.8rem; color: var(--gold); margin-top: 0.5rem;
     }
@@ -238,30 +227,37 @@
     .subhead {
         font-family: var(--serif); font-style: italic;
         font-size: 1.05rem; color: var(--gold);
-        margin: 3rem 0 1.8rem;
+        margin: 3rem 0 1.9rem;
         display: flex; align-items: center; gap: 1rem;
     }
     .subhead::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 
-    /* Fact lists (education, publications, certifications) */
-    .fact-list { list-style: none; }
-    .fact-list li { margin-bottom: 1.3rem; }
-    .fact-list li strong { display: block; font-family: var(--serif); font-weight: 460; font-size: 1.12rem; color: #fff; }
-    .fact-meta { font-size: 0.88rem; color: var(--muted); margin-top: 0.15rem; }
+    /* Fact lists (education, publications, certifications): two-up */
+    .fact-list {
+        list-style: none;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+        gap: 1.2rem 3rem;
+    }
+    .fact-list li strong { display: block; font-family: var(--serif); font-weight: 460; font-size: 1.12rem; color: #fff; line-height: 1.35; }
+    .fact-meta { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; }
 
-    /* Skills */
+    /* Skills: two-column grid */
+    dl.skills {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 1.7rem 3rem;
+    }
     dl.skills dt {
         font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-        color: var(--gold); margin-top: 1.4rem;
+        color: var(--gold);
     }
-    dl.skills dt:first-child { margin-top: 0; }
-    dl.skills dd { font-size: 0.96rem; color: rgba(255,255,255,0.78); margin-top: 0.2rem; }
+    dl.skills dd { font-size: 0.96rem; color: rgba(255,255,255,0.78); margin-top: 0.25rem; }
 
-    /* Contact */
-    .contact-intro { font-family: var(--serif); font-weight: 340; font-size: 1.12rem; color: rgba(255,255,255,0.78); max-width: 32rem; margin-bottom: 1.1rem; }
-    .contact-links { list-style: none; margin-bottom: 2.2rem; font-size: 0.95rem; overflow-wrap: anywhere; }
-    .contact-links li { margin-bottom: 0.4rem; }
-    form { display: flex; flex-direction: column; gap: 1rem; max-width: 34rem; }
+    /* Contact: links left, form right */
+    .contact-cols { display: grid; grid-template-columns: 1fr 1.35fr; gap: 1rem 3.5rem; align-items: start; }
+    .contact-intro { font-family: var(--serif); font-weight: 340; font-size: 1.12rem; color: rgba(255,255,255,0.78); margin-bottom: 1.2rem; }
+    .contact-links { list-style: none; font-size: 0.95rem; overflow-wrap: anywhere; }
+    .contact-links li { margin-bottom: 0.45rem; }
+    form { display: flex; flex-direction: column; gap: 1rem; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
     .form-group label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
@@ -271,6 +267,7 @@
         padding: 0.65rem 0.85rem;
         color: #fff; font: inherit; font-size: 0.95rem;
         resize: vertical;
+        transition: border-color 0.2s;
     }
     .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); outline: none; }
     .form-group textarea { min-height: 120px; }
@@ -284,18 +281,22 @@
     }
     button[type="submit"]:hover { background: rgba(180,220,255,0.12); }
 
-    footer {
-        border-top: 1px solid var(--line); padding: 1.7rem 0;
-        display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 1.5rem;
-    }
+    footer { border-top: 1px solid var(--line); padding: 1.7rem 0; }
     footer p { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
-    footer .coords { font-family: var(--serif); font-style: italic; text-transform: none; letter-spacing: 0.06em; }
 
+    @media (max-width: 700px) {
+        .exp, .proj { grid-template-columns: 1fr; gap: 0; }
+        .rail { border-top: none; padding: 0 0 0.4rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.9rem; }
+        .rail .org, .rail .num { margin-bottom: 0; }
+        .contact-cols { grid-template-columns: 1fr; }
+        .contact-links { margin-bottom: 1.5rem; }
+    }
     @media (max-width: 640px) {
         .hero { flex-direction: column-reverse; gap: 2rem; padding-top: 3.2rem; }
         .hero-fig { margin-top: 0; }
         .form-row { grid-template-columns: 1fr; }
         .figure-pair { grid-template-columns: 1fr; }
+        dl.skills { grid-template-columns: 1fr; gap: 1.3rem; }
     }
     </style>
 </head>
@@ -335,10 +336,9 @@
                     <li><a href="Resume.pdf">Resume</a></li>
                 </ul>
             </div>
-            <figure class="hero-fig">
+            <div class="hero-fig">
                 <img src="images/headshot-web.jpg" alt="Portrait of Soroush Saririan" width="158" height="158" />
-                <figcaption>Fig. 01, the author</figcaption>
-            </figure>
+            </div>
         </div>
 
         <svg class="ecg" viewBox="0 0 720 38" preserveAspectRatio="none" aria-hidden="true">
@@ -349,11 +349,14 @@
             <span class="sec-num" aria-hidden="true">01</span>
             <h2>Experience</h2>
 
-            <div class="exp">
-                <div class="exp-when">Sep 2025 to<br/>May 2026</div>
-                <div class="exp-body">
+            <div class="exp rv">
+                <div class="rail">
+                    <p class="org">Raytheon</p>
+                    <p class="when">Sep 2025 to May 2026</p>
+                    <p class="loc">Largo, FL</p>
+                </div>
+                <div class="body-col">
                     <h3>AI/ML Engineering Project Intern</h3>
-                    <p class="exp-org">Raytheon &middot; Largo, FL</p>
                     <ul>
                         <li>Built an LLM-assisted static analysis pipeline on DARPA AI Cyber Grand Challenge technology to translate legacy Ada codebases into memory-safe C++ and Rust, on a project scoped at 912 internal engineering hours.</li>
                         <li>Integrated multiple Cyber Reasoning Systems with LLM-driven source analysis to detect vulnerabilities and generate patches, delivering automated security reports to review boards.</li>
@@ -363,11 +366,13 @@
                 </div>
             </div>
 
-            <div class="exp">
-                <div class="exp-when">Sep 2025 to<br/>Present</div>
-                <div class="exp-body">
+            <div class="exp rv">
+                <div class="rail">
+                    <p class="org">University of Florida</p>
+                    <p class="when">Sep 2025 to Present</p>
+                </div>
+                <div class="body-col">
                     <h3>Graduate Research Assistant, Gait Analysis</h3>
-                    <p class="exp-org">University of Florida</p>
                     <ul>
                         <li>Led 3D gait data collection in stroke patients using motion capture, gait mat pressure sensors, and force plates to quantify spatiotemporal parameters, joint kinematics, and load distribution.</li>
                         <li>Integrated multi-modal sensor data into movement profiles supporting clinical evaluation of balance, gait symmetry, and compensatory patterns in post-stroke rehabilitation.</li>
@@ -377,11 +382,13 @@
                 </div>
             </div>
 
-            <div class="exp">
-                <div class="exp-when">Sep 2025 to<br/>Present</div>
-                <div class="exp-body">
+            <div class="exp rv">
+                <div class="rail">
+                    <p class="org">University of Florida</p>
+                    <p class="when">Sep 2025 to Present</p>
+                </div>
+                <div class="body-col">
                     <h3>Clinical Research Assistant</h3>
-                    <p class="exp-org">University of Florida</p>
                     <ul>
                         <li>Worked directly with study volunteers, obtaining informed consent, collecting baseline vitals, and running participants through standardized experimental protocols end to end.</li>
                         <li>Coordinated human subjects protocols, managing IRB compliance documentation and participant screening for stroke rehabilitation studies.</li>
@@ -390,11 +397,13 @@
                 </div>
             </div>
 
-            <div class="exp">
-                <div class="exp-when">Sep 2025 to<br/>Present</div>
-                <div class="exp-body">
+            <div class="exp rv">
+                <div class="rail">
+                    <p class="org">University of Florida</p>
+                    <p class="when">Sep 2025 to Present</p>
+                </div>
+                <div class="body-col">
                     <h3>Graduate Research Assistant, sEMG Signal Processing</h3>
-                    <p class="exp-org">University of Florida</p>
                     <ul>
                         <li>Developed and validated acquisition pipelines for the Shimmer3 sEMG system, implementing bandpass filtering, RMS windowing, and onset detection to extract physiological features from raw time-series signals.</li>
                         <li>Analyzed muscle activation patterns and co-contraction timing in stroke survivors, identifying neuromuscular abnormalities relevant to gait rehabilitation.</li>
@@ -403,11 +412,13 @@
                 </div>
             </div>
 
-            <div class="exp">
-                <div class="exp-when">Feb 2025 to<br/>May 2026</div>
-                <div class="exp-body">
+            <div class="exp rv">
+                <div class="rail">
+                    <p class="org">University of Florida</p>
+                    <p class="when">Feb 2025 to May 2026</p>
+                </div>
+                <div class="body-col">
                     <h3>Graduate Researcher, Laser Metal Bending</h3>
-                    <p class="exp-org">University of Florida</p>
                     <ul>
                         <li>Developed a comparative ML framework spanning 16 algorithms, including stacking and voting ensembles, gradient boosting, and neural networks, to predict metal deformation angles, reaching an R<sup>2</sup> of 0.84 on high-variability laser-on-metal data.</li>
                         <li>Collected and processed experimental thermal-mechanical data, validating physical experiments against simulation outputs.</li>
@@ -415,11 +426,13 @@
                 </div>
             </div>
 
-            <div class="exp">
-                <div class="exp-when">Feb 2023 to<br/>May 2024</div>
-                <div class="exp-body">
+            <div class="exp rv">
+                <div class="rail">
+                    <p class="org">Stony Brook University</p>
+                    <p class="when">Feb 2023 to May 2024</p>
+                </div>
+                <div class="body-col">
                     <h3>Undergraduate Researcher</h3>
-                    <p class="exp-org">Stony Brook University</p>
                     <ul>
                         <li>Designed compressive testing protocols across 100+ CNT-reinforced epoxy nanocomposite samples, applying regression analysis to isolate a 15 to 20% strength gain from optimized reinforcement geometry.</li>
                         <li>Published as lead author in <em>Polymer Composites</em> (<a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a>); awarded the Richard S. Lee Research Excellence Award.</li>
@@ -432,119 +445,135 @@
             <span class="sec-num" aria-hidden="true">02</span>
             <h2>Projects</h2>
 
-            <div class="proj">
-                <div class="proj-head">
-                    <span class="proj-num" aria-hidden="true">No. 1</span>
+            <div class="proj rv">
+                <div class="rail">
+                    <p class="num" aria-hidden="true">No. 1</p>
+                    <p class="meta">PyTorch &middot; AWS &middot; Terraform</p>
+                </div>
+                <div class="body-col">
                     <h3>VitalStream, Serverless Patient Telemetry Pipeline</h3>
+                    <ul>
+                        <li>Serverless AWS pipeline (IoT Core, Kinesis, Lambda, SageMaker, DynamoDB) processing 500 Hz ECG and 2000 Hz sEMG streams through a 1D-CNN and BiLSTM ensemble for arrhythmia detection.</li>
+                        <li>Infrastructure as code with Terraform across 3 availability zones, HIPAA-aligned retention controls, 34 passing tests, blue/green deployment with automated rollback.</li>
+                    </ul>
+                    <figure>
+                        <video controls muted loop playsinline preload="metadata">
+                            <source src="images/vitalstream_demo.mp4" type="video/mp4" />
+                            Your browser does not support embedded video.
+                        </video>
+                        <figcaption>VitalStream dashboard demo</figcaption>
+                    </figure>
+                    <p class="entry-links"><a href="https://github.com/soroushsaririan/VitalStream">View on GitHub</a></p>
                 </div>
-                <p class="proj-meta">PyTorch &middot; AWS &middot; Terraform</p>
-                <ul>
-                    <li>Serverless AWS pipeline (IoT Core, Kinesis, Lambda, SageMaker, DynamoDB) processing 500 Hz ECG and 2000 Hz sEMG streams through a 1D-CNN and BiLSTM ensemble for arrhythmia detection.</li>
-                    <li>Infrastructure as code with Terraform across 3 availability zones, HIPAA-aligned retention controls, 34 passing tests, blue/green deployment with automated rollback.</li>
-                </ul>
-                <figure>
-                    <video controls muted loop playsinline preload="metadata">
-                        <source src="images/vitalstream_demo.mp4" type="video/mp4" />
-                        Your browser does not support embedded video.
-                    </video>
-                    <figcaption>Fig. 02, VitalStream dashboard demo</figcaption>
-                </figure>
-                <p class="entry-links"><a href="https://github.com/soroushsaririan/VitalStream">View on GitHub</a></p>
             </div>
 
-            <div class="proj">
-                <div class="proj-head">
-                    <span class="proj-num" aria-hidden="true">No. 2</span>
+            <div class="proj rv">
+                <div class="rail">
+                    <p class="num" aria-hidden="true">No. 2</p>
+                    <p class="meta">LangGraph &middot; FastAPI &middot; PostgreSQL</p>
+                </div>
+                <div class="body-col">
                     <h3>SymptaAI, Multi-Agent Clinical Decision Support</h3>
+                    <p>An 8-agent LangGraph pipeline covering record summarization, lab interpretation, drug interaction checking, and differential diagnosis. Generates ICD-10 coded outputs and care plans in under 2 minutes, with records persisted in PostgreSQL behind a FastAPI service layer.</p>
+                    <figure>
+                        <video controls muted loop playsinline preload="none">
+                            <source src="images/symptaai_demo.mp4" type="video/mp4" />
+                            Your browser does not support embedded video.
+                        </video>
+                        <figcaption>SymptaAI pipeline demo</figcaption>
+                    </figure>
+                    <p class="entry-links"><a href="https://github.com/soroushsaririan/SymptaAI">View on GitHub</a></p>
                 </div>
-                <p class="proj-meta">LangGraph &middot; FastAPI &middot; PostgreSQL</p>
-                <p>An 8-agent LangGraph pipeline covering record summarization, lab interpretation, drug interaction checking, and differential diagnosis. Generates ICD-10 coded outputs and care plans in under 2 minutes, with records persisted in PostgreSQL behind a FastAPI service layer.</p>
-                <figure>
-                    <video controls muted loop playsinline preload="none">
-                        <source src="images/symptaai_demo.mp4" type="video/mp4" />
-                        Your browser does not support embedded video.
-                    </video>
-                    <figcaption>Fig. 03, SymptaAI pipeline demo</figcaption>
-                </figure>
-                <p class="entry-links"><a href="https://github.com/soroushsaririan/SymptaAI">View on GitHub</a></p>
             </div>
 
-            <div class="proj">
-                <div class="proj-head">
-                    <span class="proj-num" aria-hidden="true">No. 3</span>
+            <div class="proj rv">
+                <div class="rail">
+                    <p class="num" aria-hidden="true">No. 3</p>
+                    <p class="meta">OpenCV &middot; Scikit-learn</p>
+                </div>
+                <div class="body-col">
                     <h3>Automated Skin Allergen Imaging Pipeline</h3>
+                    <p>Ensemble classifier (Random Forest, SVM, CNN) trained on 500+ clinical photographs to automate skin prick test wheal measurement: 95% detection accuracy, over 90% clinician-score correlation, per-patient scoring time cut from 5 minutes to 45 seconds.</p>
                 </div>
-                <p class="proj-meta">OpenCV &middot; Scikit-learn</p>
-                <p>Ensemble classifier (Random Forest, SVM, CNN) trained on 500+ clinical photographs to automate skin prick test wheal measurement: 95% detection accuracy, over 90% clinician-score correlation, per-patient scoring time cut from 5 minutes to 45 seconds.</p>
             </div>
 
-            <div class="proj">
-                <div class="proj-head">
-                    <span class="proj-num" aria-hidden="true">No. 4</span>
+            <div class="proj rv">
+                <div class="rail">
+                    <p class="num" aria-hidden="true">No. 4</p>
+                    <p class="meta">PyTorch &middot; 3D U-Net</p>
+                </div>
+                <div class="body-col">
                     <h3>medxplAIn, 3D Liver Tumor Segmentation</h3>
+                    <p>End-to-end PyTorch pipeline using a 3D U-Net to automate liver and tumor segmentation from 3D CT volumes for radiation therapy planning, reducing manual segmentation from hours to minutes.</p>
+                    <p class="entry-links"><a href="https://github.com/soroushsaririan/medxplAin-DR">View on GitHub</a></p>
                 </div>
-                <p class="proj-meta">PyTorch &middot; 3D U-Net</p>
-                <p>End-to-end PyTorch pipeline using a 3D U-Net to automate liver and tumor segmentation from 3D CT volumes for radiation therapy planning, reducing manual segmentation from hours to minutes.</p>
-                <p class="entry-links"><a href="https://github.com/soroushsaririan/medxplAin-DR">View on GitHub</a></p>
             </div>
 
-            <div class="proj">
-                <div class="proj-head">
-                    <span class="proj-num" aria-hidden="true">No. 5</span>
-                    <h3>RetinAI, Diabetic Retinopathy Screening</h3>
+            <div class="proj rv">
+                <div class="rail">
+                    <p class="num" aria-hidden="true">No. 5</p>
+                    <p class="meta">Vision Language Models &middot; OpenCV</p>
                 </div>
-                <p class="proj-meta">Vision Language Models &middot; OpenCV</p>
-                <p>Screening tool that uses vision language models to analyze retinal images and flag diabetic retinopathy symptoms, designed to assist healthcare providers in resource-limited settings.</p>
-                <p class="entry-links"><a href="https://github.com/soroushsaririan/RetinAI">View on GitHub</a></p>
+                <div class="body-col">
+                    <h3>RetinAI, Diabetic Retinopathy Screening</h3>
+                    <p>Screening tool that uses vision language models to analyze retinal images and flag diabetic retinopathy symptoms, designed to assist healthcare providers in resource-limited settings.</p>
+                    <p class="entry-links"><a href="https://github.com/soroushsaririan/RetinAI">View on GitHub</a></p>
+                </div>
             </div>
 
             <p class="subhead">Engineering and research</p>
 
-            <div class="proj">
-                <div class="proj-head">
-                    <span class="proj-num" aria-hidden="true">No. 6</span>
+            <div class="proj rv">
+                <div class="rail">
+                    <p class="num" aria-hidden="true">No. 6</p>
+                    <p class="meta">Python &middot; Signal Processing</p>
+                </div>
+                <div class="body-col">
                     <h3>Shimmer3 sEMG Acquisition Pipeline, UF Orthopaedics</h3>
+                    <p>Data acquisition and visualization pipeline for Shimmer3 sEMG sensors used in stroke gait studies. Python tooling cleans raw electromyography signals and isolates muscle activation patterns during walking trials, giving clinicians feedback on muscle firing rates to adjust therapy regimens.</p>
+                    <figure>
+                        <img src="images/emg_sensor.jpg" alt="Shimmer3 sEMG sensor unit strapped to a leg during a walking trial" loading="lazy" />
+                        <figcaption>Shimmer3 sEMG sensor during a walking trial</figcaption>
+                    </figure>
                 </div>
-                <p class="proj-meta">Python &middot; Signal Processing</p>
-                <p>Data acquisition and visualization pipeline for Shimmer3 sEMG sensors used in stroke gait studies. Python tooling cleans raw electromyography signals and isolates muscle activation patterns during walking trials, giving clinicians feedback on muscle firing rates to adjust therapy regimens.</p>
-                <figure>
-                    <img src="images/emg_sensor.jpg" alt="Shimmer3 sEMG sensor unit strapped to a leg during a walking trial" loading="lazy" />
-                    <figcaption>Fig. 04, Shimmer3 sEMG sensor during a walking trial</figcaption>
-                </figure>
             </div>
 
-            <div class="proj">
-                <div class="proj-head">
-                    <span class="proj-num" aria-hidden="true">No. 7</span>
+            <div class="proj rv">
+                <div class="rail">
+                    <p class="num" aria-hidden="true">No. 7</p>
+                    <p class="meta">Materials Science &middot; Polymer Composites</p>
+                </div>
+                <div class="body-col">
                     <h3>CNT Nanocomposite Research</h3>
+                    <p>Compressive testing across 100+ CNT-reinforced epoxy nanocomposite samples, with ultrasonic homogenization processing and SEM/TEM microstructural characterization. Regression analysis isolated a 15 to 20% strength gain from optimized reinforcement geometry. Awarded the Richard S. Lee Research Excellence Award.</p>
+                    <figure class="figure-pair">
+                        <img src="images/nano_setup-web.jpg" alt="Ultrasonic homogenization and lab equipment used to process nanocomposite samples" loading="lazy" />
+                        <img src="images/nano_sample-web.jpg" alt="CNT-reinforced epoxy composite samples prepared for compression testing" loading="lazy" />
+                    </figure>
+                    <p class="entry-links"><a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a></p>
                 </div>
-                <p class="proj-meta">Materials Science &middot; Published in Polymer Composites</p>
-                <p>Compressive testing across 100+ CNT-reinforced epoxy nanocomposite samples, with ultrasonic homogenization processing and SEM/TEM microstructural characterization. Regression analysis isolated a 15 to 20% strength gain from optimized reinforcement geometry. Awarded the Richard S. Lee Research Excellence Award.</p>
-                <figure class="figure-pair">
-                    <img src="images/nano_setup-web.jpg" alt="Ultrasonic homogenization and lab equipment used to process nanocomposite samples" loading="lazy" />
-                    <img src="images/nano_sample-web.jpg" alt="CNT-reinforced epoxy composite samples prepared for compression testing" loading="lazy" />
-                </figure>
-                <p class="entry-links"><a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a></p>
             </div>
 
-            <div class="proj">
-                <div class="proj-head">
-                    <span class="proj-num" aria-hidden="true">No. 8</span>
-                    <h3>Stony Brook Solar Racing, Propulsion Lead</h3>
+            <div class="proj rv">
+                <div class="rail">
+                    <p class="num" aria-hidden="true">No. 8</p>
+                    <p class="meta">Fusion 360 &middot; SolidWorks &middot; Machining</p>
                 </div>
-                <p class="proj-meta">Fusion 360 &middot; SolidWorks &middot; Machining</p>
-                <p>Led propulsion mechanical design for the 2024 Solar Splash competition. Machined custom drivetrain components, including motor mounts and couplers, on manual mills and lathes to sub-millimeter tolerance. The integrated electric motor system met all competition safety and performance benchmarks.</p>
-                <figure class="figure-pair">
-                    <img src="images/solar_boat-web.jpg" alt="Stony Brook Solar Racing boat on a trailer" loading="lazy" />
-                    <img src="images/solar_cad.jpg" alt="CAD model of the propulsion drivetrain" loading="lazy" />
-                </figure>
+                <div class="body-col">
+                    <h3>Stony Brook Solar Racing, Propulsion Lead</h3>
+                    <p>Led propulsion mechanical design for the 2024 Solar Splash competition. Machined custom drivetrain components, including motor mounts and couplers, on manual mills and lathes to sub-millimeter tolerance. The integrated electric motor system met all competition safety and performance benchmarks.</p>
+                    <figure class="figure-pair">
+                        <img src="images/solar_boat-web.jpg" alt="Stony Brook Solar Racing boat on a trailer" loading="lazy" />
+                        <img src="images/solar_cad.jpg" alt="CAD model of the propulsion drivetrain" loading="lazy" />
+                    </figure>
+                </div>
             </div>
         </section>
 
         <section id="education">
             <span class="sec-num" aria-hidden="true">03</span>
             <h2>Education</h2>
-            <ul class="fact-list">
+            <ul class="fact-list rv">
                 <li>
                     <strong>M.S. Applied Data Science, University of Florida</strong>
                     <p class="fact-meta">Aug 2024 to May 2026 &middot; GPA 3.97</p>
@@ -559,7 +588,7 @@
         <section id="publications">
             <span class="sec-num" aria-hidden="true">04</span>
             <h2>Publications</h2>
-            <ul class="fact-list">
+            <ul class="fact-list rv">
                 <li>
                     <strong>CNT-reinforced epoxy nanocomposites</strong>
                     <p class="fact-meta">Saririan, S., et al. Lead author. <em>Polymer Composites</em>. <a href="https://doi.org/10.1002/pc.29076">doi.org/10.1002/pc.29076</a></p>
@@ -574,7 +603,7 @@
         <section id="certifications">
             <span class="sec-num" aria-hidden="true">05</span>
             <h2>Certifications</h2>
-            <ul class="fact-list">
+            <ul class="fact-list rv">
                 <li><strong>Engineer in Training (EIT)</strong></li>
                 <li>
                     <strong>Cisco Python Essentials 1 and 2</strong>
@@ -586,56 +615,87 @@
         <section id="skills">
             <span class="sec-num" aria-hidden="true">06</span>
             <h2>Skills</h2>
-            <dl class="skills">
-                <dt>Languages</dt>
-                <dd>Python, SQL, R, C++, Rust, MATLAB</dd>
-                <dt>ML and AI</dt>
-                <dd>PyTorch, TensorFlow, Scikit-learn, XGBoost, OpenCV, LangGraph, LangChain, Hugging Face, LLMs, RAG</dd>
-                <dt>Cloud and MLOps</dt>
-                <dd>AWS (Lambda, SageMaker, Kinesis, DynamoDB, S3), Docker, Kubernetes, Terraform, FastAPI, PostgreSQL, Linux</dd>
-                <dt>Analytics</dt>
-                <dd>Statistical Modeling, Design of Experiments, A/B Testing, Time-Series Analysis, Tableau, Power BI</dd>
+            <dl class="skills rv">
+                <div>
+                    <dt>Languages</dt>
+                    <dd>Python, SQL, R, C++, Rust, MATLAB</dd>
+                </div>
+                <div>
+                    <dt>ML and AI</dt>
+                    <dd>PyTorch, TensorFlow, Scikit-learn, XGBoost, OpenCV, LangGraph, LangChain, Hugging Face, LLMs, RAG</dd>
+                </div>
+                <div>
+                    <dt>Cloud and MLOps</dt>
+                    <dd>AWS (Lambda, SageMaker, Kinesis, DynamoDB, S3), Docker, Kubernetes, Terraform, FastAPI, PostgreSQL, Linux</dd>
+                </div>
+                <div>
+                    <dt>Analytics</dt>
+                    <dd>Statistical Modeling, Design of Experiments, A/B Testing, Time-Series Analysis, Tableau, Power BI</dd>
+                </div>
             </dl>
         </section>
 
         <section id="contact">
             <span class="sec-num" aria-hidden="true">07</span>
             <h2>Contact</h2>
-            <p class="contact-intro">Open to Data Scientist, new-grad ML, and clinical data analysis roles. Reach me by email or LinkedIn, or use the form below.</p>
-            <ul class="contact-links">
-                <li><a href="mailto:saririan.s.eng@gmail.com">saririan.s.eng@gmail.com</a></li>
-                <li><a href="https://www.linkedin.com/in/soroush-saririan">linkedin.com/in/soroush-saririan</a></li>
-                <li><a href="https://github.com/soroushsaririan">github.com/soroushsaririan</a></li>
-                <li><a href="Resume.pdf">Download Resume (PDF)</a></li>
-            </ul>
-            <form method="post" action="https://formspree.io/f/xlglnogn">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name" required />
+            <div class="contact-cols rv">
+                <div>
+                    <p class="contact-intro">Open to Data Scientist, new-grad ML, and clinical data analysis roles. Reach me by email or LinkedIn, or use the form.</p>
+                    <ul class="contact-links">
+                        <li><a href="mailto:saririan.s.eng@gmail.com">saririan.s.eng@gmail.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/soroush-saririan">linkedin.com/in/soroush-saririan</a></li>
+                        <li><a href="https://github.com/soroushsaririan">github.com/soroushsaririan</a></li>
+                        <li><a href="Resume.pdf">Download Resume (PDF)</a></li>
+                    </ul>
+                </div>
+                <form method="post" action="https://formspree.io/f/xlglnogn">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" required />
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" required />
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" rows="5" required></textarea>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea name="message" id="message" rows="5" required></textarea>
-                </div>
-                <button type="submit">Send Message</button>
-                <input type="hidden" name="_next" value="https://soroushsaririan.github.io" />
-            </form>
+                    <button type="submit">Send Message</button>
+                    <input type="hidden" name="_next" value="https://soroushsaririan.github.io" />
+                </form>
+            </div>
         </section>
 
     </main>
 
     <footer>
         <p>&copy; 2026 Soroush Saririan</p>
-        <p class="coords" aria-hidden="true">29.65&deg; N &middot; 82.32&deg; W</p>
     </footer>
 
 </div>
+
+<!-- Scroll reveal -->
+<script>
+(function () {
+    var els = document.querySelectorAll('.rv');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in'); });
+        return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+})();
+</script>
 
 <!-- Starfield (preserved exactly from previous site) -->
 <script>
